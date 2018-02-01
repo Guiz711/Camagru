@@ -1,6 +1,6 @@
 <?php
 
-//require_once(HOME_DIR . "config/dbRootInfo.php");
+// require_once(HOME_DIR . "config/database.php");
 
 abstract class DbManager
 {
@@ -72,13 +72,36 @@ abstract class DbManager
         $prep->execute();
     }
 
+
+    public function is_already_in_bdd($var, $and_or, $table) {
+        $req = "SELECT * FROM $table WHERE ";
+        $i = 0;
+        foreach ($var as $key => $value)
+        {
+            if ($i != 0)
+                $req .= " $and_or ";
+            $req .=  "$key = :$key";
+            $i++;
+        }
+        echo "</br >" . $req . "</br >";
+        $prep = $this->db->prepare($req);
+        foreach ($var as $key => $value)
+            $prep->bindValue(":$key", $value);
+        $prep->execute();
+        $result = $prep->fetchAll();
+        if (array_key_exists("0", $result))
+            return (TRUE);
+        else
+            return (FALSE);
+    }
+
     // public function read();
     // public function update();
     // abstract public function delete();
     
     protected function connection() // a proteger
     {
-		require("../Config/dbRootInfo.php");
+		require("../Config/database.php");
         $var = $dbRootInfo;
         try {
             $db = new PDO ($var["DB_DSN"], $var["DB_USER"], $var["DB_PASS"]);
