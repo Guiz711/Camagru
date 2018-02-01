@@ -1,10 +1,12 @@
 <?php
 
-define('HOME_DIR', '/Users/vbaudron/http/MyWebSite/Camagru/');
-require_once(HOME_DIR . 'config/dbRootInfo.php');
+//define('HOME_DIR', '/Users/vbaudron/http/MyWebSite/Camagru/');
+//define('HOME_DIR', '/home/guizmo/www/camagru/');
+//require_once(HOME_DIR . 'Config/dbRootInfo.php');
 
 function init_bdd() 
 {
+	require("./dbRootInfo.php");
     
     $db = "db_camagru";
 

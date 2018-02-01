@@ -1,8 +1,12 @@
 <?php
-define('HOME_DIR', '/Users/vbaudron/http/MyWebSite/Camagru/');
+//define('HOME_DIR', '/Users/vbaudron/http/MyWebSite/Camagru/');
+//define('HOME_DIR', '/home/guizmo/www/camagru/');
 
-require_once(HOME_DIR . "config/database.php");
-require_once(HOME_DIR . "class/UsersManager.class.php");
+//require_once(HOME_DIR . "Config/database.php");
+//require_once(HOME_DIR . "Model/UsersManager.class.php");
+require("./dbRootInfo.php");
+require_once("./database.php");
+require_once("../Model/UsersManager.class.php");
 
 $pdo = init_bdd();
 
@@ -54,7 +58,7 @@ $result = $pdo->prepare($req)->execute();
 
 // INSERER L'ADMIN
 
-$var = array(u_login => 'admin', passwd => hash('whirlpool', 'admin'), mail => "vbaudron@42.student.fr", img_id => '2');
+$var = array('u_login' => 'admin', 'passwd' => hash('whirlpool', 'admin'), 'mail' => "vbaudron@42.student.fr", 'img_id' => '2');
 $UserManager = new UsersManager();
 $UserManager->insert($var, NULL);
 

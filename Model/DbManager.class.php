@@ -1,6 +1,6 @@
 <?php
 
-require_once(HOME_DIR . "config/dbRootInfo.php");
+//require_once(HOME_DIR . "config/dbRootInfo.php");
 
 abstract class DbManager
 {
@@ -13,10 +13,10 @@ abstract class DbManager
 	{
 		try {
 			$this->db = $this->connection();
-			if ($verbose)
+			if ($this->verbose)
         		echo "DbManager --> constructed</br >";
 		} catch (Exception $err) {
-			if ($verbose)
+			if ($this->verbose)
 				echo $err, '</br>';
 		}
 	}
@@ -26,7 +26,7 @@ abstract class DbManager
 		$this->db = null;
 		$this->table = null;
 		$this->db_name = null;
-		if ($verbose)
+		if ($this->verbose)
 			echo "DbManager --> destructed</br>";
 	}
 
@@ -78,7 +78,8 @@ abstract class DbManager
     
     protected function connection() // a proteger
     {
-        $var = setup_DbVar();
+		require("../Config/dbRootInfo.php");
+        $var = $dbRootInfo;
         try {
             $db = new PDO ($var["DB_DSN"], $var["DB_USER"], $var["DB_PASS"]);
             return ($db);
