@@ -20,6 +20,10 @@ class UsersManager extends DbManager {
         parent::delete($id, $this->table);
     }*/
 
+    public function is_already_in_bdd($var, $and_or, $table) {
+        return(parent::is_already_in_bdd($var, $and_or, $this->table));
+    }
+
     public function auth($login, $passwd) {
         $req = "SELECT * FROM $this->table WHERE u_login=:u_login AND passwd=:passwd";
         // echo "</br >" . $req . "</br >";

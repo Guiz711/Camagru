@@ -15,6 +15,8 @@ function user_signup($login, $passwd, $mail)
 	// 	return ('Password too short');
 	$passwd = hash('whirlpool', $passwd);
 	echo $user;
+	if ($user->is_already_in_bdd(array('u_login' => $login, 'mail' => $email), "OR", NULL))
+		return ('Login or email already exists');
 	$user->insert(array(
 			'u_login' => $login,
 			'passwd' => $passwd,
