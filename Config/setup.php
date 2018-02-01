@@ -1,8 +1,8 @@
 <?php
 define('HOME_DIR', '/Users/vbaudron/http/MyWebSite/Camagru/');
 
-include_once(HOME_DIR . "config/database.php");
-include_once(HOME_DIR . "class/UsersManager.class.php");
+require_once(HOME_DIR . "config/database.php");
+require_once(HOME_DIR . "class/UsersManager.class.php");
 
 $pdo = init_bdd();
 

@@ -1,20 +1,15 @@
 <?php
 
-function setup_DbVar()
-{
-    $var = array(DB_USER => "root", DB_PASS => "vivelescookies", DB_DSN => "mysql:host=localhost;charset=utf8");
-    return ($var);
-}
+define('HOME_DIR', '/Users/vbaudron/http/MyWebSite/Camagru/');
+require_once(HOME_DIR . 'config/dbRootInfo.php');
 
 function init_bdd() 
 {
     
-    $var = setup_DbVar();
-
     $db = "db_camagru";
 
     try {
-        $pdo = new PDO($var["DB_DSN"], $var["DB_USER"], $var["DB_PASS"]);
+        $pdo = new PDO($dbRootInfo["DB_DSN"], $dbRootInfo["DB_USER"], $dbRootInfo["DB_PASS"]);
     }
     catch (Exception $error) {
         die('Erreur : ' . $error->getMessage());
@@ -24,11 +19,12 @@ function init_bdd()
     $pdo->prepare($req)->execute();
 
     try {
-        $connection = new PDO("mysql:host=localhost;dbname=$db;charset=utf8", $var['DB_USER'], $var['DB_PASS']);
+        $connection = new PDO("mysql:host=localhost;dbname=$db;charset=utf8", $dbRootInfo['DB_USER'], $dbRootInfo['DB_PASS']);
     }
     catch (PDOException $error) {
         die('Erreur : ' . $error->getMessage());
     }  
     return ($connection);
 }
+
 ?>

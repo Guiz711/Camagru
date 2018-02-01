@@ -1,21 +1,39 @@
 <?php
-include_once(HOME_DIR . "config/database.php");
+
+require_once(HOME_DIR . "config/dbRootInfo.php");
 
 abstract class DbManager
 {
-    public $verbose = false;
-    protected $db;
-    public $table;
-    protected $db_name = "db_camagru";
+	public		$verbose = false;
+	protected	$db;
+	public		$table;
+	protected	$db_name = "db_camagru";
 
-    function __construct() {
-        $this->db = $this->connection();
-        echo "DbManager --> constructed</br >";
-    }
+	public function __construct()
+	{
+		try {
+			$this->db = $this->connection();
+			if ($verbose)
+        		echo "DbManager --> constructed</br >";
+		} catch (Exception $err) {
+			if ($verbose)
+				echo $err, '</br>';
+		}
+	}
+
+	public function __destruct()
+	{
+		$this->db = null;
+		$this->table = null;
+		$this->db_name = null;
+		if ($verbose)
+			echo "DbManager --> destructed</br>";
+	}
 
     public function insert($var, $table)
     {
-        $req = " INSERT INTO $table (".implode(", ", array_keys($var)) . ") VALUES (:".implode(", :", array_keys($var)) . ")";
+		$req = " INSERT INTO $table (".implode(", ", array_keys($var))
+			. ") VALUES (:".implode(", :", array_keys($var)) . ")";
         echo "</br >" . $req . "</br >";
         $prep = $this->db->prepare($req);
         foreach ($var as $key => $value)
@@ -58,14 +76,13 @@ abstract class DbManager
     // public function update();
     // abstract public function delete();
     
-    protected function    connection() // a proteger
+    protected function connection() // a proteger
     {
         $var = setup_DbVar();
         try {
             $db = new PDO ($var["DB_DSN"], $var["DB_USER"], $var["DB_PASS"]);
             return ($db);
         } catch (Exception $err) {
-            if ($verbose) //pas sur de gerer l'affichage de cette maniere...
                 throw new Exception("DataBase connection error :" . $err);
         }
     }
