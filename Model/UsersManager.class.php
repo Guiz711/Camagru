@@ -1,5 +1,5 @@
 <?php
-include_once("DbManager.class.php");
+require_once("DbManager.class.php");
 
 class UsersManager extends DbManager {
     function __construct() {
@@ -8,7 +8,7 @@ class UsersManager extends DbManager {
         echo "UsersManager --> constructed</br >";
     }
 
-    public function insert($var, $table) {
+    /*public function insert($var, $table) {
         parent::insert($var, $this->table);
     }
 
@@ -18,7 +18,7 @@ class UsersManager extends DbManager {
 
     public function delete($id, $table) {
         parent::delete($id, $this->table);
-    }
+    }*/
 
     public function auth($login, $passwd) {
         $req = "SELECT * FROM $this->table WHERE u_login=:u_login AND passwd=:passwd";

@@ -11,14 +11,9 @@ abstract class DbManager
 
 	public function __construct()
 	{
-		try {
+		echo "in construct</br>";
 			$this->db = $this->connection();
-			if ($this->verbose)
-        		echo "DbManager --> constructed</br >";
-		} catch (Exception $err) {
-			if ($this->verbose)
-				echo $err, '</br>';
-		}
+        	echo "DbManager --> constructed</br >";
 	}
 
 	public function __destruct()
@@ -78,8 +73,9 @@ abstract class DbManager
     
     protected function connection() // a proteger
     {
+		echo "in connection</br>";
 		require("../Config/dbRootInfo.php");
-        $var = $dbRootInfo;
+		$var = $dbRootInfo;
         try {
             $db = new PDO ($var["DB_DSN"], $var["DB_USER"], $var["DB_PASS"]);
             return ($db);

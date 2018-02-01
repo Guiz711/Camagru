@@ -7,12 +7,10 @@
 	<title>Camagru</title>
 </head>
 <body>
-	
 <?php
+	require_once('./View/signup.php');
 	require_once('./Controller/utility.php');
 	require_once('./Controller/userForm.php');
-	require_once('./View/signup.php');
 ?>
-
 </body>
 </html>
