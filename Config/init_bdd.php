@@ -4,9 +4,9 @@
 //define('HOME_DIR', '/home/guizmo/www/camagru/');
 //require_once(HOME_DIR . 'Config/dbRootInfo.php');
 
-function init_bdd() 
+function init_bdd($SITE_PATH) 
 {
-	require("./database.php");
+	require("$SITE_PATH/Config/database.php");
     
     $db = "db_camagru";
 

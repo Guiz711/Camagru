@@ -9,10 +9,10 @@ abstract class DbManager
 	public		$table;
 	protected	$db_name = "db_camagru";
 
-	public function __construct()
+	public function __construct($db_info)
 	{
 		echo "in construct</br>";
-			$this->db = $this->connection();
+			$this->db = $this->connection($db_info);
         	echo "DbManager --> constructed</br >";
 	}
 
@@ -94,10 +94,8 @@ abstract class DbManager
     // public function update();
     // abstract public function delete();
     
-    protected function connection() // a proteger
+    protected function connection($var) // a proteger
     {
-		require("../Config/database.php");
-        $var = $dbRootInfo;
         try {
             $db = new PDO ($var["DB_DSN"], $var["DB_USER"], $var["DB_PASS"]);
             return ($db);

@@ -8,9 +8,11 @@
 </head>
 <body>
 <?php
-	require_once('./View/signup.php');
-	require_once('./Controller/utility.php');
-	require_once('./Controller/userForm.php');
+	require('./Config/config.php');
+	echo $SITE_PATH, '</br>';
+	require_once("$SITE_PATH/View/signup.php");
+	require_once("$SITE_PATH/Controller/utility.php");
+	require_once("$SITE_PATH/Controller/userForm.php");
 ?>
 </body>
 </html>

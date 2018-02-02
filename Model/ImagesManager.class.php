@@ -1,10 +1,10 @@
 <?php
-include_once("DbManager.class.php");
-include_once("Display.class.php");
+include_once("$SITE_PATH/Model/DbManager.class.php");
+include_once("$SITE_PATH/Model/Display.class.php");
 
 class ImagesManager extends DbManager {
-    function __construct() {
-        parent::__construct();
+    function __construct($dbRootInfo) {
+        parent::__construct($dbRootInfo);
         $this->table = $this->db_name . ".images";
         $this->id_name = "img_id";
         echo "ImagesManager --> constructed</br >";

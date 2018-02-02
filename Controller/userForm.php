@@ -3,7 +3,7 @@
 $LOGIN_LEN = 3;
 $PASSWD_LEN = 8;
 
-include_once('./Model/UsersManager.class.php');
+include_once("$SITE_PATH/Model/UsersManager.class.php");
 
 function user_signup($login, $passwd, $mail)
 {
@@ -27,9 +27,11 @@ function user_signup($login, $passwd, $mail)
 
 print_r($_POST);
 echo '</br>';
-if ($_POST['submit'] == 'Inscription') {
-	user_signup(sanitize_input($_POST['login']),
-		sanitize_input($_POST['passwd']), sanitize_input($_POST['mail']));
+if (array_key_exists('submit', $_POST)) {	
+	if ($_POST['submit'] == 'Inscription') {
+		user_signup(sanitize_input($_POST['login']),
+			sanitize_input($_POST['passwd']), sanitize_input($_POST['mail']));
+	}
 }
 
 ?>

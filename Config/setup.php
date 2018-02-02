@@ -5,14 +5,15 @@
 //require_once(HOME_DIR . "Config/database.php");
 //require_once(HOME_DIR . "Model/UsersManager.class.php");
 // require("./dbRootInfo.php");
-require_once("./database.php");
-require_once("./init_bdd.php");
-require_once("../Model/UsersManager.class.php");
-require_once("../Model/CommentsManager.class.php");
-require_once("../Model/ImagesManager.class.php");
-require_once("../Controller/userForm.php");
+require('./config.php');
+require_once("$SITE_PATH/Config/database.php");
+require_once("$SITE_PATH/Config/init_bdd.php");
+require_once("$SITE_PATH/Model/UsersManager.class.php");
+require_once("$SITE_PATH/Model/CommentsManager.class.php");
+require_once("$SITE_PATH/Model/ImagesManager.class.php");
+require_once("$SITE_PATH/Controller/userForm.php");
 
-$pdo = init_bdd();
+$pdo = init_bdd($SITE_PATH);
 
 $table = "users";
 $req = "CREATE TABLE IF NOT EXISTS $table 
@@ -62,9 +63,9 @@ $result = $pdo->prepare($req)->execute();
 
 // INSERER L'ADMIN
 
-// $var = array(u_login => 'admin', passwd => hash('whirlpool', 'admin'), mail => "vbaudron@42.student.fr", img_id => '2');
-// $UserManager = new UsersManager();
-// $UserManager->insert($var, NULL);
+ $var = array(u_login => 'admin', passwd => hash('whirlpool', 'admin'), mail => "vbaudron@42.student.fr", img_id => '2');
+ $UserManager = new UsersManager($dbRootInfo);
+ $UserManager->insert($var, NULL);
 
 // TEST LOG
 
@@ -76,7 +77,7 @@ $result = $pdo->prepare($req)->execute();
 $img1 = array("user_id" => "2", "img_description" => "cookie");
 $img2 = array("user_id" => "2", "img_description" => "muffin");
 $img3 = array("user_id" => "1", "img_description" => "tarte a la fraise");
-$ImagesManager = new ImagesManager();
+$ImagesManager = new ImagesManager($dbRootInfo);
 // $ImagesManager->insert($img1, NULL);
 // $ImagesManager->insert($img2, NULL);
 // $ImagesManager->insert($img3, NULL);

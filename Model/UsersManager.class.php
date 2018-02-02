@@ -1,9 +1,9 @@
 <?php
-require_once("DbManager.class.php");
+require_once("$SITE_PATH/Model/DbManager.class.php");
 
 class UsersManager extends DbManager {
-    function __construct() {
-        parent::__construct();
+    function __construct($dbRootInfo) {
+        parent::__construct($dbRootInfo);
         $this->table = $this->db_name . ".users";
         echo "UsersManager --> constructed</br >";
     }

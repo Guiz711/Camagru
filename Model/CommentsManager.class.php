@@ -1,10 +1,11 @@
 <?php
-include_once("DbManager.class.php");
-include_once("Display.class.php");
+include_once("$SITE_PATH/Model/DbManager.class.php");
+include_once("$SITE_PATH/Model/Display.class.php");
 
-class CommentsManager extends DbManager {
-    function __construct() {
-        parent::__construct();
+class CommentsManager extends DbManager
+{
+    function __construct($dbRootInfo) {
+        parent::__construct($dbRootInfo);
         $this->table = $this->db_name . ".comments";
         $this->id_name = "comment_id";
         echo "CommentsManager --> constructed</br >";
