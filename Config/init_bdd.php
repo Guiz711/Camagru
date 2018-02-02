@@ -6,7 +6,7 @@
 
 function init_bdd() 
 {
-	require("./database.php");
+	require("../Config/database.php");
     
     $db = "db_camagru";
 

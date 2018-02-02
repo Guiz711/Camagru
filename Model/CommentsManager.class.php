@@ -1,8 +1,9 @@
 <?php
-include_once("DbManager.class.php");
-include_once("Display.class.php");
+include_once("../Model/DbManager.class.php");
+include_once("../Model/Display.class.php");
 
-class CommentsManager extends DbManager {
+class CommentsManager extends DbManager
+{
     function __construct() {
         parent::__construct();
         $this->table = $this->db_name . ".comments";

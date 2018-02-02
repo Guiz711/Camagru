@@ -1,6 +1,6 @@
 <?php
 
-// require_once(HOME_DIR . "config/database.php");
+require_once("../config/database.php");
 
 abstract class DbManager
 {
@@ -11,14 +11,9 @@ abstract class DbManager
 
 	public function __construct()
 	{
-		try {
+		echo "in construct</br>";
 			$this->db = $this->connection();
-			if ($this->verbose)
-        		echo "DbManager --> constructed</br >";
-		} catch (Exception $err) {
-			if ($this->verbose)
-				echo $err, '</br>';
-		}
+        	echo "DbManager --> constructed</br >";
 	}
 
 	public function __destruct()
@@ -35,10 +30,22 @@ abstract class DbManager
 		$req = " INSERT INTO $table (".implode(", ", array_keys($var))
 			. ") VALUES (:".implode(", :", array_keys($var)) . ")";
         echo "</br >" . $req . "</br >";
-        $prep = $this->db->prepare($req);
+        try {
+            $prep = $this->db->prepare($req);
+        }
+        catch (PDOException $error) {
+            echo "INSERT_fct ERROR of Prepare </br >";
+            die('Erreur : ' . $error->getMessage());
+        }
         foreach ($var as $key => $value)
             $prep->bindValue(":" . $key, $value);
-        $prep->execute();
+        try {
+            $prep->execute();
+        }
+        catch (PDOException $error) {
+            echo "INSERT_fct ERROR of Execute </br >";
+            die('Erreur : ' . $error->getMessage());
+        }
     }
 
     public function update($id, $var, $table)
@@ -99,15 +106,16 @@ abstract class DbManager
     // public function update();
     // abstract public function delete();
     
-    protected function connection() // a proteger
+    protected function connection()
     {
-		require("../Config/database.php");
-        $var = $dbRootInfo;
+        require("../Config/database.php");
+
         try {
-            $db = new PDO ($var["DB_DSN"], $var["DB_USER"], $var["DB_PASS"]);
-            return ($db);
-        } catch (Exception $err) {
-                throw new Exception("DataBase connection error :" . $err);
+            $pdo = new PDO($dbRootInfo["DB_DSN"], $dbRootInfo["DB_USER"], $dbRootInfo["DB_PASS"]);
+            return ($pdo);
+        }
+        catch (Exception $error) {
+            die('Erreur : ' . $error->getMessage());
         }
     }
 }

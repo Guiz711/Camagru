@@ -1,5 +1,5 @@
 <?php
-include_once("DbManager.class.php");
+require_once("../Model/DbManager.class.php");
 
 class UsersManager extends DbManager {
     function __construct() {

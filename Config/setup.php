@@ -5,8 +5,9 @@
 //require_once(HOME_DIR . "Config/database.php");
 //require_once(HOME_DIR . "Model/UsersManager.class.php");
 // require("./dbRootInfo.php");
-require_once("./database.php");
-require_once("./init_bdd.php");
+// require('../config.php');
+require_once("../Config/database.php");
+require_once("../Config/init_bdd.php");
 require_once("../Model/UsersManager.class.php");
 require_once("../Model/CommentsManager.class.php");
 require_once("../Model/ImagesManager.class.php");
@@ -62,9 +63,9 @@ $result = $pdo->prepare($req)->execute();
 
 // INSERER L'ADMIN
 
-// $var = array(u_login => 'admin', passwd => hash('whirlpool', 'admin'), mail => "vbaudron@42.student.fr", img_id => '2');
-// $UserManager = new UsersManager();
-// $UserManager->insert($var, NULL);
+//  $var = array('u_login' => 'admin', 'passwd' => hash('whirlpool', 'admin'), 'mail' => "vbaudron@42.student.fr", 'img_id' => '2');
+//  $UserManager = new UsersManager();
+//  $UserManager->insert($var, NULL);
 
 // TEST LOG
 
@@ -86,9 +87,9 @@ $result = $pdo->prepare($req)->execute();
 
 // TEST signup
 
-// OK
-// $sign1 = array('u_login' => 'lea', 'passwd' => hash('whirlpool', 'admin888'), 'mail' => "lea@42.student.fr", img_id => '1');
-// user_signup($sign1['u_login'], $sign1['passwd'], $sign1['mail']);
+// INSERER ADMIN
+ $sign1 = array('u_login' => 'admin', 'passwd' => hash('whirlpool', 'admin'), 'mail' => "vbaudron@42.student.fr");
+ user_signup($sign1['u_login'], $sign1['passwd'], $sign1['mail']);
 
 // // KO -> mail
 // $sign2 = array('u_login' => 'Gui', 'passwd' => hash('whirlpool', 'admin888'), 'mail' => "vbaudron@42.student.fr", img_id => '1');

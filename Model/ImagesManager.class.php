@@ -1,6 +1,6 @@
 <?php
-include_once("DbManager.class.php");
-include_once("Display.class.php");
+include_once("../Model/DbManager.class.php");
+include_once("../Model/Display.class.php");
 
 class ImagesManager extends DbManager {
     function __construct() {
