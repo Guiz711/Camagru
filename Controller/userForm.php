@@ -12,7 +12,6 @@ function user_signup($login, $passwd1, $passwd2, $mail)
 	if ($passwd1 !== $passwd2)
 		return "SignUP FAILED : Password confirmation different</br >";
 	$passwd = password_hash($passwd1, PASSWORD_DEFAULT);
-	return "";
 	if ($user->is_already_in_bdd(array('u_login' => $login, 'mail' => $mail), "OR", NULL)) {
 		echo "SignUP FAILED : Login or mail already exists </br >";
 		return (FALSE);
@@ -22,6 +21,7 @@ function user_signup($login, $passwd1, $passwd2, $mail)
 			'passwd' => $passwd,
 			'mail' => $mail
 		));
+	return "Inscriprtion Réussie!</br>";
 }
 
 function user_signing($login, $passwd)
@@ -30,7 +30,8 @@ function user_signing($login, $passwd)
 
 	if (!($res = $user->auth($login, $passwd)))
 		return "Connexion Echouee, Mauvais login ou mot de passe.</br>";
-	$_SESSION['login'] = $login;
+	// $_SESSION['login'] = $login;
+	print_r($res);
 	return "";
 }
 
