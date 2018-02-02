@@ -11,18 +11,9 @@ abstract class DbManager
 
 	public function __construct()
 	{
-		echo "in construct</br>";
-<<<<<<< HEAD
-			$this->db = $this->connection();
-        	echo "DbManager --> constructed</br >";
-=======
-		try {
-			$this->db = $this->connection($db_info);
-			echo "DbManager --> constructed</br >";
-		} catch (Exception $err){
-			echo $err->getMessage();
-		}
->>>>>>> 9ebd6f71212e233acf5b4279ce0135720ab03256
+		$this->db = $this->connection();
+        echo "DbManager --> constructed</br >";
+
 	}
 
 	public function __destruct()
@@ -49,20 +40,12 @@ abstract class DbManager
         foreach ($var as $key => $value)
             $prep->bindValue(":" . $key, $value);
         try {
-<<<<<<< HEAD
             $prep->execute();
         }
         catch (PDOException $error) {
             echo "INSERT_fct ERROR of Execute </br >";
             die('Erreur : ' . $error->getMessage());
         }
-=======
-			$prep->execute();
-			echo 'Insert Success</br>';
-		} catch (PDOException $err) {
-			echo $err->getMessage();
-		}
->>>>>>> 9ebd6f71212e233acf5b4279ce0135720ab03256
     }
 
     public function update($id, $var, $table)
@@ -128,18 +111,11 @@ abstract class DbManager
         require("../Config/database.php");
 
         try {
-<<<<<<< HEAD
             $pdo = new PDO($dbRootInfo["DB_DSN"], $dbRootInfo["DB_USER"], $dbRootInfo["DB_PASS"]);
             return ($pdo);
         }
         catch (Exception $error) {
             die('Erreur : ' . $error->getMessage());
-=======
-            $db = new PDO ($var["DB_DSN"], $var["DB_USER"], $var["DB_PASS"]);
-            return ($db);
-        } catch (Exception $err) {
-                throw new Exception("DataBase connection error :" . $err->getMessage());
->>>>>>> 9ebd6f71212e233acf5b4279ce0135720ab03256
         }
     }
 }
