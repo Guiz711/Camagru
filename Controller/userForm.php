@@ -1,6 +1,10 @@
 <?php
 //include_once("../Model/UsersManager.class.php");
 
+function is_valid_passwd($passwd)
+{
+	$pattern = '/([0-9]+.*[A-Z]+)|([A-Z]+.*[0-9]+)/';
+}
 
 function user_signup($login, $passwd1, $passwd2, $mail)
 {
