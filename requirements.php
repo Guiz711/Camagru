@@ -24,4 +24,9 @@ require_once("./Model/UsersManager.class.php");
 require_once("./Controller/utility.php");
 require_once("./Controller/userForm.php");
 
+// DEBUG
+
+require_once("./DEBUG_print.php");
+
+
 ?>

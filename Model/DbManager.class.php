@@ -108,6 +108,10 @@ abstract class DbManager
         $prep = $this->db->prepare($req);
         $prep->execute();
         $result = $prep->fetchAll();
+        echo "</br >Print_r </br >";
+        print_r($result);
+        echo "</br >print_r END </br >";
+        DEBUG_print($result);
         $tab = array();
         foreach ($result as $value1) {
             foreach ($value1 as $key => $value) {
