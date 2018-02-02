@@ -63,9 +63,15 @@ $result = $pdo->prepare($req)->execute();
 
 // INSERER L'ADMIN
 
+<<<<<<< HEAD
 //  $var = array('u_login' => 'admin', 'passwd' => hash('whirlpool', 'admin'), 'mail' => "vbaudron@42.student.fr", 'img_id' => '2');
 //  $UserManager = new UsersManager();
 //  $UserManager->insert($var, NULL);
+=======
+ $var = array('u_login' => 'admin', 'passwd' => hash('whirlpool', 'admin'), 'mail' => "vbaudron@42.student.fr", 'img_id' => '2');
+ $UserManager = new UsersManager($dbRootInfo);
+ $UserManager->insert($var, NULL);
+>>>>>>> 9ebd6f71212e233acf5b4279ce0135720ab03256
 
 // TEST LOG
 
@@ -87,6 +93,7 @@ $result = $pdo->prepare($req)->execute();
 
 // TEST signup
 
+<<<<<<< HEAD
 // INSERER ADMIN
  $sign1 = array('u_login' => 'admin', 'passwd' => hash('whirlpool', 'admin'), 'mail' => "vbaudron@42.student.fr");
  user_signup($sign1['u_login'], $sign1['passwd'], $sign1['mail']);
@@ -98,6 +105,19 @@ $result = $pdo->prepare($req)->execute();
 // // KO -> login
 // $sign3 = array('u_login' => 'admin', 'passwd' => hash('whirlpool', 'admin888'), 'mail' => "gui@42.student.fr", img_id => '1');
 // user_signup($sign3['u_login'], $sign3['passwd'], $sign3['mail']);
+=======
+// OK
+$sign1 = array('u_login' => 'lea', 'passwd' => hash('whirlpool', 'admin888'), 'mail' => "lea@42.student.fr", 'img_id' => '1');
+user_signup($sign1['u_login'], $sign1['passwd'], $sign1['mail'], $dbRootInfo);
+
+// KO -> mail
+$sign2 = array('u_login' => 'Gui', 'passwd' => hash('whirlpool', 'admin888'), 'mail' => "vbaudron@42.student.fr", 'img_id' => '1');
+user_signup($sign2['u_login'], $sign2['passwd'], $sign2['mail'], $dbRootInfo);
+
+// KO -> login
+$sign3 = array('u_login' => 'admin', 'passwd' => hash('whirlpool', 'admin888'), 'mail' => "gui@42.student.fr", 'img_id' => '1');
+user_signup($sign3['u_login'], $sign3['passwd'], $sign3['mail'], $dbRootInfo);
+>>>>>>> 9ebd6f71212e233acf5b4279ce0135720ab03256
 
 
 
