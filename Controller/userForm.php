@@ -3,7 +3,8 @@
 $LOGIN_LEN = 3;
 $PASSWD_LEN = 8;
 
-include_once("../Model/UsersManager.class.php");
+// include_once("../Model/UsersManager.class.php");
+// include_once("../Controller/utility.php");
 
 function user_signup($login, $passwd, $mail)
 {

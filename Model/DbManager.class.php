@@ -1,17 +1,20 @@
 <?php
 
-require_once("../config/database.php");
+// require_once("./config/database.php");
 
 abstract class DbManager
 {
 	public		$verbose = false;
 	protected	$db;
-	public		$table;
+    public		$table;
+    public      $id_name;
 	protected	$db_name = "db_camagru";
 
-	public function __construct()
+	public function __construct($table, $id_name)
 	{
-		$this->db = $this->connection();
+        $this->table = $this->db_name . $table;
+        $this->id_name = $id_name;
+        $this->db = $this->connection();
         echo "DbManager --> constructed</br >";
 
 	}
@@ -25,9 +28,9 @@ abstract class DbManager
 			echo "DbManager --> destructed</br>";
 	}
 
-    public function insert($var, $table)
+    public function insert($var)
     {
-		$req = " INSERT INTO $table (".implode(", ", array_keys($var))
+		$req = " INSERT INTO $this->table (".implode(", ", array_keys($var))
 			. ") VALUES (:".implode(", :", array_keys($var)) . ")";
         echo "</br >" . $req . "</br >";
         try {
@@ -48,10 +51,10 @@ abstract class DbManager
         }
     }
 
-    public function update($id, $var, $table)
+    public function update($id, $var)
     {
         $id_key = implode(array_keys($id));
-        $req = "UPDATE $table SET ";
+        $req = "UPDATE $this->table SET ";
         $i = 0;
         foreach ($var as $key => $value)
         {
@@ -69,10 +72,10 @@ abstract class DbManager
         $prep->execute();
     }
 
-    public function delete($id, $table)
+    public function delete($id)
     {
         $id_key = implode(array_keys($id));
-        $req = "DELETE FROM $table WHERE $id_key=:$id_key";
+        $req = "DELETE FROM $this->table WHERE $id_key=:$id_key";
         echo "</br >" . $req . "</br >";
         $prep = $this->db->prepare($req);
         $prep->bindValue(":" . $id_key, $id[$id_key]);
@@ -80,8 +83,8 @@ abstract class DbManager
     }
 
 
-    public function is_already_in_bdd($var, $and_or, $table) {
-        $req = "SELECT * FROM $table WHERE ";
+    public function is_already_in_bdd($var, $and_or) {
+        $req = "SELECT * FROM $this->table WHERE ";
         $i = 0;
         foreach ($var as $key => $value)
         {
@@ -102,16 +105,30 @@ abstract class DbManager
             return (FALSE);
     }
 
-    // public function read();
-    // public function update();
-    // abstract public function delete();
-    
-    protected function connection()
-    {
-        require("../Config/database.php");
+    public function select_all_id() {
+        $req = "SELECT $this->id_name FROM $this->table";
+        $prep = $this->db->prepare($req);
+        $prep->execute();
+        $result = $prep->fetchAll();
+        $tab = array();
+        foreach ($result as $value1) {
+            foreach ($value1 as $key => $value) {
+                if ($key === $this->id_table) {
+                    $tab[] = $value;
+                }
+            }
+        }
+        echo "</br >All $this->id_name from $this->table : </br >";
+        print_r($tab);
+        echo "</br >";
+        return ($tab);
+    }
 
+    
+    public function connection()
+    {
         try {
-            $pdo = new PDO($dbRootInfo["DB_DSN"], $dbRootInfo["DB_USER"], $dbRootInfo["DB_PASS"]);
+            $pdo = new PDO(DB_DSN, DB_USER, DB_PASS);
             return ($pdo);
         }
         catch (Exception $error) {

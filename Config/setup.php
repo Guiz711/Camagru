@@ -6,12 +6,12 @@
 //require_once(HOME_DIR . "Model/UsersManager.class.php");
 // require("./dbRootInfo.php");
 // require('../config.php');
-require_once("../Config/database.php");
-require_once("../Config/init_bdd.php");
-require_once("../Model/UsersManager.class.php");
-require_once("../Model/CommentsManager.class.php");
-require_once("../Model/ImagesManager.class.php");
-require_once("../Controller/userForm.php");
+// require_once("../Config/database.php");
+// require_once("../Config/init_bdd.php");
+// require_once("../Model/UsersManager.class.php");
+// require_once("../Model/CommentsManager.class.php");
+// require_once("../Model/ImagesManager.class.php");
+// require_once("../Controller/userForm.php");
 
 $pdo = init_bdd();
 
@@ -42,7 +42,7 @@ $pdo->prepare($req)->execute();
 $table = "likes";
 $req = "CREATE TABLE IF NOT EXISTS $table 
 (
-    likes_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    like_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     img_id INT NOT NULL
 )";
@@ -58,15 +58,23 @@ $req = "CREATE TABLE IF NOT EXISTS $table
     date_comment TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )";
 
-$result = $pdo->prepare($req)->execute();
+// $result = $pdo->prepare($req)->execute();
+
+$table = "users";
+$login = "admin";
+$passwd = hash('admin', PASSWORD_DEFAULT);
+$mail = "vbaudron@student.42.fr";
+$img = "1";
+$req = "INSERT (u_login, passwd, mail) INTO $table $login, $passwd, $mail";
+
 
 
 // INSERER L'ADMIN
 
 
-//  $var = array('u_login' => 'admin', 'passwd' => hash('whirlpool', 'admin'), 'mail' => "vbaudron@42.student.fr", 'img_id' => '2');
-//  $UserManager = new UsersManager();
-//  $UserManager->insert($var, NULL);
+  $var = array('u_login' => 'admin', 'passwd' => hash('whirlpool', 'admin'), 'mail' => "vbaudron@42.student.fr", 'img_id' => '2');
+  $UserManager = new UsersManager();
+  $UserManager->insert($var, NULL);
 
 
 // TEST LOG
@@ -91,8 +99,14 @@ $result = $pdo->prepare($req)->execute();
 
 
 // INSERER ADMIN
- $sign1 = array('u_login' => 'admin', 'passwd' => hash('whirlpool', 'admin'), 'mail' => "vbaudron@42.student.fr");
- user_signup($sign1['u_login'], $sign1['passwd'], $sign1['mail']);
+//  $sign1 = array('u_login' => 'admin', 'passwd' => hash('whirlpool', 'admin'), 'mail' => "vbaudron@42.student.fr");
+//  user_signup($sign1['u_login'], $sign1['passwd'], $sign1['mail']);
+
+// // INSERER OTHERS
+// $sign1 = array('u_login' => 'lea', 'passwd' => hash('whirlpool', 'lea'), 'mail' => "lea@42.student.fr");
+// user_signup($sign1['u_login'], $sign1['passwd'], $sign1['mail']);
+// $sign1 = array('u_login' => 'guigui', 'passwd' => hash('whirlpool', 'guigui'), 'mail' => "guigui@42.student.fr");
+// user_signup($sign1['u_login'], $sign1['passwd'], $sign1['mail']);
 
 // // KO -> mail
 // $sign2 = array('u_login' => 'Gui', 'passwd' => hash('whirlpool', 'admin888'), 'mail' => "vbaudron@42.student.fr", img_id => '1');

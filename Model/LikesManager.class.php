@@ -2,11 +2,11 @@
 // include_once("../Model/DbManager.class.php");
 // include_once("../Model/SelectElem.class.php");
 
-class CommentsManager extends DbManager
+class LikesManager extends DbManager
 {
     function __construct() {
-        parent::__construct(".comments", "comment_id");
-        echo "CommentsManager --> constructed</br >";
+        parent::__construct(".likes", "like_id");
+        echo "likesManager --> constructed</br >";
     }
 
     use SelectElem;

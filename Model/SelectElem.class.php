@@ -1,11 +1,12 @@
 <?php
 
-trait Display {
-    function display_elem($user_id, $table, $id_table, $db) {
-        $req = "SELECT $id_table FROM $table WHERE user_id=:user_id";
+trait SelectElem {
+    function select_elem($id, $table, $id_table, $db) {
+        $id_key = implode(array_keys($id));
+        $req = "SELECT $id_table FROM $table WHERE $id_key=:$id_key";
         // echo $req . "</br >";
         $prep = $db->prepare($req);
-        $prep->bindValue(":user_id", $user_id);
+        $prep->bindValue(":" . $id_key, $id[$id_key]);
         $prep->execute();
 		$result = $prep->fetchAll();
 		$tab = array();
