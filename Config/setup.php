@@ -6,6 +6,7 @@
 //require_once(HOME_DIR . "Model/UsersManager.class.php");
 // require("./dbRootInfo.php");
 // require('../config.php');
+require_once("../Config/config.php");
 require_once("../Config/database.php");
 require_once("../Config/init_bdd.php");
 require_once("../Model/UsersManager.class.php");
