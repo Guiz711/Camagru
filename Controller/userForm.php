@@ -5,7 +5,7 @@ $PASSWD_LEN = 8;
 
 include_once("../Model/UsersManager.class.php");
 
-function user_signup($login, $passwd, $mail, $dbRootInfo)
+function user_signup($login, $passwd, $mail)
 {
 	$user = new UsersManager();
 	if (strlen($login) < $LOGIN_LEN) {
