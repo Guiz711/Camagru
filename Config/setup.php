@@ -56,18 +56,16 @@ $table = "users";
 $login = "admin";
 $passwd = password_hash('admin', PASSWORD_DEFAULT);
 $mail = "vbaudron@student.42.fr";
-$img = "1";
-$req = "INSERT (u_login, passwd, mail) INTO $table $login, $passwd, $mail";
-
+$req = "INSERT INTO $table (u_login, passwd, mail) VALUES ($login, $passwd, $mail)";
+echo "$req </br ></br >";
 $pdo->prepare($req)->execute();
 
 $table = "users";
 $login = "lea";
 $passwd = password_hash('lea', PASSWORD_DEFAULT);
 $mail = "lesanche@student.42.fr";
-$img = "1";
-$req = "INSERT (u_login, passwd, mail) INTO $table $login, $passwd, $mail";
-
+$req = "INSERT INTO $table (u_login, passwd, mail) VALUES ($login, $passwd, $mail)";
+echo "$req </br ></br >";
 $pdo->prepare($req)->execute();
 
 // INSERTION IMAGE 1
@@ -75,6 +73,7 @@ $pdo->prepare($req)->execute();
 $table = "images";
 $user_id = "1";
 $img_description = "Ceci est une jolie image";
-$req = "INSERT (user_id, img_description) INTO $table $user_id, $img_description";
-
+$req = "INSERT INTO $table (user_id, img_description) VALUES ($user_id, $img_description)";
+echo "$req </br ></br >";
 $pdo->prepare($req)->execute();
+?>
