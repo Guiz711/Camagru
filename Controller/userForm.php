@@ -21,7 +21,7 @@ function user_signup($login, $passwd1, $passwd2, $mail)
 			'u_login' => $login,
 			'passwd' => $passwd,
 			'mail' => $mail
-		), null);
+		));
 }
 
 function user_signing($login, $passwd)

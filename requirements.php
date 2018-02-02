@@ -1,5 +1,6 @@
 <?php
 
+
 // CONFIG
 require_once("./Config/database.php");
 require_once('./Config/config.php');

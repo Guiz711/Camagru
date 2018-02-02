@@ -6,12 +6,12 @@
 
 function init_bdd() 
 {
-	require("../Config/database.php");
+	require("./database.php");
     
     $db = "db_camagru";
 
     try {
-        $pdo = new PDO($dbRootInfo["DB_DSN"], $dbRootInfo["DB_USER"], $dbRootInfo["DB_PASS"]);
+        $pdo = new PDO($DB_DSN, $DB_USER, $DB_PASS);
     }
     catch (Exception $error) {
         die('Erreur : ' . $error->getMessage());
@@ -19,14 +19,15 @@ function init_bdd()
 
     $req = "CREATE DATABASE IF NOT EXISTS $db CHARACTER SET 'utf8'";
     $pdo->prepare($req)->execute();
+    return ($pdo);
 
-    try {
-        $connection = new PDO("mysql:host=localhost;dbname=$db;charset=utf8", $dbRootInfo['DB_USER'], $dbRootInfo['DB_PASS']);
-    }
-    catch (PDOException $error) {
-        die('Erreur : ' . $error->getMessage());
-    }  
-    return ($connection);
+    // try {
+    //     $connection = new PDO("mysql:host=localhost;dbname=$db;charset=utf8", $dbRootInfo['DB_USER'], $dbRootInfo['DB_PASS']);
+    // }
+    // catch (PDOException $error) {
+    //     die('Erreur : ' . $error->getMessage());
+    // }  
+    // return ($connection);
 }
 
 ?>

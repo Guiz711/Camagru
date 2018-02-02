@@ -1,17 +1,5 @@
 <?php
-//define('HOME_DIR', '/Users/vbaudron/http/MyWebSite/Camagru/');
-//define('HOME_DIR', '/home/guizmo/www/camagru/');
-
-//require_once(HOME_DIR . "Config/database.php");
-//require_once(HOME_DIR . "Model/UsersManager.class.php");
-// require("./dbRootInfo.php");
-// require('../config.php');
-// require_once("../Config/database.php");
-// require_once("../Config/init_bdd.php");
-// require_once("../Model/UsersManager.class.php");
-// require_once("../Model/CommentsManager.class.php");
-// require_once("../Model/ImagesManager.class.php");
-// require_once("../Controller/userForm.php");
+require_once("./init_bdd.php");
 
 $pdo = init_bdd();
 
@@ -57,62 +45,36 @@ $req = "CREATE TABLE IF NOT EXISTS $table
     text_comment VARCHAR(256) NOT NULL,
     date_comment TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )";
+$pdo->prepare($req)->execute();
 
 // $result = $pdo->prepare($req)->execute();
 
+
+// INSERTION USERS
+
 $table = "users";
 $login = "admin";
-$passwd = hash('admin', PASSWORD_DEFAULT);
+$passwd = password_hash('admin', PASSWORD_DEFAULT);
 $mail = "vbaudron@student.42.fr";
 $img = "1";
 $req = "INSERT (u_login, passwd, mail) INTO $table $login, $passwd, $mail";
 
+$pdo->prepare($req)->execute();
 
+$table = "users";
+$login = "lea";
+$passwd = password_hash('lea', PASSWORD_DEFAULT);
+$mail = "lesanche@student.42.fr";
+$img = "1";
+$req = "INSERT (u_login, passwd, mail) INTO $table $login, $passwd, $mail";
 
-// INSERER L'ADMIN
+$pdo->prepare($req)->execute();
 
+// INSERTION IMAGE 1
 
-  $var = array('u_login' => 'admin', 'passwd' => hash('whirlpool', 'admin'), 'mail' => "vbaudron@42.student.fr", 'img_id' => '2');
-  $UserManager = new UsersManager();
-  $UserManager->insert($var, NULL);
+$table = "images";
+$user_id = "1";
+$img_description = "Ceci est une jolie image";
+$req = "INSERT (user_id, img_description) INTO $table $user_id, $img_description";
 
-
-// TEST LOG
-
-// $UserManager->auth("admin", hash('whirlpool', 'admin')); // OK
-// $UserManager->auth("admin2", hash('whirlpool', 'admin')); // KO
-
-// TEST Trait Display
-
-// $img1 = array("user_id" => "2", "img_description" => "cookie");
-// $img2 = array("user_id" => "2", "img_description" => "muffin");
-// $img3 = array("user_id" => "1", "img_description" => "tarte a la fraise");
-// $ImagesManager = new ImagesManager();
-// // $ImagesManager->insert($img1, NULL);
-// // $ImagesManager->insert($img2, NULL);
-// // $ImagesManager->insert($img3, NULL);
-// $ImagesManager->display_for("2");
-// $ImagesManager->display_for("9");
-// $ImagesManager->display_for("1");
-
-// TEST signup
-
-
-// INSERER ADMIN
-//  $sign1 = array('u_login' => 'admin', 'passwd' => hash('whirlpool', 'admin'), 'mail' => "vbaudron@42.student.fr");
-//  user_signup($sign1['u_login'], $sign1['passwd'], $sign1['mail']);
-
-// // INSERER OTHERS
-// $sign1 = array('u_login' => 'lea', 'passwd' => hash('whirlpool', 'lea'), 'mail' => "lea@42.student.fr");
-// user_signup($sign1['u_login'], $sign1['passwd'], $sign1['mail']);
-// $sign1 = array('u_login' => 'guigui', 'passwd' => hash('whirlpool', 'guigui'), 'mail' => "guigui@42.student.fr");
-// user_signup($sign1['u_login'], $sign1['passwd'], $sign1['mail']);
-
-// // KO -> mail
-// $sign2 = array('u_login' => 'Gui', 'passwd' => hash('whirlpool', 'admin888'), 'mail' => "vbaudron@42.student.fr", img_id => '1');
-// user_signup($sign2['u_login'], $sign2['passwd'], $sign2['mail']);
-
-// // KO -> login
-// $sign3 = array('u_login' => 'admin', 'passwd' => hash('whirlpool', 'admin888'), 'mail' => "gui@42.student.fr", img_id => '1');
-// user_signup($sign3['u_login'], $sign3['passwd'], $sign3['mail']);
-?>
+$pdo->prepare($req)->execute();
