@@ -1,8 +1,8 @@
 <?php
-// require('./Config/config.php');
 
 // CONFIG
 require_once("./Config/database.php");
+require_once('./Config/config.php');
 define('DB_USER', $DB_USER);
 define('DB_PASS', $DB_PASS);
 define('DB_DSN', $DB_DSN);

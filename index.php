@@ -9,6 +9,7 @@
 <body>
 	<header>
 		<?php
+		session_start();
 		require_once("./requirements.php");
 		?>
 	</header>
@@ -27,5 +28,6 @@
 	<footer>
 
 	</footer>
+
 </body>
 </html>

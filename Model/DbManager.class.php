@@ -1,7 +1,5 @@
 <?php
 
-// require_once("./config/database.php");
-
 abstract class DbManager
 {
 	public		$verbose = false;
