@@ -1,5 +1,7 @@
 <?php
 
+
+
 function user_signup($login, $passwd, $email)
 {
 	$user = new UsersManager();

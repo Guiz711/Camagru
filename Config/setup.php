@@ -73,30 +73,30 @@ $result = $pdo->prepare($req)->execute();
 
 // TEST Trait Display
 
-$img1 = array("user_id" => "2", "img_description" => "cookie");
-$img2 = array("user_id" => "2", "img_description" => "muffin");
-$img3 = array("user_id" => "1", "img_description" => "tarte a la fraise");
-$ImagesManager = new ImagesManager();
-// $ImagesManager->insert($img1, NULL);
-// $ImagesManager->insert($img2, NULL);
-// $ImagesManager->insert($img3, NULL);
-$ImagesManager->display_for("2");
-$ImagesManager->display_for("9");
-$ImagesManager->display_for("1");
+// $img1 = array("user_id" => "2", "img_description" => "cookie");
+// $img2 = array("user_id" => "2", "img_description" => "muffin");
+// $img3 = array("user_id" => "1", "img_description" => "tarte a la fraise");
+// $ImagesManager = new ImagesManager();
+// // $ImagesManager->insert($img1, NULL);
+// // $ImagesManager->insert($img2, NULL);
+// // $ImagesManager->insert($img3, NULL);
+// $ImagesManager->display_for("2");
+// $ImagesManager->display_for("9");
+// $ImagesManager->display_for("1");
 
 // TEST signup
 
 // OK
-$sign1 = array('u_login' => 'lea', 'passwd' => hash('whirlpool', 'admin888'), 'mail' => "lea@42.student.fr", img_id => '1');
-user_signup($sign1['u_login'], $sign1['passwd'], $sign1['mail']);
+// $sign1 = array('u_login' => 'lea', 'passwd' => hash('whirlpool', 'admin888'), 'mail' => "lea@42.student.fr", img_id => '1');
+// user_signup($sign1['u_login'], $sign1['passwd'], $sign1['mail']);
 
-// KO -> mail
-$sign2 = array('u_login' => 'Gui', 'passwd' => hash('whirlpool', 'admin888'), 'mail' => "vbaudron@42.student.fr", img_id => '1');
-user_signup($sign2['u_login'], $sign2['passwd'], $sign2['mail']);
+// // KO -> mail
+// $sign2 = array('u_login' => 'Gui', 'passwd' => hash('whirlpool', 'admin888'), 'mail' => "vbaudron@42.student.fr", img_id => '1');
+// user_signup($sign2['u_login'], $sign2['passwd'], $sign2['mail']);
 
-// KO -> login
-$sign3 = array('u_login' => 'admin', 'passwd' => hash('whirlpool', 'admin888'), 'mail' => "gui@42.student.fr", img_id => '1');
-user_signup($sign3['u_login'], $sign3['passwd'], $sign3['mail']);
+// // KO -> login
+// $sign3 = array('u_login' => 'admin', 'passwd' => hash('whirlpool', 'admin888'), 'mail' => "gui@42.student.fr", img_id => '1');
+// user_signup($sign3['u_login'], $sign3['passwd'], $sign3['mail']);
 
 
 
