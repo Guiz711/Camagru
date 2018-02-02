@@ -8,7 +8,7 @@ class UsersManager extends DbManager {
         echo "UsersManager --> constructed</br >";
     }
 
-    /*public function insert($var, $table) {
+    public function insert($var, $table) {
         parent::insert($var, $this->table);
     }
 
@@ -18,7 +18,7 @@ class UsersManager extends DbManager {
 
     public function delete($id, $table) {
         parent::delete($id, $this->table);
-    }*/
+    }
 
     public function is_already_in_bdd($var, $and_or, $table) {
         return(parent::is_already_in_bdd($var, $and_or, $this->table));

@@ -12,8 +12,12 @@ abstract class DbManager
 	public function __construct($db_info)
 	{
 		echo "in construct</br>";
+		try {
 			$this->db = $this->connection($db_info);
-        	echo "DbManager --> constructed</br >";
+			echo "DbManager --> constructed</br >";
+		} catch (Exception $err){
+			echo $err->getMessage();
+		}
 	}
 
 	public function __destruct()
@@ -33,7 +37,12 @@ abstract class DbManager
         $prep = $this->db->prepare($req);
         foreach ($var as $key => $value)
             $prep->bindValue(":" . $key, $value);
-        $prep->execute();
+        try {
+			$prep->execute();
+			echo 'Insert Success</br>';
+		} catch (PDOException $err) {
+			echo $err->getMessage();
+		}
     }
 
     public function update($id, $var, $table)
@@ -100,7 +109,7 @@ abstract class DbManager
             $db = new PDO ($var["DB_DSN"], $var["DB_USER"], $var["DB_PASS"]);
             return ($db);
         } catch (Exception $err) {
-                throw new Exception("DataBase connection error :" . $err);
+                throw new Exception("DataBase connection error :" . $err->getMessage());
         }
     }
 }

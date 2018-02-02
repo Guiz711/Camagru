@@ -7,7 +7,8 @@ trait Display {
         $prep = $db->prepare($req);
         $prep->bindValue(":user_id", $user_id);
         $prep->execute();
-        $result = $prep->fetchAll();
+		$result = $prep->fetchAll();
+		$tab = array();
         foreach ($result as $value1) {
             foreach ($value1 as $key => $value) {
                 if ($key === $id_table) {
