@@ -9,7 +9,7 @@ function init_bdd()
 	require("./database.php");
     
     $db = "db_camagru";
-    echo "$DB_DSN, $DB_USER, $DB_PASS";
+    echo "Connection</br ></br >";
 
     try {
         $pdo = new PDO($DB_DSN, $DB_USER, $DB_PASS);
@@ -20,6 +20,7 @@ function init_bdd()
 
     $req = "CREATE DATABASE IF NOT EXISTS $db CHARACTER SET 'utf8'";
     $pdo->prepare($req)->execute();
+    echo "</br >Creation Database : $db </br >";
     // return ($pdo);
 
     try {

@@ -2,6 +2,9 @@
 require_once("./init_bdd.php");
 
 $pdo = init_bdd();
+$db = "db_camagru";
+
+echo "</br >Creation Tables : $table</br >";
 
 $table = "users";
 $req = "CREATE TABLE IF NOT EXISTS $table 
@@ -14,7 +17,8 @@ $req = "CREATE TABLE IF NOT EXISTS $table
     date_subcription TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )";
 
-$pdo->prepare($req)->execute();
+$pdo->query($req);
+echo "Creation Table : $table</br >";
 
 $table = "images";
 $req = "CREATE TABLE IF NOT EXISTS $table 
@@ -25,7 +29,8 @@ $req = "CREATE TABLE IF NOT EXISTS $table
     date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )";
 
-$pdo->prepare($req)->execute();
+$pdo->query($req);
+echo "Creation Table : $table</br >";
 
 $table = "likes";
 $req = "CREATE TABLE IF NOT EXISTS $table 
@@ -34,7 +39,8 @@ $req = "CREATE TABLE IF NOT EXISTS $table
     user_id INT NOT NULL,
     img_id INT NOT NULL
 )";
-$pdo->prepare($req)->execute();
+$pdo->query($req);
+echo "Creation Table : $table</br >";
 
 $table = "comments";
 $req = "CREATE TABLE IF NOT EXISTS $table 
@@ -45,35 +51,41 @@ $req = "CREATE TABLE IF NOT EXISTS $table
     text_comment VARCHAR(256) NOT NULL,
     date_comment TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )";
-$pdo->prepare($req)->execute();
-
-// $result = $pdo->prepare($req)->execute();
-
+$pdo->query($req);
+echo "Creation Table : $table</br >";
 
 // INSERTION USERS
+echo "</br >Insertion Datas :</br >";
 
-$table = "users";
+$table = "$db.users";
 $login = "admin";
 $passwd = password_hash('admin', PASSWORD_DEFAULT);
 $mail = "vbaudron@student.42.fr";
-$req = "INSERT INTO $table (u_login, passwd, mail) VALUES ($login, $passwd, $mail)";
-echo "$req </br ></br >";
-$pdo->prepare($req)->execute();
+$img = "2";
+$req = "INSERT INTO $table (u_login, passwd, mail, img_id) VALUES ('$login', '$passwd', '$mail', '$img')";
+echo "Insertion User : $login</br >";
 
-$table = "users";
+$pdo->query($req);
+
+
+$table = "$db.users";
 $login = "lea";
 $passwd = password_hash('lea', PASSWORD_DEFAULT);
 $mail = "lesanche@student.42.fr";
-$req = "INSERT INTO $table (u_login, passwd, mail) VALUES ($login, $passwd, $mail)";
-echo "$req </br ></br >";
-$pdo->prepare($req)->execute();
+$img = "1";
+$req = "INSERT INTO $table (u_login, passwd, mail) VALUES ('$login', '$passwd', '$mail')";
+echo "Insertion User : $login</br >";
+
+$pdo->query($req);
+
 
 // INSERTION IMAGE 1
 
-$table = "images";
+$table = "$db.images";
 $user_id = "1";
 $img_description = "Ceci est une jolie image";
-$req = "INSERT INTO $table (user_id, img_description) VALUES ($user_id, $img_description)";
-echo "$req </br ></br >";
-$pdo->prepare($req)->execute();
+$req = "INSERT INTO $table (user_id, img_description) VALUES ('$user_id', '$img_description')";
+echo "Insertion Image : 1 </br ></br >";
+
+$pdo->query($req);
 ?>
