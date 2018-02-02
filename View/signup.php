@@ -2,10 +2,7 @@
 
 function signup_result($res)
 {
-	if (empty($res))
-		echo "Inscription Reussie!</br>";
-	else
-		echo $res;
+	echo $res;
 }
 
 ?>

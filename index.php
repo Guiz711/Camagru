@@ -7,21 +7,22 @@
 	<title>Camagru</title>
 </head>
 <body>
+<?php
+	session_start();
+	ini_set('display_errors', 1);
+	ini_set('display_startup_errors', 1);
+	error_reporting(E_ALL);
+	require("./requirements.php");
+?>
 	<header>
-		<?php
-		// session_start();
-		require_once("./requirements.php");
-		?>
+
 	</header>
 
 	<div id='gallery'>
 		<?php
-			ini_set('display_errors', 1);
-			ini_set('display_startup_errors', 1);
-			error_reporting(E_ALL);
-			$ImagesManager = new ImagesManager();
-			$all_imgs = $ImagesManager->select_all_id();
-			$all_imgs = add_path_img($all_imgs);
+			// $ImagesManager = new ImagesManager();
+			// $all_imgs = $ImagesManager->select_all_id();
+			// $all_imgs = add_path_img($all_imgs);
 		?>
 		<script src="">
 

@@ -2,10 +2,7 @@
 
 function signin_result($res)
 {
-	if (empty($res))
-		echo "Connexion Reussie!</br>";
-	else
-		echo $res;
+	echo $res;
 }
 
 ?>
