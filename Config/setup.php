@@ -14,7 +14,7 @@ $req = "CREATE TABLE IF NOT EXISTS $table
     passwd VARCHAR(256) NOT NULL,
     mail VARCHAR(50) NOT NULL,
     img_id INT DEFAULT 1,
-    date_subcription TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )";
 
 $pdo->query($req);
@@ -49,7 +49,7 @@ $req = "CREATE TABLE IF NOT EXISTS $table
     user_id INT NOT NULL,
     img_id INT NOT NULL,
     text_comment VARCHAR(256) NOT NULL,
-    date_comment TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )";
 $pdo->query($req);
 echo "Creation Table : $table</br >";
@@ -86,6 +86,14 @@ $user_id = "1";
 $img_description = "Ceci est une jolie image";
 $req = "INSERT INTO $table (user_id, img_description) VALUES ('$user_id', '$img_description')";
 echo "Insertion Image : 1 </br ></br >";
+
+$pdo->query($req);
+
+$table = "$db.images";
+$user_id = "2";
+$img_description = "Ceci est une magnifiqueimage";
+$req = "INSERT INTO $table (user_id, img_description) VALUES ('$user_id', '$img_description')";
+echo "Insertion Image : 2 </br ></br >";
 
 $pdo->query($req);
 ?>

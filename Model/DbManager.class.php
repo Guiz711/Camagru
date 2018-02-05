@@ -104,25 +104,15 @@ abstract class DbManager
     }
 
     public function select_all_id() {
-        $req = "SELECT $this->id_name FROM $this->table";
+        $req = "SELECT $this->id_name FROM $this->table ORDER BY date_creation DESC";
         $prep = $this->db->prepare($req);
         $prep->execute();
         $result = $prep->fetchAll();
-        echo "</br >Print_r </br >";
-        print_r($result);
-        echo "</br >print_r END </br >";
-        DEBUG_print($result);
         $tab = array();
         foreach ($result as $value1) {
-            foreach ($value1 as $key => $value) {
-                if ($key === $this->id_table) {
-                    $tab[] = $value;
-                }
-            }
+            $tab[] = $value1[$this->id_name]; 
         }
         echo "</br >All $this->id_name from $this->table : </br >";
-        print_r($tab);
-        echo "</br >";
         return ($tab);
     }
 
