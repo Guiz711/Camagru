@@ -103,19 +103,37 @@ abstract class DbManager
             return (FALSE);
     }
 
-    public function select_all_id() {
-        $req = "SELECT $this->id_name FROM $this->table ORDER BY date_creation DESC";
+    public function select_all_id($is_order) {
+        $req = "SELECT $this->id_name FROM $this->table";
+        if ($is_order)
+            $req .= " ORDER BY date_creation " . $is_order;
+            echo $req;
         $prep = $this->db->prepare($req);
         $prep->execute();
         $result = $prep->fetchAll();
         $tab = array();
         foreach ($result as $value1) {
-            $tab[] = $value1[$this->id_name]; 
+            $tab[] = $value1[$this->id_name];
         }
         echo "</br >All $this->id_name from $this->table : </br >";
         return ($tab);
     }
 
+    public function count_id($is_where, $id_name, $id_tocheck) {
+        echo "id_name = $id_name  -  id_tocheck = $id_tocheck</br >";
+        $req = "SELECT COUNT(*) AS 'nb' FROM $this->table";
+        if ($is_where)
+            $req .= " WHERE $id_name = :$id_name";
+        echo "</br >" . $req . "</br >";
+        $prep = $this->db->prepare($req);
+        $prep->bindValue(":$id_name", $id_tocheck);
+        $prep->execute();
+        $result = $prep->fetchAll();
+        $tab = array();
+        echo "</br >Count of Images_id=$id_tocheck from $this->table : </br >";
+        print_r($result);
+        return ($result['0']['nb']);
+    }
     
     public function connection()
     {
