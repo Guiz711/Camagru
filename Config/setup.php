@@ -96,4 +96,15 @@ $req = "INSERT INTO $table (user_id, img_description) VALUES ('$user_id', '$img_
 echo "Insertion Image : 2 </br ></br >";
 
 $pdo->query($req);
+
+// INSERTION LIKE
+
+$table = "$db.likes";
+$user_id = "1";
+$img_id = "1";
+$req = "INSERT INTO $table (user_id, img_id) VALUES ('$user_id', '$img_id')";
+echo "Insertion User $user_id LIKES image $img_id </br ></br >";
+
+$pdo->query($req);
+
 ?>
