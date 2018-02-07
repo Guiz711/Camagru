@@ -34,14 +34,20 @@ include("../Controller/userForm.php");
 include("../DEBUG_print.php");
     // echo "</br>POST</br>";
     // print_r($_POST);
+
+
     if ($_POST['action'] == 'addcomment')
         $CommentsManager = new CommentsManager();
     else
         $LikesManager = new LikesManager();
     $to_print = "test";
-    $user_id = $_POST['user_id'];
     $key = $_POST['img_id'];
-    $data = array('user_id' => $_POST['user_id'], 'img_id' => $_POST['img_id']);
+    if ($_POST['action'] != 'updateNb') {
+        $user_id = $_POST['user_id'];
+        $data = array('user_id' => $_POST['user_id'], 'img_id' => $_POST['img_id']);
+    }
+
+
     if ($_POST['action'] == 'like_it') {
         $LikesManager->insert($data);
         $action = 'unlike_it';
@@ -66,9 +72,19 @@ include("../DEBUG_print.php");
         $CommentsManager->insert($data);
         $action = 'addcomment';
         $to_print = "<input type=text id='textcomment;$key;$user_id'>
-        <div><a href='#' id='addcomment;$key;$user_id' onClick='addComment(this.id)>POST</a></div>";
+        <div><a href='#' id='addcomment;$key;$user_id' onClick='addComment(this.id)'>POST</a></div>";
 
     }
+    else if ($_POST['action'] == 'updateNb') {
+        $manager = "";
+        if ($_POST['type'] == 'Like(s)') {
+            $Manager = new LikesManager();
+        }
+        else if ($_POST['type'] == 'Comment(s)') {
+            $Manager = new CommentsManager();
+        }
+        $to_print = $Manager->count_id(TRUE, "img_id", $_POST['img_id']);
+        $to_print .= ' ' . $_POST['type'];
+    }
     echo $to_print;
-
 ?>

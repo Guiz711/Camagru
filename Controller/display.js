@@ -30,22 +30,62 @@ function preparetoHandle(load_id, path)
 
         if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) { // Si le fichier est chargé sans erreur
             var ret = xhr.responseText;
-            // console.log("Ret = ");
-            // console.log(ret);
-            // console.log('addlike'+img_id);
+            console.log("Ret = ");
+            console.log(ret);
+            console.log(path+img_id);
             document.getElementById(path+img_id).innerHTML = ret;
         }
     });
     xhr.send(to_send); // La requête est prête, on envoie tout !
 }
+
+function updateNb(load_id, pathNB) {
+
+    var xhr = new XMLHttpRequest();
+    
+    tab = load_id.split(';');
+    
+    var img_id = tab[1];
+    console.log(img_id);
+    var to_send = 'action=updateNb&img_id='+img_id;
+    if (pathNB == 'nblikes') {
+        to_send += '&type=Like(s)';
+    }
+    else {
+        to_send += '&type=Comment(s)';
+    }
+
+    var url = './Controller/handle_like.php';
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    // On souhaite juste récupérer le contenu du fichier, la méthode GET suffit amplement :
+
+    xhr.addEventListener('readystatechange', function() { // On gère ici une requête asynchrone
+
+        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) { // Si le fichier est chargé sans erreur
+            var ret = xhr.responseText;
+             console.log("Ret NB = ");
+             console.log(ret);
+             console.log('addlike'+img_id);
+            document.getElementById(pathNB+img_id).innerHTML = ret;
+        }
+    });
+    xhr.send(to_send); // La requête est prête, on envoie tout !
+}
+
 function loadHeart(load_id) {
-    path = 'addlike';
+    var path = 'addlike';
+    var pathNB = 'nblikes';
     preparetoHandle(load_id, path);
+    updateNb(load_id, pathNB);
 }
 
 function addComment(load_id) {
-    path = 'addcomment';
+    var path = 'addcomment';
+    var pathNB = 'nbcomments';
     preparetoHandle(load_id, path);
+    updateNb(load_id, pathNB);
 }
+
 
 console.log('DANS --> Display.js');
