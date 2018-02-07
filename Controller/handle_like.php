@@ -6,9 +6,6 @@
 // else {
 // header("Content-Type: text/plain");
 // echo "truc";
-include('../Model/DbManager.class.php');
-include('../Model/LikesManager.class.php');
-function handle_it($POST) {
 // CONFIG
 include("../Config/database.php");
 include('../Config/config.php');
@@ -35,24 +32,41 @@ include("../Controller/userForm.php");
 // DEBUG
 
 include("../DEBUG_print.php");
-    $LikesManager = new LikesManager();
-    $heart = "test";
-    echo "</ br>        ----> DANS PHP </ br>";
+    
+    if ($POST['action'] == 'addcomment')
+        $CommentsManager = new LikesManager();
+    else
+        $LikesManager = new CommentssManager();
+    $to_print = "test";
+    $user_id = $POST['user_id'];
+    $key = $POST['img_id'];
     $data = array('user_id' => $POST['user_id'], 'img_id' => $POST['img_id']);
+    // echo "</br>POST</br>";
+    // print_r($_POST);
     // }
     if ($POST['action'] == 'like_it') {
         $LikesManager->insert($data);
+        $action = 'unlike_it';
         $heart = './resources/002-hearts.png';
+        $to_print = "<a id='$action;$key;$user_id' href='#' onClick='loadMedia(this.id)'>
+        <img src='$heart'></a>";
     }
     else if ($POST['action'] == 'unlike_it') {
         $id_to_delete = $LikesManager->select_all_id($data, "AND", FALSE);
-        print_r($id_to_delete);
         $tab = array('like_id' => $id_to_delete[0]);
         $heart = "./resources/001-favorite.png";
         $LikesManager->delete($tab);
+        $action = 'like_it';
+        $to_print = "<a id='$action;$key;$user_id' href='#' onClick='loadMedia(this.id)'>
+        <img src='$heart'></a>";
     }
-    return("<img src='$heart'>");
-}
+    else if ($POST['action'] == 'addcomment')
+    {
+        $CommentsManager->insert($data);
+        $action = 'addcomment';
+        $to_print = "<input type=text id='addcomment;$key;$user_id' href='#' onClick='addcomment(this.id)'>";
 
-echo handle_it($_POST);
+    }
+    echo $to_print;
+
 ?>

@@ -6,18 +6,14 @@
     <div class="add_comment"></div>
 </div> */}
 
-function loadMedia(load_id) {
-    
+function preparetoHandle(load_id, path)
+{
     var xhr = new XMLHttpRequest();
     
     tab = load_id.split(';');
-    console.log(tab);
     var action = tab[0];
     var img_id = tab[1];
     var user_id = tab[2];
-    console.log(action);
-    console.log(img_id);
-    console.log(user_id);
     var url = './Controller/handle_like.php';
     var to_send = 'action='+action+'&img_id='+img_id+'&user_id='+user_id;
     
@@ -30,15 +26,22 @@ function loadMedia(load_id) {
 
         if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) { // Si le fichier est chargé sans erreur
             var ret = xhr.responseText;
-            console.log("Ret = ");
-            console.log(ret);
-            document.getElementById(load_id).innerHTML = ret;
-
-
+            // console.log("Ret = ");
+            // console.log(ret);
+            // console.log('addlike'+img_id);
+            document.getElementById(path+img_id).innerHTML = ret;
         }
     });
     xhr.send(to_send); // La requête est prête, on envoie tout !
+}
+function loadHeart(load_id) {
+    path = 'addlike';
+    preparetoHandle(load_id, path);
+}
 
+function addComment(load_id) {
+    path = 'addcomment';
+    preparetoHandle(load_id, path);
 }
 
 console.log('DANS --> Display.js');

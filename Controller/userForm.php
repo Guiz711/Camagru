@@ -58,6 +58,6 @@ if (array_key_exists('submit', $_POST)) {
 		echo $_SESSION['user_id'];
 	}
 }
-echo $_SESSION['user_id'];
+// echo $_SESSION['user_id'];
 
 ?>
