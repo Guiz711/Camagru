@@ -6,25 +6,38 @@
     <div class="add_comment"></div>
 </div> */}
 
-function loadMedia(img_path) {
+function loadMedia(load_id) {
     
     var xhr = new XMLHttpRequest();
     
-    // On souhaite juste récupérer le contenu du fichier, la méthode GET suffit amplement :
+    tab = load_id.split(';');
+    console.log(tab);
+    var action = tab[0];
+    var img_id = tab[1];
+    var user_id = tab[2];
+    console.log(action);
+    console.log(img_id);
+    console.log(user_id);
+    var url = './Controller/handle_like.php';
+    var to_send = 'action='+action+'&img_id='+img_id+'&user_id='+user_id;
     
-    alert(img_path);
+
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    // On souhaite juste récupérer le contenu du fichier, la méthode GET suffit amplement :
 
     xhr.addEventListener('readystatechange', function() { // On gère ici une requête asynchrone
 
         if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) { // Si le fichier est chargé sans erreur
-            // alert(xhr.responseText);
-            document.getElementById('content').innerHTML = '<img src=' + xhr.responseText + '/>'; // Et on affiche !
-            alert('<img src=' + xhr.responseText + '/>');
-        }
+            var ret = xhr.responseText;
+            console.log("Ret = ");
+            console.log(ret);
+            document.getElementById(load_id).innerHTML = ret;
 
+
+        }
     });
-    xhr.open('GET', img_path);
-    xhr.send(null); // La requête est prête, on envoie tout !
+    xhr.send(to_send); // La requête est prête, on envoie tout !
 
 }
 

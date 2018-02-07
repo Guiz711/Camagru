@@ -4,7 +4,7 @@ class LikesManager extends DbManager
 {
     function __construct() {
         parent::__construct(".likes", "like_id");
-        echo "likesManager --> constructed</br >";
+        // echo "likesManager --> constructed</br >";
     }
 
     use SelectElem;
