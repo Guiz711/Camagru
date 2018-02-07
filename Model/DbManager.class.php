@@ -103,11 +103,23 @@ abstract class DbManager
             return (FALSE);
     }
 
-    public function select_all_id($is_order) {
+    public function select_all_id($var, $and_or, $order) {
         $req = "SELECT $this->id_name FROM $this->table";
-        if ($is_order)
-            $req .= " ORDER BY date_creation " . $is_order;
-            echo $req;
+        if ($var) {
+            $req .= " WHERE ";
+            $i = 0;
+            foreach ($var as $key => $value)
+            {
+            if ($i != 0)
+                $req .= " $and_or ";
+            $req .=  "$key = :$key";
+            $i++;
+            }
+        }
+        if ($order) {
+            $req .= " ORDER BY $order";
+        }
+        echo $req;
         $prep = $this->db->prepare($req);
         $prep->execute();
         $result = $prep->fetchAll();
@@ -116,11 +128,13 @@ abstract class DbManager
             $tab[] = $value1[$this->id_name];
         }
         echo "</br >All $this->id_name from $this->table : </br >";
+        print_r($tab);
+        echo "</br >";
         return ($tab);
     }
 
     public function count_id($is_where, $id_name, $id_tocheck) {
-        echo "id_name = $id_name  -  id_tocheck = $id_tocheck</br >";
+        // echo "</br >--> Entree COUNT_ID </br >id_name = $id_name  -  id_tocheck = $id_tocheck</br >";
         $req = "SELECT COUNT(*) AS 'nb' FROM $this->table";
         if ($is_where)
             $req .= " WHERE $id_name = :$id_name";
@@ -129,8 +143,7 @@ abstract class DbManager
         $prep->bindValue(":$id_name", $id_tocheck);
         $prep->execute();
         $result = $prep->fetchAll();
-        $tab = array();
-        echo "</br >Count of Images_id=$id_tocheck from $this->table : </br >";
+        echo "</br >Count of $id_name=$id_tocheck from $this->table : </br >";
         print_r($result);
         return ($result['0']['nb']);
     }
