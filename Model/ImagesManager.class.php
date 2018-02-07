@@ -3,7 +3,8 @@
 class ImagesManager extends DbManager {
     function __construct() {
         parent::__construct(".images", "img_id");
-        echo "ImagesManager --> constructed</br >";
+        if ($this->verbose)
+            echo "ImagesManager --> constructed</br >";
     }
 
     use SelectElem;

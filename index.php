@@ -1,7 +1,7 @@
 <?php	
 	session_start();
-	if (!array_key_exists('user_id', $_SESSION))
-		$_SESSION['user_id'] = "Unknown";
+//	if (!array_key_exists('user_id', $_SESSION))
+		$_SESSION['user_id'] = "1";
 ?>
 <html lang="fr">
 <head>
@@ -16,9 +16,6 @@
 	<header>
 
 	<?php
-	ini_set('display_errors', 1);
-	ini_set('display_startup_errors', 1);
-	error_reporting(E_ALL);
 	require("./requirements.php");
 	// if ($_SESSION["logged_on_user"] !== "")
 	// {
@@ -64,12 +61,12 @@
 			echo "<br /><br />LETS GO PUTS div MEDIA <br /><br />";
 			$i = 1;
 			foreach ($all_imgs as $key => $value) {
-				echo "==>  ID = $key <br />";
+			
 				$heart = "./resources/001-favorite.png";
 				$action = "like_it";
 				$user_id = $_SESSION['user_id'];
 				$var = array('img_id' => $key, 'user_id' => $_SESSION['user_id']);
-				if ($_SESSION['user_id'] != "" && $LikesManager->is_already_in_bdd($var, 'AND') == TRUE) {
+				if ($_SESSION['user_id'] != "unknown" && $LikesManager->is_already_in_bdd($var, 'AND') == TRUE) {
 					$heart = "./resources/002-hearts.png";
 					$action = "unlike_it";
 				}
@@ -79,12 +76,13 @@
 				echo "nb_comments = " . $nb_comments;
 				echo "<div class=media id=img_id$key><img src='$value'>
 					<div class='nb_likes'>$nb_likes Like(s)</div>";
-					// if ($_SESSION['user_id'] != 'unknown') {
+					if ($_SESSION['user_id'] !== 'unknown') {
 						echo "<div class='add_like'>
 						<a id='$action;$key;$user_id' href='#' onClick='loadMedia(this.id)'>
 						<img src='$heart'></a>
 						</div>
 						<script src='./Controller/display.js'></script>";
+					}
 				echo "<div class='nb_comments'>$nb_comments Comment(s)</div>
 					<div class='add_comment'></div>
 					</div><br />";

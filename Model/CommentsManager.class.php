@@ -4,7 +4,8 @@ class CommentsManager extends DbManager
 {
     function __construct() {
         parent::__construct(".comments", "comment_id");
-        echo "CommentsManager --> constructed</br >";
+        if ($this->verbose)
+            echo "CommentsManager --> constructed</br >";
     }
 
     use SelectElem;
