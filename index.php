@@ -7,7 +7,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="./View/style_css/style.css">
+	<!-- <link rel="stylesheet" type="text/css" href="./View/style_css/style.css"> -->
 	<title>Camagru</title>
 	<meta charset="UTF-8">
 </head>
@@ -77,9 +77,15 @@
 				echo "<div class=media id=img_id$key><img src='$value'>
 					<div class='nb_likes'>$nb_likes Like(s)</div>";
 					if ($_SESSION['user_id'] !== 'unknown') {
-						echo "<div class='add_like'>
-						<a id='$action;$key;$user_id' href='#' onClick='loadMedia(this.id)'>
+						echo "<div class='add_like' id=addlike$key>
+						<a id='$action;$key;$user_id' href='#' onClick='loadHeart(this.id)'>
 						<img src='$heart'></a>
+						</div>
+						<script src='./Controller/display.js'></script>";
+					}
+					if ($_SESSION['user_id'] !== 'unknown') {
+						echo "<div class='add_comment' id=addcomment$key>
+						<input type=text id='addcomment;$key;$user_id' href='#' onClick='addComment(this.id)'>
 						</div>
 						<script src='./Controller/display.js'></script>";
 					}
