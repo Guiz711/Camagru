@@ -14,9 +14,13 @@ function preparetoHandle(load_id, path)
     var action = tab[0];
     var img_id = tab[1];
     var user_id = tab[2];
-    var url = './Controller/handle_like.php';
     var to_send = 'action='+action+'&img_id='+img_id+'&user_id='+user_id;
-    
+    var textcomment = 'test';
+    if (action == 'addcomment') {
+        textcomment = document.getElementById('textcomment;'+img_id+';'+user_id).value;
+        to_send += '&text_comment='+textcomment;
+    }
+    var url = './Controller/handle_like.php';
 
     xhr.open('POST', url, true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
