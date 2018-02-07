@@ -6,7 +6,8 @@
 // else {
 // header("Content-Type: text/plain");
 // echo "truc";
-
+include('../Model/DbManager.class.php');
+include('../Model/LikesManager.class.php');
 function handle_it($POST) {
     $LikesManager = new LikesManager();
     $heart = "test";

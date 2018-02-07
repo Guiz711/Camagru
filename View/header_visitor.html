@@ -1,7 +1,18 @@
 <html>
 <!-- Barre du haut - Navigation  -->
-        <header><div class="header_nav">
-                        <div class="header_nav_categories"><a>Login</a></div>
-                        <div class="header_nav_categories"><a>S'inscrire !</a></div>
-        </div></header>                         
+    <header><div class="header_nav">
+        <div class="header_nav_categories"><a id="login" href="#">Login</a></div>
+            <div class="header_nav_categories"><a>S'inscrire !</a></div>
+    </div></header>
+    <script>
+        function show_login_window()
+        {
+			let login = document.querySelector("#login_form");
+
+			login.classList.remove("hidden");
+        }
+
+        let btn_login = document.querySelector("#login");
+        btn_login.addEventListener("click", show_login_window, false);
+    </script>
 </html>
