@@ -13,8 +13,8 @@ abstract class DbManager
         $this->table = $this->db_name . $table;
         $this->id_name = $id_name;
         $this->db = $this->connection();
-        echo "DbManager --> constructed</br >";
-
+        if ($this->verbose)
+            echo "DbManager --> constructed</br >";
 	}
 
 	public function __destruct()
@@ -29,8 +29,9 @@ abstract class DbManager
     public function insert($var)
     {
 		$req = " INSERT INTO $this->table (".implode(", ", array_keys($var))
-			. ") VALUES (:".implode(", :", array_keys($var)) . ")";
-        echo "</br >" . $req . "</br >";
+            . ") VALUES (:".implode(", :", array_keys($var)) . ")";
+        if ($this->verbose)
+            echo "</br >" . $req . "</br >";
         try {
             $prep = $this->db->prepare($req);
         }
@@ -62,7 +63,8 @@ abstract class DbManager
             $i++;
         }
         $req .= " WHERE $id_key=:$id_key";
-        echo "</br >" . $req . "</br >";
+        if ($this->verbose)
+            echo "</br >" . $req . "</br >";
         $prep = $this->db->prepare($req);
         foreach ($var as $key => $value)
             $prep->bindValue(":$key", $value);
@@ -74,7 +76,8 @@ abstract class DbManager
     {
         $id_key = implode(array_keys($id));
         $req = "DELETE FROM $this->table WHERE $id_key=:$id_key";
-        echo "</br >" . $req . "</br >";
+        if ($this->verbose)
+            echo "</br >" . $req . "</br >";
         $prep = $this->db->prepare($req);
         $prep->bindValue(":" . $id_key, $id[$id_key]);
         $prep->execute();
@@ -91,7 +94,8 @@ abstract class DbManager
             $req .=  "$key = :$key";
             $i++;
         }
-        echo "</br >" . $req . "</br >";
+        if ($this->verbose)
+            echo "</br >" . $req . "</br >";
         $prep = $this->db->prepare($req);
         foreach ($var as $key => $value)
             $prep->bindValue(":$key", $value);
@@ -119,17 +123,24 @@ abstract class DbManager
         if ($order) {
             $req .= " ORDER BY $order";
         }
-        echo $req;
+        if ($this->verbose)
+            echo $req;
         $prep = $this->db->prepare($req);
+        if ($var) {
+            foreach ($var as $key => $value)
+                $prep->bindValue(":$key", $value);
+        }
         $prep->execute();
         $result = $prep->fetchAll();
         $tab = array();
         foreach ($result as $value1) {
             $tab[] = $value1[$this->id_name];
         }
-        echo "</br >All $this->id_name from $this->table : </br >";
-        print_r($tab);
-        echo "</br >";
+        if ($this->verbose) {
+            echo "</br >All $this->id_name from $this->table : </br >";
+            print_r($tab);
+            echo "</br >";
+        }
         return ($tab);
     }
 
@@ -138,13 +149,16 @@ abstract class DbManager
         $req = "SELECT COUNT(*) AS 'nb' FROM $this->table";
         if ($is_where)
             $req .= " WHERE $id_name = :$id_name";
-        echo "</br >" . $req . "</br >";
+        if ($this->verbose)
+            echo "</br >" . $req . "</br >";
         $prep = $this->db->prepare($req);
         $prep->bindValue(":$id_name", $id_tocheck);
         $prep->execute();
         $result = $prep->fetchAll();
-        echo "</br >Count of $id_name=$id_tocheck from $this->table : </br >";
-        print_r($result);
+        if ($this->verbose) {
+            echo "</br >Count of $id_name=$id_tocheck from $this->table : </br >";
+            print_r($result);
+        }
         return ($result['0']['nb']);
     }
     

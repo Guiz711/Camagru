@@ -4,7 +4,8 @@
 class UsersManager extends DbManager {
     function __construct() {
         parent::__construct(".users", "user_id");
-        echo "UsersManager --> constructed</br >";
+        if ($this->verbose)
+            echo "UsersManager --> constructed</br >";
     }
     
     // public function auth($login, $passwd) {
