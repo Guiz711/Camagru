@@ -75,7 +75,7 @@
 				// echo "nb_likes = " . $nb_likes;
 				// echo "nb_comments = " . $nb_comments;
 				echo "<div class=media id=img_id$key><img src='$value'>
-					<div class='nb_likes'>$nb_likes Like(s)</div>";
+					<div class='nb_likes' id=nblikes$key>$nb_likes Like(s)</div>";
 					if ($_SESSION['user_id'] !== 'unknown') {
 						echo "<div class='add_like' id=addlike$key>
 						<a id='$action;$key;$user_id' href='#' onClick='loadHeart(this.id)'>
@@ -89,7 +89,7 @@
 						<div><a href='#' id='addcomment;$key;$user_id' onClick='addComment(this.id)'>POST</a></div></div>
 						<script src='./Controller/display.js'></script>";
 					}
-				echo "<div class='nb_comments'>$nb_comments Comment(s)</div>
+				echo "<div class='nb_comments' id=nbcomments$key>$nb_comments Comment(s)</div>
 					<div class='add_comment'></div>
 					</div><br />";
 			 };
