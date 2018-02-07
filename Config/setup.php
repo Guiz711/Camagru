@@ -48,7 +48,7 @@ $req = "CREATE TABLE IF NOT EXISTS $table
     comment_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     img_id INT NOT NULL,
-    text_comment VARCHAR(256),
+    text_comment VARCHAR(256) NOT NULL,
     date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )";
 try {

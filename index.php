@@ -56,9 +56,9 @@
 			$CommentsManager = new CommentsManager();
 			$all_imgs = $ImagesManager->select_all_id(FALSE, FALSE, "date_creation desc");
 			$all_imgs = add_path_img($all_imgs);
-			echo "<br /><br />All Images with Path :<br />";
-			print_r($all_imgs);
-			echo "<br /><br />LETS GO PUTS div MEDIA <br /><br />";
+			// echo "<br /><br />All Images with Path :<br />";
+			// print_r($all_imgs);
+			// echo "<br /><br />LETS GO PUTS div MEDIA <br /><br />";
 			$i = 1;
 			foreach ($all_imgs as $key => $value) {
 			
@@ -72,8 +72,8 @@
 				}
 				$nb_likes = $LikesManager->count_id(TRUE, "img_id", $key);
 				$nb_comments = $CommentsManager->count_id(TRUE, "img_id", $key);
-				echo "nb_likes = " . $nb_likes;
-				echo "nb_comments = " . $nb_comments;
+				// echo "nb_likes = " . $nb_likes;
+				// echo "nb_comments = " . $nb_comments;
 				echo "<div class=media id=img_id$key><img src='$value'>
 					<div class='nb_likes'>$nb_likes Like(s)</div>";
 					if ($_SESSION['user_id'] !== 'unknown') {
@@ -85,8 +85,8 @@
 					}
 					if ($_SESSION['user_id'] !== 'unknown') {
 						echo "<div class='add_comment' id=addcomment$key>
-						<input type=text id='addcomment;$key;$user_id' href='#' onClick='addComment(this.id)'>
-						</div>
+						<input type=text id='textcomment;$key;$user_id'>
+						<div><a href='#' id='addcomment;$key;$user_id' onClick='addComment(this.id)'>POST</a></div></div>
 						<script src='./Controller/display.js'></script>";
 					}
 				echo "<div class='nb_comments'>$nb_comments Comment(s)</div>
