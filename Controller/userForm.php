@@ -1,4 +1,6 @@
 <?php
+if (!isset($_SESSION))
+	session_start();
 //include_once("../Model/UsersManager.class.php");
 
 function is_valid_passwd($passwd)
@@ -36,7 +38,7 @@ function user_signin($login, $passwd)
 	if (!($res = $user->auth($login, $passwd)) || !password_verify($passwd, $res[0]['passwd'])) {
 		return "Connexion Echouee, Mauvais login ou mot de passe.</br>";
 	}
-	$_SESSION['login'] = $login;
+	$_SESSION['user_id'] = $res[0]['user_id'];
 	return "Connexion Reussie!</br>";
 }
 
@@ -51,6 +53,11 @@ if (array_key_exists('submit', $_POST)) {
 		$res = user_signin(sanitize_input($_POST['login']), sanitize_input($_POST['passwd']));
 		signin_result($res);
 	}
+	if ($_POST['submit'] == 'Disconnect') {
+		$_SESSION['user_id'] = 'unknown';
+		echo $_SESSION['user_id'];
+	}
 }
+echo $_SESSION['user_id'];
 
 ?>

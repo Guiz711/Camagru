@@ -1,13 +1,13 @@
 <?php	
 	session_start();
-//	if (!array_key_exists('user_id', $_SESSION))
-		$_SESSION['user_id'] = "1";
+	if (!array_key_exists('user_id', $_SESSION))
+		$_SESSION['user_id'] = "unknown";
 ?>
 <html lang="fr">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!-- <link rel="stylesheet" type="text/css" href="./View/style_css/style.css"> -->
+	<link rel="stylesheet" type="text/css" href="./View/style_css/style.css">
 	<title>Camagru</title>
 	<meta charset="UTF-8">
 </head>
@@ -17,15 +17,15 @@
 
 	<?php
 	require("./requirements.php");
-	// if ($_SESSION["logged_on_user"] !== "")
-	// {
-	// 	include("header_user.html");
-	// }
-	// else
-	// {
+	if ($_SESSION["user_id"] !== "unknown")
+	{
+		include("./View/header_user.html");
+	}
+	else
+	{
 		include("./View/header_visitor.html");
 	
-	// }
+	}
 ?>
 
 	</header>

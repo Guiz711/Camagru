@@ -1,8 +1,30 @@
 <html>
         <!-- Barre du haut - Navigation  -->
                 <header><div class="header_nav">
-                                <div class="header_nav_categories"><a>Se déconnecter</a></div>
+                                <div class="header_nav_categories"><a id="disconnect" href="#">Se déconnecter</a></div>
                                 <div class="header_nav_categories"><a>Mon profil</a></div>
-                </div></header>                         
+				</div></header>
+				<script>
+					function disconnect_user()
+					{
+						let xhr = new XMLHttpRequest();
+						let url = './Controller/userForm.php';
+						let request = 'submit=Disconnect';
+
+						console.log(request);
+						xhr.open('POST', url, true);
+						xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+						xhr.addEventListener('readystatechange', () => { // On gère ici une requête asynchrone
+							if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+								let ret = xhr.responseText;
+								console.log(ret);
+							}
+						});
+						xhr.send(request);
+					}
+			
+					let btn_login = document.querySelector("#disconnect");
+					btn_login.addEventListener("click", disconnect_user, false);
+				</script>
 </html>
         
