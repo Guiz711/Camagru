@@ -35,14 +35,21 @@ include("../DEBUG_print.php");
     // echo "</br>POST</br>";
     // print_r($_POST);
 
+// if (array_key_exists('action', $_POST)) {
+//     $_SESSION['scroll'] = 'img_id' . $_POST['img_id'];
+//     echo "SET UP Scroll : " . $_SESSION['scroll'] . "</br >";
+// }
 
     if ($_POST['action'] == 'addcomment')
         $CommentsManager = new CommentsManager();
     else
         $LikesManager = new LikesManager();
+
+
     $to_print = "test";
     $key = $_POST['img_id'];
-    if ($_POST['action'] != 'updateNb') {
+
+    if ($_POST['action'] == 'addcomment' || $_POST['action'] == 'like_it' || $_POST['action'] == 'unlike_it') {
         $user_id = $_POST['user_id'];
         $data = array('user_id' => $_POST['user_id'], 'img_id' => $_POST['img_id']);
     }
@@ -85,6 +92,22 @@ include("../DEBUG_print.php");
         }
         $to_print = $Manager->count_id(TRUE, "img_id", $_POST['img_id']);
         $to_print .= ' ' . $_POST['type'];
+    }
+    else if ($_POST['action'] == 'refreshComment') {
+        $CommentsManager = new CommentsManager();
+        $UsersManager = new UsersManager();
+        $img_id = $_POST['img_id'];
+        $all_comments = $CommentsManager->select_all(array('img_id' => $img_id), FALSE, 'date_creation ASC');
+			foreach ($all_comments as $key2 => $value2) {
+                $user_login = $value2['user_id'];
+                $result = $UsersManager->select_all(array('user_id' => $user_login), FALSE, FALSE);
+                $all_comments[$key2]['u_login'] = $result[0]['u_login'];
+            }
+            $count = count($all_comments) - 1;
+            $author = $all_comments[$count]['u_login'];
+            $created = $all_comments[$count]['date_creation'];
+            $text = $all_comments[$count]['text_comment'];
+            $to_print = "<span class='author'>$author</span><span class='created'>$created</span><span>$text</span>";
     }
     echo $to_print;
 ?>
