@@ -84,7 +84,7 @@ abstract class DbManager
     }
 
 
-    public function is_already_in_bdd($var, $and_or) {
+    public function is_already_in_bdd($var, $and_or, $order) {
         $req = "SELECT * FROM $this->table WHERE ";
         $i = 0;
         foreach ($var as $key => $value)
@@ -93,6 +93,9 @@ abstract class DbManager
                 $req .= " $and_or ";
             $req .=  "$key = :$key";
             $i++;
+        }
+        if ($order) {
+            $req .= " ORDER BY $order";
         }
         if ($this->verbose)
             echo "</br >" . $req . "</br >";
@@ -107,12 +110,12 @@ abstract class DbManager
             return (FALSE);
     }
 
-    public function select_all_id($var, $and_or, $order) {
-        $req = "SELECT $this->id_name FROM $this->table";
-        if ($var) {
+    public function select_all($where, $and_or, $order) {
+        $req = "SELECT * FROM $this->table";
+        if ($where) {
             $req .= " WHERE ";
             $i = 0;
-            foreach ($var as $key => $value)
+            foreach ($where as $key => $value)
             {
             if ($i != 0)
                 $req .= " $and_or ";
@@ -126,8 +129,42 @@ abstract class DbManager
         if ($this->verbose)
             echo $req;
         $prep = $this->db->prepare($req);
-        if ($var) {
-            foreach ($var as $key => $value)
+        if ($where) {
+            foreach ($where as $key => $value)
+                $prep->bindValue(":$key", $value);
+        }
+        $prep->execute();
+        $result = $prep->fetchAll();
+        $tab = array();
+        if ($this->verbose) {
+            echo "</br >All * from $this->table : </br >";
+            DEBUG_print($result);
+            echo "</br >";
+        }
+        return ($result);
+    }
+
+    public function select_all_id($where, $and_or, $order) {
+        $req = "SELECT $this->id_name FROM $this->table";
+        if ($where) {
+            $req .= " WHERE ";
+            $i = 0;
+            foreach ($where as $key => $value)
+            {
+            if ($i != 0)
+                $req .= " $and_or ";
+            $req .=  "$key = :$key";
+            $i++;
+            }
+        }
+        if ($order) {
+            $req .= " ORDER BY $order";
+        }
+        if ($this->verbose)
+            echo $req;
+        $prep = $this->db->prepare($req);
+        if ($where) {
+            foreach ($where as $key => $value)
                 $prep->bindValue(":$key", $value);
         }
         $prep->execute();

@@ -6,7 +6,7 @@ function DEBUG_print($tab)
     foreach ($tab as $key1 => $value1) {
         echo "[$key1] {</br >";
         foreach ($value1 as $key => $value) {
-            echo "[$key] = $value </br >";
+            echo ".[$key] = $value </br >";
         }
         echo "}</br >";
     }

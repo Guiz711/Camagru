@@ -24,11 +24,10 @@ function preparetoHandle(load_id, path)
 
     xhr.open('POST', url, true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    // On souhaite juste récupérer le contenu du fichier, la méthode GET suffit amplement :
 
-    xhr.addEventListener('readystatechange', function() { // On gère ici une requête asynchrone
+    xhr.addEventListener('readystatechange', function() {
 
-        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) { // Si le fichier est chargé sans erreur
+        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
             var ret = xhr.responseText;
             console.log("Ret = ");
             console.log(ret);
@@ -36,8 +35,20 @@ function preparetoHandle(load_id, path)
             document.getElementById(path+img_id).innerHTML = ret;
         }
     });
-    xhr.send(to_send); // La requête est prête, on envoie tout !
+    xhr.send(to_send);
 }
+
+// function findPos(obj) {
+//     console.log('If_Scroll');
+//     console.log(obj);
+//     var curtop = 0;
+//     if (obj.offsetParent) {
+//         do {
+//             curtop += obj.offsetTop;
+//         } while (obj = obj.offsetParent);
+//     return [curtop];
+//     }
+// }
 
 function updateNb(load_id, pathNB) {
 
@@ -58,11 +69,10 @@ function updateNb(load_id, pathNB) {
     var url = './Controller/handle_like.php';
     xhr.open('POST', url, true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    // On souhaite juste récupérer le contenu du fichier, la méthode GET suffit amplement :
 
-    xhr.addEventListener('readystatechange', function() { // On gère ici une requête asynchrone
+    xhr.addEventListener('readystatechange', function() {
 
-        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) { // Si le fichier est chargé sans erreur
+        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
             var ret = xhr.responseText;
              console.log("Ret NB = ");
              console.log(ret);
@@ -70,7 +80,33 @@ function updateNb(load_id, pathNB) {
             document.getElementById(pathNB+img_id).innerHTML = ret;
         }
     });
-    xhr.send(to_send); // La requête est prête, on envoie tout !
+    xhr.send(to_send);
+    // window.scroll(0,findPos(document.getElementById('img_id'.img_id)));
+}
+
+function refreshComment(load_id, path) {
+    var xhr = new XMLHttpRequest();
+    
+    tab = load_id.split(';');
+    var img_id = tab[1];
+    var to_send = 'action=refreshComment&img_id='+img_id;
+    var textcomment = 'test';
+    var url = './Controller/handle_like.php';
+
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+    xhr.addEventListener('readystatechange', function() {
+
+        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+            var ret = xhr.responseText;
+            console.log("Ret = ");
+            console.log(ret);
+            console.log(path+img_id);
+            document.getElementById(path+img_id).innerHTML = ret;
+        }
+    });
+    xhr.send(to_send);
 }
 
 function loadHeart(load_id) {
@@ -83,8 +119,10 @@ function loadHeart(load_id) {
 function addComment(load_id) {
     var path = 'addcomment';
     var pathNB = 'nbcomments';
+    var pathRefresh = 'lastcomment';
     preparetoHandle(load_id, path);
     updateNb(load_id, pathNB);
+    refreshComment(load_id, pathRefresh);
 }
 
 
