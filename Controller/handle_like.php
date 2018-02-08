@@ -32,8 +32,8 @@ include("../Controller/userForm.php");
 // DEBUG
 
 include("../DEBUG_print.php");
-      echo "</br>POST</br>";
-      print_r($_POST);
+    //    echo "</br>POST</br>";
+    //    print_r($_POST);
 
 // if (array_key_exists('action', $_POST)) {
 //     $_SESSION['scroll'] = 'img_id' . $_POST['img_id'];
@@ -119,17 +119,17 @@ include("../DEBUG_print.php");
                     $author = $value['u_login'];
                     $created = $value['date_creation'];
                     $text = $value['text_comment'];
+                    $img_id = $_POST['img_id'];
                     $to_print .= "<div class='one_comment'><span class='author'>$author</span><span class='created'>$created</span><span>$text</span></div>
                 <div class='add_comment'></div>";
                 }
-                $to_print .= "<a href='#' id='undisplaycomment;$key' onClick='undisplayComment(this.id)'>Fermer les autres comments</a>";
+                $to_print .= "<a href='#' id='undisplaycomment;$img_id' onClick='undisplayComment(this.id)'>Fermer les autres comments</a>";
             }
         }
         else if ($_POST['action'] == 'undisplayComment') {
             $key = $_POST['img_id'];
-            echo "<br /> KEY ===========  $key <br />";
             $Manager = new CommentsManager();
-            $nb_comments_todisplay = $Manager->count_id(TRUE, "img_id", $key);
+            $nb_comments_todisplay = $Manager->count_id(TRUE, "img_id", $key) - 1;
             $to_print= "<a href='#'id='displaycomment;$key' onClick='displayComment(this.id)'>Afficher 
             <span class='nb_comments' id=nbcomments;$key>$nb_comments_todisplay Comment(s)</a>";
         }

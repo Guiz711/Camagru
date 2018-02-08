@@ -206,6 +206,8 @@ function displayComment(load_id) {
 }
 
 function undisplayComment(load_id) {
+    console.log('UNDISPLAY');
+    console.log(load_id);
     var path = 'show_comment';
     preparetoUnDisplay(load_id, path);
 }
