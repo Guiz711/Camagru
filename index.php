@@ -90,8 +90,8 @@
 					</div>
 					<div class=comment_part id=comment_part$key>";
 					if ($nb_comments_todisplay > 0) {
-						echo "<div class show_comment$key><a href='#'id=displaycomment$key>Afficher 
-							<span class='nb_comments' id=nbcomments;$key>$nb_comments_todisplay Comment(s)</a></span>";
+						echo "<div class='show_comment' id='show_comment$key'><a href='#'id=displaycomment;$key onClick='displayComment(this.id)'>Afficher 
+							<span class='nb_comments' id=nbcomments;$key>$nb_comments_todisplay Comment(s)</a></span></div>";
 					}
 					if ($nb_comments_todisplay > -1) {
 						$count = count($all_comments) - 1;
