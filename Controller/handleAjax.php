@@ -90,7 +90,7 @@ else if ($_POST['action'] == 'updateNb') {
     else if ($_POST['type'] == 'Comment(s)') {
         $Manager = new CommentsManager();
     }
-    $to_print = $Manager->count_id(TRUE, "img_id", $img_id) - 1;
+    $to_print = $Manager->count_id(TRUE, "img_id", $img_id);
     $to_print .= ' ' . $_POST['type'];
 }
 else if ($_POST['action'] == 'refreshComment' || $_POST['action'] == 'displayComment') {
@@ -111,7 +111,6 @@ else if ($_POST['action'] == 'refreshComment' || $_POST['action'] == 'displayCom
     }
     else if ($_POST['action'] == 'displayComment') {
         unset($all_comments[$count]);
-        // DEBUG_print($all_comments);
         $to_print= '';
         foreach ($all_comments as $img_id => $value) {
             // echo "In foreach";
