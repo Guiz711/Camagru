@@ -35,50 +35,50 @@ print_r($_POST);
 	<div class="img_gallery">
         <div class="content">
 		<?php
-		//  header('Content-Type: text/html; charset=utf-8');
 			$ImagesManager = new ImagesManager();
 			$LikesManager = new LikesManager();
 			$CommentsManager = new CommentsManager();
 			$UsersManager = new UsersManager();
 			$all_imgs = $ImagesManager->select_all_id(FALSE, FALSE, "date_creation desc");
 			$all_imgs = add_path_img($all_imgs);
-			// echo "<br /><br />All Images with Path :<br />";
-			// print_r($all_imgs);
-			// echo "<br /><br />LETS GO PUTS div MEDIA <br /><br />";
 			$i = 1;
 			foreach ($all_imgs as $key => $value) {
-			
-				// echo "<br /><br />ID IMG = $key <br /><br />";
+		
+
+				// Set up Values utiles pour display dans HTML
+
 				$heart = "./resources/001-favorite.png";
-				$action = "like_it";
+				$action = "addLike";
 				$user_id = $_SESSION['user_id'];
 				$var = array('img_id' => $key, 'user_id' => $_SESSION['user_id']);
+
+
 				if ($_SESSION['user_id'] != "unknown" && $LikesManager->is_already_in_bdd($var, 'AND', FALSE) == TRUE) {
 					$heart = "./resources/002-hearts.png";
-					$action = "unlike_it";
+					$action = "killLike";
 				}
 				$nb_likes = $LikesManager->count_id(TRUE, "img_id", $key);
 				$nb_comments_todisplay = $CommentsManager->count_id(TRUE, "img_id", $key) - 1;
 				if ($nb_comments_todisplay > -1) {
-					//  echo "</br ></br >ALL COMMENTS</br >";
 					$all_comments = $CommentsManager->select_all(array('img_id' => $key), FALSE, 'date_creation ASC');
-					//  echo "</br ></br >IN     INEDEX     ALL COMMENTS</br >";
-					//  DEBUG_print($all_comments);
 					foreach ($all_comments as $key2 => $value2) {
 							$user_login = $value2['user_id'];
 							$result = $UsersManager->select_all(array('user_id' => $user_login), FALSE, FALSE);
 							$all_comments[$key2]['u_login'] = $result[0]['u_login'];
 						}
 				}
-				// echo "nb_likes = " . $nb_likes;
-				// echo "nb_comments = " . $nb_comments;
-				echo "<div class=media id=img_id$key><div class='on_piscture'><div class='picture'><img src='$value'></div>
+
+				// Echo des DIVS
+
+				echo "<div class=media id=img_id$key><div class='on_picture'><div class='picture'><img src='$value'></div>
 					<div class='info_picture'>
 					<div class='all_about_like'>
-					<div class='nb_likes' id=nblikes$key>$nb_likes Like(s)</div>";
+					<div class='nb_likes' id=nbLikes$key>$nb_likes Like(s)</div>";
+
+					// Affichage Coeur Clikable (ou pas)
 					if ($_SESSION['user_id'] !== 'unknown') {
-						echo "<div class='add_like' id=addlike$key>
-						<a id='$action;$key;$user_id' href='#' onClick='loadHeart(this.id)'>
+						echo "<div class='add_like' id=handleLike$key>
+						<a id='$action;$key;$user_id' href='#' onClick='handleLike(this.id)'>
 						<img src='$heart'></a>
 						</div>
 						<script src='./Controller/display.js'></script>";
@@ -88,31 +88,34 @@ print_r($_POST);
 					}
 					echo "</div>
 					<div class =created_by>Created by</div>
-					</div>
-					<div class=comment_part id=comment_part$key>";
+					</div>";
+
+					// Affichage Comments
+					echo "<div class=comment_part id=commentPart$key>";
 					if ($nb_comments_todisplay > 0) {
-						echo "<div class='show_comment' id='show_comment$key'><a href='#'id='displaycomment;$key' onClick='displayComment(this.id)'>Afficher 
-							<span class='nb_comments' id=nbcomments;$key>$nb_comments_todisplay Comment(s)</a></span></div>";
+						echo "<div class='show_comment' id='showComment$key'><a href='#'id='displayComment;$key;$user_id' onClick='displayComment(this.id)'>Afficher 
+							<span class='nb_comments' id=nbComments$key>$nb_comments_todisplay Comment(s)</a></span></div>";
 					}
 					if ($nb_comments_todisplay > -1) {
 						$count = count($all_comments) - 1;
 						$author = $all_comments[$count]['u_login'];
 						$created = $all_comments[$count]['date_creation'];
 						$text = $all_comments[$count]['text_comment'];
-							echo "<div class='one_comment' id=lastcomment$key><span class='author'>$author</span>";
+							echo "<div class='one_comment' id=lastComment$key><span class='author'>$author</span>";
 							echo "<span class='created'>$created</span><span>$text</span></div>
-						<div class='add_comment'></div> ";
+						<div class='add_comment'></div>";
+					}
+					else {
+						echo "<div class='one_comment' id=lastComment$key></div>";
 					}
 					if ($_SESSION['user_id'] !== 'unknown') {
-						echo "<div class='add_comment' id=addcomment$key>
-						<input type=text id='textcomment;$key;$user_id'>
-						<div><a href='#' id='addcomment;$key;$user_id' onClick='addComment(this.id)'>POST</a></div></div>
+						echo "<div class='add_comment' id=addComment$key>
+						<input type=text id='textComment;$key;$user_id'>
+						<div><a href='#' id='addComment;$key;$user_id' onClick='addComment(this.id)'>POST</a></div></div>
 						<script src='./Controller/display.js'></script>";
 					}
 				echo "</div>";
 			 };
-		// 	handleImages($all_imgs);
-		// </script>";
 		?>
 		</div>
     </div>
