@@ -11,5 +11,5 @@ function signup_result($res)
 	<span>Mot de Passe:<input type="text" name="passwd1"></span>
 	<span>Confirmer Mot de Passe:<input type="text" name="passwd2"></span>
 	<span>Mail:<input type="email" name="mail"></span>
-	<input type="submit" name="submit" value="Inscription">
+	<input type="submit" name="submit_val" value="Inscription">
 </form>
