@@ -14,7 +14,9 @@ $req = "CREATE TABLE IF NOT EXISTS $table
     passwd VARCHAR(256) NOT NULL,
     mail VARCHAR(50) NOT NULL,
     img_id INT DEFAULT 1,
-    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    cle VARCHAR(32),
+    actif INT DEFAULT 0
 )";
 
 $pdo->query($req);

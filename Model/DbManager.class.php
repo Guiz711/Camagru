@@ -72,6 +72,7 @@ abstract class DbManager
         $prep->execute();
     }
 
+
     public function delete($id)
     {
         $id_key = implode(array_keys($id));
@@ -110,6 +111,8 @@ abstract class DbManager
             return (FALSE);
     }
 
+   
+
     public function select_all($where, $and_or, $order) {
         $req = "SELECT * FROM $this->table";
         if ($where) {
@@ -143,6 +146,7 @@ abstract class DbManager
         }
         return ($result);
     }
+
 
     public function select_all_id($where, $and_or, $order) {
         $req = "SELECT $this->id_name FROM $this->table";
