@@ -18,10 +18,10 @@
 					{
 						let disc = document.querySelector("#disconnect_form");
 
-						console.log("hi");
 						disc.submit();
 					}
-			
+					var modal = document.getElementById('popup_login');
+					modal.style.display = "none";
 					let btn_login = document.querySelector("#disconnect");
 					btn_login.addEventListener("click", disconnect_user, false);
 				</script>

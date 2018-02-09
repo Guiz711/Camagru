@@ -1,5 +1,4 @@
-<html>
-<!-- Barre du haut - Navigation  -->
+<!-- <html>
     <header><div class="header_nav">
         <div class="header_nav_categories"><a id="login" href="#">Login</a></div>
             <div class="header_nav_categories"><a>S'inscrire !</a></div>
@@ -10,9 +9,47 @@
 			let login = document.querySelector("#login_form");
 
 			login.classList.remove("hidden");
-        }
+            
 
+        }
         let btn_login = document.querySelector("#login");
         btn_login.addEventListener("click", show_login_window, false);
     </script>
+</html>  -->
+
+
+<html>
+<head>
+<style>
+
+
+/* 
+.champ_signin{
+
+} */
+
+</style>
+</head>
+
+
+<body>
+    <header><div class="header_nav">
+        <div class="header_nav_categories"><a id="login" href="#" onclick="document.getElementById('popup_login').style.display='block'" style="width:auto;">Login</a></div>
+            <div class="header_nav_categories"><a id="login" href="#" onclick="document.getElementById('popup_signup').style.display='block'" style="width:auto;">S'inscrire !</a></div>
+    </div></header>
+
+<script>
+let popup = document.getElementById('popup_login');
+let popup2 = document.getElementById('popup_signup');
+window.onclick = function(event) {
+if (event.target == popup) {
+        popup.style.display = "none";
+}
+if (event.target == popup2) {
+        popup2.style.display = "none";
+}
+}
+</script>
+
+</body>
 </html>

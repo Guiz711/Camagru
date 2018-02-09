@@ -30,7 +30,6 @@ function user_signup($login, $passwd1, $passwd2, $mail)
 
 function user_signin($login, $passwd)
 {
-	echo 'hey</br>';
 	$user = new UsersManager();
 
 	if (!($res = $user->auth($login, $passwd)) || !password_verify($passwd, $res[0]['passwd'])) {
@@ -39,20 +38,19 @@ function user_signin($login, $passwd)
 	$_SESSION['user_id'] = $res[0]['user_id'];
 	return "Connexion Reussie!</br>";
 }
-
-echo "hello!</br>";
-print_r($_POST);
+// echo "hello!</br>";
+// print_r($_POST);
 if (array_key_exists('submit_val', $_POST)) {	
-	echo $_POST['submit_val'], '</br>';
+	// echo $_POST['submit_val'], '</br>';
 	if ($_POST['submit_val'] == 'Inscription') {
 		$res = user_signup(sanitize_input($_POST['login']), sanitize_input($_POST['passwd1']),
 		sanitize_input($_POST['passwd2']), sanitize_input($_POST['mail']));
 		signup_result($res);
 	}
 	if ($_POST['submit_val'] == 'Connexion') {
-		echo 'Cooooooneeeeeexion...</br>';
+		// echo 'Cooooooneeeeeexion...</br>';
 		$res = user_signin(sanitize_input($_POST['login']), sanitize_input($_POST['passwd']));
-		signin_result($res);
+		// signin_result($res);
 	}
 	if ($_POST['submit_val'] == 'disconnect') {
 		$_SESSION['user_id'] = 'unknown';

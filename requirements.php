@@ -10,6 +10,7 @@ define('DB_DSN', $DB_DSN);
 
 // VIEW
 require_once("./View/signin.php");
+require_once("./View/signup.php");
 require_once("./View/path_img.php");
 
 // MODEL
