@@ -1,6 +1,7 @@
 <html>
 <body>
-    <header><div class="header_nav">
+    <header>
+		<div class="header_nav">
         <div class="header_nav_categories"><a id="login" href="#" onclick="document.getElementById('popup_login').style.display='block'" style="width:auto;">Login</a></div>
             <div class="header_nav_categories"><a id="login" href="#" onclick="document.getElementById('popup_signup').style.display='block'" style="width:auto;">S'inscrire !</a></div>
     </div></header>
@@ -8,12 +9,16 @@
 <script>
 let popup = document.getElementById('popup_login');
 let popup2 = document.getElementById('popup_signup');
+let popup3 = document.getElementById('popup_login_confirm');
 window.onclick = function(event) {
 if (event.target == popup) {
         popup.style.display = "none";
 }
 if (event.target == popup2) {
         popup2.style.display = "none";
+}
+if (event.target == popup3) {
+        popup3.style.display = "none";
 }
 }
 </script>

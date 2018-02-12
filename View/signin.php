@@ -1,20 +1,13 @@
 <?php
 
+
 function signin_result($res)
 {
 	if (is_array($res))
 	{
 		echo $res['msg'];
-		echo "puisqu on est gentils on t'en renvoie un";
-		$login = $res['login'];
-		$cle = $res['cle'];
-		$mail = $res['mail'];
-		$subject = "Activez votre compte" ;
-		$from_who = "From: inscription@camagru.com" ;
-		$message = 'Bienvenue sur le meilleur site dédié aux cookies (les seules autres photos autorisées sont celles de Norminet). Si tu veux toujours participer, active ton compte en cliquant là :
-		http://localhost:8080//camagru_project/index.php?login='.urlencode($login).'&cle='.urlencode($cle).'
-		------------- With <3';
-		mail($mail, $subject, $message, $from_who);
+		$test = "document.getElementById('popup_login_confirm').style.display='block'";
+		echo "<div><a href='#' onclick=$test style='width:auto;'>Renvoyer autre mail</a></div>";
 	}
 
 	else
@@ -22,6 +15,16 @@ function signin_result($res)
 }
 
 ?>
+
+<div id="popup_login_confirm" class="popup_login">
+  
+  <form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?> method="POST">
+   Je veux avoir un nouveau mail
+		<div class="submit_button"><input type="submit"  name="submit_val" id="button_signin" value="confirm_mail"></div>
+		<!-- <div class="cancel_button"><button type="button" onclick="document.getElementById('popup_login_confirm').style.display='none'">Annuler</button></div> -->
+    </div>
+  </form>
+</div>
 
 
 <div id="popup_login" class="popup_login">

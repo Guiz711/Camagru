@@ -43,14 +43,14 @@ function user_signin($login, $passwd)
 	$user = new UsersManager();
 
 	if (!($res = $user->auth($login, $passwd)) || !password_verify($passwd, $res[0]['passwd'])) {
-		return "Connexion échouee, Mauvais login ou mot de passe.</br>";
+		return "Connexion échouée, mauvais login ou mot de passe.</br>";
 	}
 	if ($res[0]['actif'] == 0)
 	{
-		return array("msg" => "Tu as pas encore confirme ton inscription ! Cretin des alpes ! </br>", "login" => $login, "cle" => $res[0]['cle'], "mail" => $res[0]['mail']);
+		return array("msg" => "Tu as pas encore confirmé ton inscription ! Crétin des alpes ! </br>", "login" => $login, "cle" => $res[0]['cle'], "mail" => $res[0]['mail']);
 	}
 	$_SESSION['user_id'] = $res[0]['user_id'];
-	return "Connexion Reussie!</br>";
+	return "Connexion réussie!</br>";
 }
 
 
@@ -68,6 +68,19 @@ if (array_key_exists('submit_val', $_POST)) {
 		$_SESSION['user_id'] = 'unknown';
 		// echo $_SESSION['user_id'];
 	}
+	if ($_POST['submit_val'] == 'confirm_mail') {
+		$login = $res['login'];
+		$cle = $res['cle'];
+		$mail = $res['mail'];
+		$subject = "Activez votre compte" ;
+		$from_who = "From: inscription@camagru.com" ;
+		$message = 'Bienvenue sur le meilleur site dédié aux cookies (les seules autres photos autorisées sont celles de Norminet). Si tu veux toujours participer, active ton compte en cliquant là :
+		http://localhost:8080//camagru_project/index.php?login='.urlencode($login).'&cle='.urlencode($cle).'
+		------------- With <3';
+		mail($mail, $subject, $message, $from_who);
+		echo "Nous venons de t'envoyer un nouveau mail de confirmation";
+	}
+
 }
 else if (isset($_GET['login']) && isset($_GET['cle']))
 {
