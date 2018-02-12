@@ -7,6 +7,7 @@ $db = "db_camagru";
 echo "</br >Creation Tables</br >";
 
 $table = "users";
+$forgot_passwd = md5(microtime(TRUE)*100000);
 $req = "CREATE TABLE IF NOT EXISTS $table 
 (
     user_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -16,7 +17,8 @@ $req = "CREATE TABLE IF NOT EXISTS $table
     img_id INT DEFAULT 1,
     date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     cle VARCHAR(32),
-    actif INT DEFAULT 0
+    actif INT DEFAULT 0,
+	forgot_passwd VARCHAR(32)
 )";
 
 $pdo->query($req);
@@ -70,7 +72,8 @@ $login = "admin";
 $passwd = password_hash('admin', PASSWORD_DEFAULT);
 $mail = "vbaudron@student.42.fr";
 $img = "2";
-$req = "INSERT INTO $table (u_login, passwd, mail, img_id, actif) VALUES ('$login', '$passwd', '$mail', '$img', '1')";
+$forgot_passwd = md5(microtime(TRUE)*100000);
+$req = "INSERT INTO $table (u_login, passwd, mail, img_id, actif, forgot_passwd) VALUES ('$login', '$passwd', '$mail', '$img', '1', '$forgot_passwd')";
 echo "--> Insertion USER : $login</br >";
 
 $pdo->query($req);
@@ -81,7 +84,8 @@ $login = "lea";
 $passwd = password_hash('lea', PASSWORD_DEFAULT);
 $mail = "lesanche@student.42.fr";
 $img = "1";
-$req = "INSERT INTO $table (u_login, passwd, mail, actif) VALUES ('$login', '$passwd', '$mail', '1')";
+$forgot_passwd = md5(microtime(TRUE)*100000);
+$req = "INSERT INTO $table (u_login, passwd, mail, img_id, actif, forgot_passwd) VALUES ('$login', '$passwd', '$mail', '$img', '1', '$forgot_passwd')";
 echo "--> Insertion USER : $login</br >";
 
 $pdo->query($req);

@@ -1,8 +1,6 @@
 <?php
 //include_once("../Model/UsersManager.class.php");
 
-
-
 function is_valid_passwd($passwd)
 {
 	$pattern = '/([0-9]+.*[A-Z]+)|([A-Z]+.*[0-9]+)/';
@@ -81,11 +79,40 @@ if (array_key_exists('submit_val', $_POST)) {
 		mail($mail, $subject, $message, $from_who);
 		echo "Nous venons de t'envoyer un nouveau mail de confirmation";
 	}
-	if ($_POST['submit_val'] == 'pwd_forgotten') {
-		echo "cc";
+	if ($_POST['submit_val'] == 'password_forgotten') {
+		$login = $_POST['login'];
+		$mail = $_POST['mail'];
+		if ($login)
+		{
+			$res = $user->auth($login);
+			$mail = $res[0]['mail'];
+		}
+		$subject = "Reinitialiser votre mot de passe" ;
+		$from_who = "From: password@camagru.com" ;
+		$forgot_passwd = md5(microtime(TRUE)*100000);
+		$user->forgot_passwd($login, $forgot_passwd, $mail);
+		
+		$message = 'Clique la pour reinitialiser ton mot de passe :
+		http://localhost:8080//camagru_project/index.php?login='.urlencode($login).'&forgot_passwd='.urlencode($forgot_passwd).'
+		------------- With <3';
+		mail($mail, $subject, $message, $from_who);
+		echo "Nous venons de t'envoyer un mail pour changer ton mot de passe";
+		}
+	if ($_POST['submit_val'] == 'reinitialize_passwd') {
+			$login = $_POST['login'];
+			$passwd = $_POST['passwd'];
+			$passwd2 = $_POST['passwd2'];
+			if ($mail != $mail2){
+				echo "pas le mm passwd";
+				return;
+			}
+			else
+			{
+				change_passwd($passwd, $login);
+				echo "changement passwd reussi !!";
+			}
+
 	}
-
-
 }
 else if (isset($_GET['login']) && isset($_GET['cle']))
 {
@@ -94,5 +121,21 @@ else if (isset($_GET['login']) && isset($_GET['cle']))
 	$user = new UsersManager();
 	$user->confirm_inscription($login, $cle);
 }
-
+else if (isset($_GET['login']) && isset($_GET['forgot_passwd']))
+{
+	$login = $_GET['login'];
+	$forgot_passwd = $_GET['forgot_passwd'];
+	// reinitialize_passwd($login, $cle);
+	$user = new UsersManager();
+	echo $login;
+	echo $forgot_passwd;
+	if ($user->is_already_in_bdd(array('u_login' => $login, 'forgot_passwd' => $forgot_passwd), "AND", NULL)) 
+	{
+		// reinitialize_passwd($login);
+	}
+	else
+	{
+		echo "<br> not COOL, pas le bon mot de passe";
+	}
+}
 ?>
