@@ -35,7 +35,7 @@ function user_signup($login, $passwd1, $passwd2, $mail)
 	http://localhost:8080//camagru_project/index.php?login='.urlencode($login).'&cle='.urlencode($cle).'
 	------------- With <3';
 	mail($mail, $subject, $message, $from_who) ;
-	return "Inscription a confirmer";
+	return "Inscription à confirmer, tu doia aller voir tes mails et valider";
 }
 
 function user_signin($login, $passwd)
@@ -43,7 +43,7 @@ function user_signin($login, $passwd)
 	$user = new UsersManager();
 
 	if (!($res = $user->auth($login, $passwd)) || !password_verify($passwd, $res[0]['passwd'])) {
-		return "Connexion Echouee, Mauvais login ou mot de passe.</br>";
+		return "Connexion échouee, Mauvais login ou mot de passe.</br>";
 	}
 	if ($res[0]['actif'] == 0)
 	{

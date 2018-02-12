@@ -70,7 +70,7 @@ $login = "admin";
 $passwd = password_hash('admin', PASSWORD_DEFAULT);
 $mail = "vbaudron@student.42.fr";
 $img = "2";
-$req = "INSERT INTO $table (u_login, passwd, mail, img_id) VALUES ('$login', '$passwd', '$mail', '$img')";
+$req = "INSERT INTO $table (u_login, passwd, mail, img_id, actif) VALUES ('$login', '$passwd', '$mail', '$img', '1')";
 echo "--> Insertion USER : $login</br >";
 
 $pdo->query($req);
@@ -81,7 +81,7 @@ $login = "lea";
 $passwd = password_hash('lea', PASSWORD_DEFAULT);
 $mail = "lesanche@student.42.fr";
 $img = "1";
-$req = "INSERT INTO $table (u_login, passwd, mail) VALUES ('$login', '$passwd', '$mail')";
+$req = "INSERT INTO $table (u_login, passwd, mail, actif) VALUES ('$login', '$passwd', '$mail', '1')";
 echo "--> Insertion USER : $login</br >";
 
 $pdo->query($req);
