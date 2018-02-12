@@ -27,9 +27,17 @@ function handleLike(load_id)
     // Prepare addLike
     var action = tab[0];
     var toSend = 'action='+action+'&img_id='+img_id+'&user_id='+user_id;
-    var path = 'allAboutLike';
+    var path = 'handleLike';
 
     preparetoHandle(toSend, path, img_id);
+
+   // Prepare UpdateNbLikes
+   var action = 'updateNb';
+   var type = 'Like(s)';
+   var path = 'nbLikes';
+   var toSend = 'action='+action+'&type='+type+'&img_id='+img_id+'&user_id='+user_id;
+
+   preparetoHandle(toSend, path, img_id);
 }
 
 
@@ -42,23 +50,37 @@ function addComment(load_id)
     var img_id = tab[1];
     var user_id = tab[2];
 
-    var is_displayed = document.getElementById('undisplayComment;'+img_id+';'+user_id);
-    if (is_displayed)
-        is_displayed = true;
-    else
-        is_displayed = false;
-
     // Prepare AddComment
     var action = tab[0];
     var textcomment = document.getElementById('textComment;'+img_id+';'+user_id).value;
-    var path = 'commentPart';
-    var toSend = 'action='+action+'&img_id='+img_id+'&user_id='+user_id+'&text_comment='+textcomment+'&is_displayed='+is_displayed;
+    var path = 'addComment';
+    var toSend = 'action='+action+'&img_id='+img_id+'&user_id='+user_id+'&text_comment='+textcomment;
     console.log('addComment to send =');
     console.log(toSend);
 
     preparetoHandle(toSend, path, img_id);
-}
 
+
+    // Prepare UpdateNbComments
+    var action = 'updateNb';
+    var type = 'Comment(s)';
+    var path = 'nbComments';
+    var toSend = 'action='+action+'&type='+type+'&img_id='+img_id+'&user_id='+user_id;
+    console.log('UpdateNbComments to send =');
+    console.log(toSend);
+
+    preparetoHandle(toSend, path, img_id);
+
+
+    //Prepare RefreshComment
+    var action = 'refreshComment';
+    var path = 'lastComment';
+    var toSend = 'action='+action+'&img_id='+img_id+'&user_id='+user_id;
+    console.log('RefreshComment to send =');
+    console.log(toSend);
+
+    preparetoHandle(toSend, path, img_id);
+}
 
 function displayComment(load_id) {
     tab = load_id.split(';');
@@ -67,7 +89,7 @@ function displayComment(load_id) {
     var user_id = tab[2];
     var action = tab[0];
     var toSend = 'action='+action+'&img_id='+img_id+'&user_id='+user_id;
-    var path = 'commentPart';
+    var path = 'showComment';
 
     preparetoHandle(toSend, path, img_id);
 }

@@ -10,7 +10,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="./View/style_css/style.css">
+	<!-- <link rel="stylesheet" type="text/css" href="./View/style_css/style.css"> -->
 	<title>Camagru</title>
 	<meta charset="UTF-8">
 </head>
@@ -72,7 +72,7 @@
 
 				echo "<div class=media id=img_id$key><div class='on_picture'><div class='picture'><img src='$value'></div>
 					<div class='info_picture'>
-					<div class='all_about_like'>
+					<div class='all_about_like' id=allAboutLike$key>
 					<div class='nb_likes' id=nbLikes$key>$nb_likes Like(s)</div>";
 
 					// Affichage Coeur Clikable (ou pas)
@@ -102,11 +102,7 @@
 						$created = $all_comments[$count]['date_creation'];
 						$text = $all_comments[$count]['text_comment'];
 							echo "<div class='one_comment' id=lastComment$key><span class='author'>$author</span>";
-							echo "<span class='created'>$created</span><span>$text</span></div>
-						<div class='add_comment'></div>";
-					}
-					else {
-						echo "<div class='one_comment' id=lastComment$key></div>";
+							echo "<span class='created'>$created</span><span>$text</span></div>";
 					}
 					if ($_SESSION['user_id'] !== 'unknown') {
 						echo "<div class='add_comment' id=addComment$key>
