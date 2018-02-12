@@ -82,7 +82,7 @@ if (array_key_exists('submit_val', $_POST)) {
 		echo "Nous venons de t'envoyer un nouveau mail de confirmation";
 	}
 	if ($_POST['submit_val'] == 'pwd_forgotten') {
-
+		echo "cc";
 	}
 
 
