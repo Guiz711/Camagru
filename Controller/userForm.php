@@ -35,14 +35,14 @@ function user_signup($login, $passwd1, $passwd2, $mail)
 	http://localhost:8080//camagru_project/index.php?login='.urlencode($login).'&cle='.urlencode($cle).'
 	------------- With <3';
 	mail($mail, $subject, $message, $from_who) ;
-	return "Inscription à confirmer, tu doia aller voir tes mails et valider";
+	return "Inscription à confirmer, tu dois aller voir tes mails et valider";
 }
 
 function user_signin($login, $passwd)
 {
 	$user = new UsersManager();
 
-	if (!($res = $user->auth($login, $passwd)) || !password_verify($passwd, $res[0]['passwd'])) {
+	if (!($res = $user->auth($login)) || !password_verify($passwd, $res[0]['passwd'])) {
 		return "Connexion échouée, mauvais login ou mot de passe.</br>";
 	}
 	if ($res[0]['actif'] == 0)
@@ -53,7 +53,7 @@ function user_signin($login, $passwd)
 	return "Connexion réussie!</br>";
 }
 
-
+$user = new UsersManager();
 if (array_key_exists('submit_val', $_POST)) {	
 	if ($_POST['submit_val'] == 'Inscription') {
 		$res = user_signup(sanitize_input($_POST['login']), sanitize_input($_POST['passwd1']),
@@ -69,9 +69,10 @@ if (array_key_exists('submit_val', $_POST)) {
 		// echo $_SESSION['user_id'];
 	}
 	if ($_POST['submit_val'] == 'confirm_mail') {
-		$login = $res['login'];
-		$cle = $res['cle'];
-		$mail = $res['mail'];
+		$login = $_POST['login'];
+		$res = $user->auth($login);
+		$cle = $res[0]['cle'];
+		$mail = $res[0]['mail'];
 		$subject = "Activez votre compte" ;
 		$from_who = "From: inscription@camagru.com" ;
 		$message = 'Bienvenue sur le meilleur site dédié aux cookies (les seules autres photos autorisées sont celles de Norminet). Si tu veux toujours participer, active ton compte en cliquant là :
@@ -80,6 +81,10 @@ if (array_key_exists('submit_val', $_POST)) {
 		mail($mail, $subject, $message, $from_who);
 		echo "Nous venons de t'envoyer un nouveau mail de confirmation";
 	}
+	if ($_POST['submit_val'] == 'pwd_forgotten') {
+
+	}
+
 
 }
 else if (isset($_GET['login']) && isset($_GET['cle']))

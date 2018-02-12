@@ -27,7 +27,7 @@ class UsersManager extends DbManager {
     //     }
     // }
 
-    public function auth($login, $passwd) {
+    public function auth($login) {
         $req = "SELECT user_id, passwd, mail, cle, actif FROM $this->table WHERE u_login=:u_login";
         // echo "</br >" . $req . "</br >";
         $prep = $this->db->prepare($req);
