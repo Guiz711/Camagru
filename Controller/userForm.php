@@ -50,6 +50,75 @@ function user_signin($login, $passwd)
 	return "Connexion réussie!</br>";
 }
 
+function user_confirm_mail($login)
+{
+	$user = new UsersManager();
+	$res = $user->auth($login);
+	if (empty($res))
+		return (false);
+	$cle = $res[0]['cle'];
+	$mail = $res[0]['mail'];
+	$subject = "Activez votre compte" ;
+	$from_who = "From: inscription@camagru.com" ;
+	$message = 'Bienvenue sur le meilleur site dédié aux cookies (les seules autres photos autorisées sont celles de Norminet). Si tu veux toujours participer, active ton compte en cliquant là :
+	http://localhost:8080//camagru_project/index.php?login='.urlencode($login).'&cle='.urlencode($cle).'
+	------------- With <3';
+	mail($mail, $subject, $message, $from_who);
+	return (true);
+}
+
+function user_password_forgotten($login, $mail)
+{
+	$user = new UsersManager();
+	if(empty($login) && empty($mail))
+		return ("empty_fields");
+	else if(!empty($login) && !empty($mail))
+	{
+		$result = $user->is_already_in_bdd(array('u_login' => $login, 'mail' => $mail), "AND", NULL);
+		if ($result == FALSE)
+			return ("wrong_params");
+	}
+	else if(!empty($login) && empty($mail))
+	{
+		$res = $user->auth($login);
+		$mail = $res[0]['mail'];
+		if ($mail == "")
+			return ("wrong_params");
+	}
+	else if(empty($login) && !empty($mail))
+	{
+		$result = $user->select_all(array('mail' => $mail), FALSE, FALSE);
+		$login = $result[0]['u_login'];
+		if ($login == "")
+			return ("wrong_params");
+	}
+	$subject = "Reinitialiser votre mot de passe" ;
+	$from_who = "From: password@camagru.com" ;
+	$forgot_passwd = md5(microtime(TRUE)*100000);
+	$user->forgot_passwd($login, $forgot_passwd, $mail);
+	$message = 'Bonjour '.$login.', clique la pour reinitialiser ton mot de passe :
+	http://localhost:8080//camagru_project/index.php?login='.urlencode($login).'&forgot_passwd='.urlencode($forgot_passwd).'
+	------------- With <3';
+	mail($mail, $subject, $message, $from_who);
+	return ("mail_sent");
+}
+
+function user_reinitialize_passwd($login, $passwd, $passwd2)
+{
+	$user = new UsersManager();
+	if ($passwd != $passwd2)
+		return ("wrong_params");
+	else
+	{
+		$passwd = password_hash($passwd, PASSWORD_DEFAULT);
+		$user->change_passwd($passwd, $login);
+		$forgot_passwd = md5(microtime(TRUE)*100000);
+		$user->forgot_passwd($login, $forgot_passwd, FALSE);
+		return ("params_changed");
+	}
+
+}
+
 $user = new UsersManager();
 if (array_key_exists('submit_val', $_POST)) {	
 	if ($_POST['submit_val'] == 'Inscription') {
@@ -65,115 +134,34 @@ if (array_key_exists('submit_val', $_POST)) {
 		$_SESSION['user_id'] = 'unknown';
 	}
 	if ($_POST['submit_val'] == 'confirm_mail') {
-		$login = $_POST['login'];
-		$res = $user->auth($login);
-		$cle = $res[0]['cle'];
-		$mail = $res[0]['mail'];
-		$subject = "Activez votre compte" ;
-		$from_who = "From: inscription@camagru.com" ;
-		$message = 'Bienvenue sur le meilleur site dédié aux cookies (les seules autres photos autorisées sont celles de Norminet). Si tu veux toujours participer, active ton compte en cliquant là :
-		http://localhost:8080//camagru_project/index.php?login='.urlencode($login).'&cle='.urlencode($cle).'
-		------------- With <3';
-		mail($mail, $subject, $message, $from_who);
-		echo "Nous venons de t'envoyer un nouveau mail de confirmation";
+		$res = user_confirm_mail(sanitize_input($_POST['login']));
+		display_result_userform($res, 'confirm_mail');
 	}
-
-
 	if ($_POST['submit_val'] == 'password_forgotten') {
-		if(empty($_POST['login']) && empty($_POST['mail']))
-		{
-			 echo "tu dois remplir au moins un des deux champs";
-			 return;
-		}
-		else if(!empty($_POST['login']) && !empty($_POST['mail']))
-		{
-			$login = $_POST['login'];
-			$mail = $_POST['mail'];
-			$result = $user->is_already_in_bdd(array('u_login' => $login, 'mail' => $mail), "AND", NULL);
-			if ($result == FALSE)
-			{
-				echo "pas la bonne combinaison de mail / login";
-				return;
-			}
-		}
-		else if(!empty($_POST['login']) && empty($_POST['mail']))
-		{
-			$login = $_POST['login'];
-			$res = $user->auth($login);
-			$mail = $res[0]['mail'];
-			echo $mail;
-			if ($mail == "")
-			{
-				echo "personne avec ce login ds la bdd";
-				return;
-			}
-		}
-		else if(empty($_POST['login']) && !empty($_POST['mail']))
-		{
-			$mail = $_POST['mail'];
-			$UsersManager = new UsersManager();
-			$result = $UsersManager->select_all(array('mail' => $mail), FALSE, FALSE);
-			$login = $result[0]['u_login'];
-			if ($login == "")
-			{
-				echo "personne avec ce mail ds la bdd";
-				return;
-			}
-		}
-		$subject = "Reinitialiser votre mot de passe" ;
-		$from_who = "From: password@camagru.com" ;
-		$forgot_passwd = md5(microtime(TRUE)*100000);
-		$user->forgot_passwd($login, $forgot_passwd, $mail);
-		
-		$message = 'Bonjour '.$login.', clique la pour reinitialiser ton mot de passe :
-		http://localhost:8080//camagru_project/index.php?login='.urlencode($login).'&forgot_passwd='.urlencode($forgot_passwd).'
-		------------- With <3';
-		mail($mail, $subject, $message, $from_who);
-		echo "Nous venons de t'envoyer un mail pour changer ton mot de passe";
-		}
-
-
+		$res = user_password_forgotten(sanitize_input($_POST['login']), 
+			sanitize_input($_POST['mail']));
+		display_result_userform($res, 'password_forgotten');
+	}
 	if ($_POST['submit_val'] == 'reinitialize_passwd') {
-			$login = $_POST['login'];
-			$passwd = $_POST['passwd'];
-			$passwd2 = $_POST['passwd2'];
-			if ($passwd != $passwd2){
-				echo "pas le mm passwd";
-				return;
-			}
-			else
-			{
-				$passwd = password_hash($passwd, PASSWORD_DEFAULT);
-				$user->change_passwd($passwd, $login);
-				echo "changement passwd reussi !!";
-				$forgot_passwd = md5(microtime(TRUE)*100000);
-				$user->forgot_passwd($login, $forgot_passwd, FALSE);
-				
-			}
-
+		$res = user_reinitialize_passwd(sanitize_input($_POST['login']), 
+			sanitize_input($_POST['passwd']), sanitize_input($_POST['passwd2']));
+		display_result_userform($res, 'reinitialize_passwd');
 	}
 }
 else if (isset($_GET['login']) && isset($_GET['cle']))
 {
-	$login = $_GET['login'];
-	$cle = $_GET['cle'];
-	$user = new UsersManager();
+	$login = sanitize_input($_GET['login']);
+	$cle = sanitize_input($_GET['cle']);
 	$user->confirm_inscription($login, $cle);
 }
 else if (isset($_GET['login']) && isset($_GET['forgot_passwd']))
 {
-	$login = $_GET['login'];
-	$forgot_passwd = $_GET['forgot_passwd'];
-	// reinitialize_passwd($login, $cle);
-	$user = new UsersManager();
+	$login = sanitize_input($_GET['login']);
+	$forgot_passwd = sanitize_input($_GET['forgot_passwd']);
 	if ($user->is_already_in_bdd(array('u_login' => $login, 'forgot_passwd' => $forgot_passwd), "AND", NULL)) 
-	{
-		echo "<script> display_popup_reinitialize_password() </script>";
-		
-	}
+		$res = "script";		
 	else
-	{
-		echo "<br> not COOL, pas le bon mot de passe";
-	}
+		$res = "wrong_params";
+	display_result_userform($res, 'get_reinitialize_passwd');
 }
 ?>

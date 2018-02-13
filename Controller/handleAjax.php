@@ -65,7 +65,7 @@ if ($_POST['action'] == 'addLike' || $_POST['action'] == 'killLike') {
         $action = 'killLike';
         $heart = './resources/002-hearts.png';
         $to_print = "<div class='add_like' id=handleLike$img_id><a id='$action;$img_id;$user_id' href='#' onClick='handleLike(this.id)'>
-        <img src='$heart'></a></div>";
+        <img src='$heart' class='like'></a></div>";
     }
     else if ($_POST['action'] == 'killLike') {
         $id_to_delete = $LikesManager->select_all_id($data, "AND", FALSE);
@@ -74,7 +74,7 @@ if ($_POST['action'] == 'addLike' || $_POST['action'] == 'killLike') {
         $LikesManager->delete($tab);
         $action = 'addLike';
         $to_print = "<a id='$action;$img_id;$user_id' href='#' onClick='handleLike(this.id)'>
-        <img src='$heart'></a><script src='./Controller/display.js'></script>";
+        <img src='$heart' class='like'></a><script src='./Controller/display.js'></script>";
     }
 
     // Update NbLikes

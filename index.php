@@ -33,15 +33,10 @@
 	<?php
 	require("./requirements.php");
 	if ($_SESSION["user_id"] !== "unknown")
-	{
 		include("./View/header_user.html");
-	}
 	else
-	{
 		include("./View/header_visitor.html");
-	
-	}
-?>
+	?>
 
 	</header>
 	<div class="img_gallery">
@@ -99,7 +94,7 @@
 						<script src='./Controller/display.js'></script>";
 					}
 					else {
-						echo "<div class='add_like'><img src='$heart'></a></div>";
+						echo "<div class='add_like'><img src='$heart' class='like'></a></div>";
 					}
 					echo "</div>
 					<div class =created_by>Created by</div>
@@ -120,15 +115,14 @@
 							echo "<span class='created'>$created</span><span>$text</span></div>";
 					}
 					if ($_SESSION['user_id'] !== 'unknown') {
-						echo "TESTTTTTT";
 						echo "<div class='add_comment' id=addComment$key>
 						<input type=text id='textComment;$key;$user_id'>
 						<div><a href='#' id='addComment;$key;$user_id' onClick='addComment(this.id)'>POST</a></div></div>";
 					}
-					echo "<script src='./Controller/display.js'></script>";
-				   echo "</div>";
-				  echo "</div>";
-				  echo "</div>";
+				echo "<script src='./Controller/display.js'></script>";
+				echo "</div>";
+				echo "</div>";
+				echo "</div>";
 			 };
 			 echo "</div>";
 		?>

@@ -13,6 +13,18 @@ function signin_result($res)
 		echo $res;
 }
 
+function display_result_userform($res, $action)
+{
+	if ($res == "script" && $action == "get_reinitialize_passwd") {
+		echo "<script> display_popup_reinitialize_password() </script>";
+	}
+	else {
+	echo $res;
+	echo " ";
+	echo $action;
+	}
+}
+
 
 
 // function reinitialize_passwd()
