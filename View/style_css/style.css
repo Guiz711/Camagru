@@ -15,14 +15,25 @@
 } */
 
 .popup_login {
+	display: none; 
+	position: fixed; 
+	 z-index: 1;  
+	 width: 100%;
+	 height: 100%; 
+	 overflow: auto; 
+	 background-color: rgba(0,0,0,0.7); 
+	 color : white; 
+}
+
+.popup_reinitialize_password{
     display: none; 
-    position: fixed; 
-    z-index: 1; 
+   position: fixed; 
+    z-index: 1;  
     width: 100%;
     height: 100%; 
-    overflow: auto;
+    overflow: auto; 
     background-color: rgba(0,0,0,0.7); 
-    color : white;
+    color : white; 
 }
 
 .popup_pwd_forgotten {
@@ -35,6 +46,7 @@
     background-color: rgba(0,0,0,0.7); 
     color : white;
 }
+
 
 
 
@@ -53,7 +65,7 @@
     margin-left:5vw;
     margin-top:15vh;
     width: 40vw;
-    background-color: red;
+    /* background-color: red; */
     padding: 5px;
 }
 

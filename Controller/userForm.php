@@ -1,5 +1,4 @@
 <?php
-//include_once("../Model/UsersManager.class.php");
 
 function is_valid_passwd($passwd)
 {
@@ -102,14 +101,18 @@ if (array_key_exists('submit_val', $_POST)) {
 			$login = $_POST['login'];
 			$passwd = $_POST['passwd'];
 			$passwd2 = $_POST['passwd2'];
-			if ($mail != $mail2){
+			if ($passwd != $passwd2){
 				echo "pas le mm passwd";
 				return;
 			}
 			else
 			{
-				change_passwd($passwd, $login);
+				$passwd = password_hash($passwd, PASSWORD_DEFAULT);
+				$user->change_passwd($passwd, $login);
 				echo "changement passwd reussi !!";
+				$forgot_passwd = md5(microtime(TRUE)*100000);
+				$user->forgot_passwd($login, $forgot_passwd, FALSE);
+				
 			}
 
 	}
@@ -127,11 +130,10 @@ else if (isset($_GET['login']) && isset($_GET['forgot_passwd']))
 	$forgot_passwd = $_GET['forgot_passwd'];
 	// reinitialize_passwd($login, $cle);
 	$user = new UsersManager();
-	echo $login;
-	echo $forgot_passwd;
 	if ($user->is_already_in_bdd(array('u_login' => $login, 'forgot_passwd' => $forgot_passwd), "AND", NULL)) 
 	{
-		// reinitialize_passwd($login);
+		echo "<script> display_popup_reinitialize_password() </script>";
+		
 	}
 	else
 	{
