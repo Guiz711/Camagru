@@ -17,8 +17,8 @@ trait SelectElem {
                 }
             }
         }
-        echo "</br >RESULT Traite</br >";
-        print_r($tab);
+        // echo "</br >RESULT Traite</br >";
+        // print_r($tab);
         return ($tab);
     }
 }

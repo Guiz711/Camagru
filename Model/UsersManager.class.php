@@ -8,28 +8,10 @@ class UsersManager extends DbManager {
             echo "UsersManager --> constructed</br >";
     }
     
-    // public function auth($login, $passwd) {
-    //     $req = "SELECT * FROM $this->table WHERE u_login=:u_login AND passwd=:passwd";
-    //     // echo "</br >" . $req . "</br >";
-    //     $prep = $this->db->prepare($req);
-    //     $prep->bindValue(":u_login", $login);
-    //     $prep->bindValue(":passwd", $passwd);
-    //     $prep->execute();
-    //     $result = $prep->fetchAll();
-    //     if (array_key_exists('0', $result))
-    //     {
-    //         echo "</br >HELLO $login We found YOU ;) </br >";
-    //         return (TRUE);
-    //     }
-    //     else {
-    //         echo "</br >Hey $login Are you real ?? </br >";
-    //         return (FALSE);
-    //     }
-    // }
-
     public function auth($login) {
         $req = "SELECT user_id, passwd, mail, cle, actif FROM $this->table WHERE u_login=:u_login";
-        // echo "</br >" . $req . "</br >";
+		if ($this->verbose)
+			echo "</br >" . $req . "</br >";
         $prep = $this->db->prepare($req);
         $prep->bindValue(":u_login", $login);
         $prep->execute();
@@ -58,7 +40,6 @@ class UsersManager extends DbManager {
         $prep->bindValue(":login", $login);
         $prep->execute();
 	}
-	
 	
 	public function forgot_passwd($login, $forgot_passwd, $mail)
     {
