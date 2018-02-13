@@ -12,6 +12,7 @@ define('DB_DSN', $DB_DSN);
 
 // VIEW
 require_once("../View/path_img.php");
+require_once("../View/view.php");
 
 // MODEL
 require_once("../Model/DbManager.class.php");
