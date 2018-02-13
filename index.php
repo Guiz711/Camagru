@@ -79,7 +79,7 @@
 
 				echo "<div class=media id=media$key>
 					<div onscroll=SetDivPosition() id='divTest'></div>
-					<div class='on_picture'><div class='picture'><img src='$value' height=1000px ></div>
+					<div class='on_picture'><div class='picture'><div class='hover_top hidden'></div><img src='$value' height=1000px ><div class='hover_bottom hidden'></div></div>
 					
 					<div class='info_picture'>
 					<div class='all_about_like' id=allAboutLike$key>
@@ -129,6 +129,6 @@
 		</div>
     </div>
 	<?php include("./View/footer.html"); ?>
-
+	<script src='./Controller/thumbnails.js'></script>
 </body>
 </html>
