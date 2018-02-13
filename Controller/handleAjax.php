@@ -146,11 +146,13 @@ else {
             $to_print .= "<div class='one_comment'><span class='author'>$author</span>";
             $to_print .= "<span class='created'>$created</span><span>$text</span></div>";
         }
-    }
-    $to_print .= "<div class='add_comment' id=addComment$img_id>
-                        <input type=text id='textComment;$img_id;$user_id'>
-                        <div><a href='#' id='addComment;$img_id;$user_id' onClick='addComment(this.id)'>POST</a></div></div>
-                        <script src='./Controller/display.js'></script>";
+	}
+	if ($user_id != "unknown") {
+		$to_print .= "<div class='add_comment' id=addComment$img_id>
+							<input type=text id='textComment;$img_id;$user_id'>
+							<div><a href='#' id='addComment;$img_id;$user_id' onClick='addComment(this.id)'>POST</a></div></div>
+							<script src='./Controller/display.js'></script>";
+	}
 }
 
 echo $to_print;

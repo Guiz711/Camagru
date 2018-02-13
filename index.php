@@ -120,6 +120,7 @@
 							echo "<span class='created'>$created</span><span>$text</span></div>";
 					}
 					if ($_SESSION['user_id'] !== 'unknown') {
+						echo "TESTTTTTT";
 						echo "<div class='add_comment' id=addComment$key>
 						<input type=text id='textComment;$key;$user_id'>
 						<div><a href='#' id='addComment;$key;$user_id' onClick='addComment(this.id)'>POST</a></div></div>";
