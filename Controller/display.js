@@ -57,6 +57,7 @@ function addComment(load_id)
     console.log(toSend);
 
     preparetoHandle(toSend, path, img_id);
+    element.scrollIntoView('commentPart'+img_id);
 }
 
 
