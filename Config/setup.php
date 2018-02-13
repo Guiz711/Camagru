@@ -109,6 +109,40 @@ echo "--> Insertion IMAGE : 2 </br >";
 
 $pdo->query($req);
 
+$table = "$db.images";
+$user_id = "1";
+$img_description = "Ceci est une image geniale";
+$req = "INSERT INTO $table (user_id, img_description) VALUES ('$user_id', '$img_description')";
+echo "--> Insertion IMAGE : 3 </br >";
+
+$pdo->query($req);
+
+
+$table = "$db.images";
+$user_id = "1";
+$img_description = "Ceci est une image de dingue";
+$req = "INSERT INTO $table (user_id, img_description) VALUES ('$user_id', '$img_description')";
+echo "--> Insertion IMAGE : 4 </br >";
+
+$pdo->query($req);
+
+$table = "$db.images";
+$user_id = "1";
+$img_description = "Ceci est une image inspirante";
+$req = "INSERT INTO $table (user_id, img_description) VALUES ('$user_id', '$img_description')";
+echo "--> Insertion IMAGE : 5 </br >";
+
+$pdo->query($req);
+
+$table = "$db.images";
+$user_id = "1";
+$img_description = "Ceci est une image ouf";
+$req = "INSERT INTO $table (user_id, img_description) VALUES ('$user_id', '$img_description')";
+echo "--> Insertion IMAGE : 6 </br >";
+
+$pdo->query($req);
+
+
 // INSERTION LIKE
 
 $table = "$db.likes";

@@ -84,7 +84,8 @@
 
 				echo "<div class=media id=media$key>
 					<div onscroll=SetDivPosition() id='divTest'></div>
-					<div class='on_picture'><div class='picture'><img src='$value'></div>
+					<div class='on_picture'><div class='picture'><img src='$value' height=1000px ></div>
+					
 					<div class='info_picture'>
 					<div class='all_about_like' id=allAboutLike$key>
 					<div class='nb_likes' id=nbLikes$key>$nb_likes Like(s)</div>";
@@ -93,7 +94,7 @@
 					if ($_SESSION['user_id'] !== 'unknown') {
 						echo "<div class='add_like' id=handleLike$key>
 						<a id='$action;$key;$user_id' href='#' onClick='handleLike(this.id)'>
-						<img src='$heart'></a>
+						<img src='$heart' class='like'></a>
 						</div>
 						<script src='./Controller/display.js'></script>";
 					}
@@ -121,11 +122,14 @@
 					if ($_SESSION['user_id'] !== 'unknown') {
 						echo "<div class='add_comment' id=addComment$key>
 						<input type=text id='textComment;$key;$user_id'>
-						<div><a href='#' id='addComment;$key;$user_id' onClick='addComment(this.id)'>POST</a></div></div>
-						<script src='./Controller/display.js'></script>";
+						<div><a href='#' id='addComment;$key;$user_id' onClick='addComment(this.id)'>POST</a></div></div>";
 					}
-				echo "</div>";
+					echo "<script src='./Controller/display.js'></script>";
+				   echo "</div>";
+				  echo "</div>";
+				  echo "</div>";
 			 };
+			 echo "</div>";
 		?>
 		</div>
     </div>
