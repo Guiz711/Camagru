@@ -68,7 +68,9 @@ function signin_result($res)
 <div id="popup_login_password_forgotten" class="popup_pwd_forgotten">
   
   <form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?> method="POST">
-  		<div class="champ_signin">Login <input type="text" placeholder="Login" required="" oninvalid="this.setCustomValidity('Merci de remplir ce champ.')" oninput="setCustomValidity('')" name="login"></div>
+  redonne ton login et/ou ton mail stp
+		  <div class="champ_signin">Login <input type="text" placeholder="Login" oninvalid="this.setCustomValidity('Merci de remplir ce champ.')" oninput="setCustomValidity('')" name="login"></div>
+		  <div class="champ_signin">Adresse e-mail <input type="email" placeholder="Mail" oninvalid="this.setCustomValidity('Merci de remplir ce champ.')" oninput="setCustomValidity('')" name="mail"></div>
 		<div class="submit_button"><input type="submit"  name="submit_val" id="button_signin" value="password_forgotten"></div>
 		<!-- <div class="cancel_button"><button type="button" onclick="document.getElementById('popup_login_confirm').style.display='none'">Annuler</button></div> -->
     </div>

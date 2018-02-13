@@ -63,7 +63,6 @@ if (array_key_exists('submit_val', $_POST)) {
 	}
 	if ($_POST['submit_val'] == 'disconnect') {
 		$_SESSION['user_id'] = 'unknown';
-		// echo $_SESSION['user_id'];
 	}
 	if ($_POST['submit_val'] == 'confirm_mail') {
 		$login = $_POST['login'];
@@ -78,25 +77,62 @@ if (array_key_exists('submit_val', $_POST)) {
 		mail($mail, $subject, $message, $from_who);
 		echo "Nous venons de t'envoyer un nouveau mail de confirmation";
 	}
+
+
 	if ($_POST['submit_val'] == 'password_forgotten') {
-		$login = $_POST['login'];
-		$mail = $_POST['mail'];
-		if ($login)
+		if(empty($_POST['login']) && empty($_POST['mail']))
 		{
+			 echo "tu dois remplir au moins un des deux champs";
+			 return;
+		}
+		else if(!empty($_POST['login']) && !empty($_POST['mail']))
+		{
+			$login = $_POST['login'];
+			$mail = $_POST['mail'];
+			$result = $user->is_already_in_bdd(array('u_login' => $login, 'mail' => $mail), "AND", NULL);
+			if ($result == FALSE)
+			{
+				echo "pas la bonne combinaison de mail / login";
+				return;
+			}
+		}
+		else if(!empty($_POST['login']) && empty($_POST['mail']))
+		{
+			$login = $_POST['login'];
 			$res = $user->auth($login);
 			$mail = $res[0]['mail'];
+			echo $mail;
+			if ($mail == "")
+			{
+				echo "personne avec ce login ds la bdd";
+				return;
+			}
+		}
+		else if(empty($_POST['login']) && !empty($_POST['mail']))
+		{
+			$mail = $_POST['mail'];
+			$UsersManager = new UsersManager();
+			$result = $UsersManager->select_all(array('mail' => $mail), FALSE, FALSE);
+			$login = $result[0]['u_login'];
+			if ($login == "")
+			{
+				echo "personne avec ce mail ds la bdd";
+				return;
+			}
 		}
 		$subject = "Reinitialiser votre mot de passe" ;
 		$from_who = "From: password@camagru.com" ;
 		$forgot_passwd = md5(microtime(TRUE)*100000);
 		$user->forgot_passwd($login, $forgot_passwd, $mail);
 		
-		$message = 'Clique la pour reinitialiser ton mot de passe :
+		$message = 'Bonjour '.$login.', clique la pour reinitialiser ton mot de passe :
 		http://localhost:8080//camagru_project/index.php?login='.urlencode($login).'&forgot_passwd='.urlencode($forgot_passwd).'
 		------------- With <3';
 		mail($mail, $subject, $message, $from_who);
 		echo "Nous venons de t'envoyer un mail pour changer ton mot de passe";
 		}
+
+
 	if ($_POST['submit_val'] == 'reinitialize_passwd') {
 			$login = $_POST['login'];
 			$passwd = $_POST['passwd'];
