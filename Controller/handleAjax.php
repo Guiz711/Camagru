@@ -100,7 +100,7 @@ else {
         $CommentsManager->insert($data);
     }
 
-    // Has to Be Display ?
+    // Has to Be Displayed ?
 
     if ($_POST['action'] == 'displayComment')
         $_POST['is_displayed'] = 'true';

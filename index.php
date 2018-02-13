@@ -13,6 +13,18 @@
 	<!-- <link rel="stylesheet" type="text/css" href="./View/style_css/style.css"> -->
 	<title>Camagru</title>
 	<meta charset="UTF-8">
+	<script type="text/javascript">
+        window.onload = function () {
+            var h = document.getElementById("<%=keep.ClientID%>");
+            document.getElementById("divTest").scrollTop = h.value;
+            alert(h.value);
+        }
+      function SetDivPosition(){
+        var intY = document.getElementById("divTest").scrollTop;
+        var h = document.getElementById("<%=keep.ClientID%>");
+        h.value = intY;
+      }
+    </script>
 </head>
 <body>
 
@@ -70,7 +82,9 @@
 
 				// Echo des DIVS
 
-				echo "<div class=media id=img_id$key><div class='on_picture'><div class='picture'><img src='$value'></div>
+				echo "<div class=media id=media$key>
+					<div onscroll=SetDivPosition() id='divTest'></div>
+					<div class='on_picture'><div class='picture'><img src='$value'></div>
 					<div class='info_picture'>
 					<div class='all_about_like' id=allAboutLike$key>
 					<div class='nb_likes' id=nbLikes$key>$nb_likes Like(s)</div>";
