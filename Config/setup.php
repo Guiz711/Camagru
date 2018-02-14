@@ -160,7 +160,7 @@ $user_id = "1";
 $img_id = "2";
 $text_comment = "This is an admin comment";
 $req = "INSERT INTO $table (user_id, img_id, text_comment) VALUES ('$user_id', '$img_id', '$text_comment')";
-echo "--> Insertion COMMENT '$text_comment' fron User $user_id on image $img_id </br ></br >";
+echo "--> Insertion COMMENT '$text_comment' from User $user_id on image $img_id </br ></br >";
 
 $pdo->query($req);
 
