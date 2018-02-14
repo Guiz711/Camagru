@@ -1,20 +1,23 @@
 <html>
     <!-- Barre du haut - Navigation  -->
         <header><div class="header_nav">
+				<div class="header_nav_categories">
+						<a href='./index.php'>Accueil</a>
+					</div>
             <div class="header_nav_categories">
-				<a id="disconnect" href="#">Se déconnecter
-					<form id="disconnect_form" action="index.php" method="POST">
-						<input class="hidden" type="text" name="submit_val" value="disconnect">
-					</form>
-					
-				</a>
-			</div>
-            <div class="header_nav_categories">
-				<a>Mon profil</a>
+					<a href='./myprofile.php'>Mon profil</a>
 			</div>
 			<div class="header_nav_categories">
 					<a href='./photomontage.php'>Faire un photomontage</a>
 			</div>
+			<div class="header_nav_categories">
+					<a id="disconnect" href="#">Se déconnecter
+						<form id="disconnect_form" action="index.php" method="POST">
+							<input class="hidden" type="text" name="submit_val" value="disconnect">
+						</form>
+						
+					</a>
+				</div>
 		</div></header>
 				<script>
 					function disconnect_user()
