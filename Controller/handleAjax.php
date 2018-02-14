@@ -32,43 +32,22 @@ require_once("../DEBUG_print.php");
 
 
 // echo "</br>POST</br>";
-// print_r($_POST);
+// print_r($post);
 
 
-// SETUP des Variables
-
-if ($_POST['action'] == 'addLike' || $_POST['action'] == 'killLike') {
+function handle_like($img_id, $user_id, $data, $post) 
+{
     $LikesManager = new LikesManager();
-}
-else {
-    $CommentsManager = new CommentsManager();
-}
 
-
-$img_id = $_POST['img_id'];
-$user_id = $_POST['user_id'];
-$to_print = "";
-
-
-if ($_POST['action'] == 'addComment' || $_POST['action'] == 'addLike' || $_POST['action'] == 'killLike') {
-    $data = array('user_id' => $user_id, 'img_id' => $img_id);
-}
-
-// ACTIONS
-
-
-// Like or Unlike
-if ($_POST['action'] == 'addLike' || $_POST['action'] == 'killLike') {
-
-    // Handle New Likes
-    if ($_POST['action'] == 'addLike') {
+     // Handle New Likes
+    if ($post['action'] == 'addLike') {
         $LikesManager->insert($data);
         $action = 'killLike';
         $heart = './resources/002-hearts.png';
         $to_print = "<div class='add_like' id=handleLike$img_id><a id='$action;$img_id;$user_id' href='#' onClick='handleLike(this.id)'>
         <img src='$heart' class='like'></a></div>";
     }
-    else if ($_POST['action'] == 'killLike') {
+    else if ($post['action'] == 'killLike') {
         $id_to_delete = $LikesManager->select_all_id($data, "AND", FALSE);
         $tab = array('like_id' => $id_to_delete[0]);
         $heart = "./resources/001-favorite.png";
@@ -86,27 +65,31 @@ if ($_POST['action'] == 'addLike' || $_POST['action'] == 'killLike') {
         $nbLikes .= ' Like';
     $nbLikes .= "</div><div class='add_like' id=handleLike$img_id>";
     $to_print = $nbLikes . $to_print;
+    echo $to_print;
 }
-else {
 
- // Handle Comments
+function handle_comments($img_id, $user_id, $data, $post) 
+{
+    $CommentsManager = new CommentsManager();
+
+    // Handle Comments
 
     $UsersManager = new UsersManager();
-    $action = $_POST['action'];
+    $action = $post['action'];
 
-    if ($_POST['action'] == 'addComment') {
+    if ($post['action'] == 'addComment') {
 
         // Insert New Comment
-        $data['text_comment'] = $_POST['text_comment'];
+        $data['text_comment'] = $post['text_comment'];
         $CommentsManager->insert($data);
     }
 
     // Has to Be Displayed ?
 
-    if ($_POST['action'] == 'displayComment')
-        $_POST['is_displayed'] = 'true';
-    else if ($_POST['action'] == 'undisplayComment')
-        $_POST['is_displayed'] = 'false';
+    if ($post['action'] == 'displayComment')
+        $post['is_displayed'] = 'true';
+    else if ($post['action'] == 'undisplayComment')
+        $post['is_displayed'] = 'false';
 
     // Find All Comments
     $all_comments = $CommentsManager->select_all(array('img_id' => $img_id), FALSE, 'date_creation ASC');
@@ -116,7 +99,7 @@ else {
         $all_comments[$key]['u_login'] = $result[0]['u_login'];
     }
 
-    if ($_POST['is_displayed'] == 'false') {
+    if ($post['is_displayed'] == 'false') {
         
         $nbComments = count($all_comments) - 1;
 
@@ -153,9 +136,26 @@ else {
 							<input type=text id='textComment;$img_id;$user_id'>
 							<div><a href='#' id='addComment;$img_id;$user_id' onClick='addComment(this.id)'>POST</a></div></div>
 							<script src='./Controller/display.js'></script>";
-	}
+    }
+    echo $to_print;
 }
 
-echo $to_print;
+
+$img_id = $_POST['img_id'];
+$user_id = $_POST['user_id'];
+
+$post = $_POST;
+
+if ($_POST['action'] == 'addLike' || $_POST['action'] == 'killLike') {
+    $data = array('user_id' => $user_id, 'img_id' => $img_id);
+    handle_like($img_id, $user_id, $data, $post);
+}
+else {
+    if ($post['action'] == 'addComment')
+        $data = array('user_id' => $user_id, 'img_id' => $img_id);
+    else
+        $data = null;
+    handle_comments($img_id, $user_id, $data, $post);
+}
 
 ?>
