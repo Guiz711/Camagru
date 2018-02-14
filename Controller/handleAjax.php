@@ -48,8 +48,8 @@ function handle_like($img_id, $user_id, $data, $post)
         <img src='$heart' class='like'></a></div>";
     }
     else if ($post['action'] == 'killLike') {
-        $id_to_delete = $LikesManager->select_all_id($data, "AND", FALSE);
-        $tab = array('like_id' => $id_to_delete[0]);
+        $id_to_delete = $LikesManager->select_all($data, "AND", FALSE);
+        $tab = array('like_id' => $id_to_delete[0]['like_id']);
         $heart = "./resources/001-favorite.png";
         $LikesManager->delete($tab);
         $action = 'addLike';
@@ -71,10 +71,10 @@ function handle_like($img_id, $user_id, $data, $post)
 function handle_comments($img_id, $user_id, $data, $post) 
 {
     $CommentsManager = new CommentsManager();
+    $UsersManager = new UsersManager();
 
     // Handle Comments
 
-    $UsersManager = new UsersManager();
     $action = $post['action'];
 
     if ($post['action'] == 'addComment') {
@@ -91,17 +91,10 @@ function handle_comments($img_id, $user_id, $data, $post)
     else if ($post['action'] == 'undisplayComment')
         $post['is_displayed'] = 'false';
 
-    // Find All Comments
-    $all_comments = $CommentsManager->select_all(array('img_id' => $img_id), FALSE, 'date_creation ASC');
-    foreach ($all_comments as $key => $value) {
-        $user_login = $value['user_id'];
-        $result = $UsersManager->select_all(array('user_id' => $user_login), FALSE, FALSE);
-        $all_comments[$key]['u_login'] = $result[0]['u_login'];
-    }
 
     if ($post['is_displayed'] == 'false') {
         
-        $nbComments = count($all_comments) - 1;
+        $nbComments = $CommentsManager->count_id(TRUE, "img_id", $img_id) - 1;
 
         // Display 'Afficher Comments' + Update Nb Comment
         if ($nbComments > 0) {
@@ -110,21 +103,28 @@ function handle_comments($img_id, $user_id, $data, $post)
         }
 
         // Display Last Comment
-        $author = $all_comments[$nbComments]['u_login'];
-        $created = $all_comments[$nbComments]['date_creation'];
-        $text = $all_comments[$nbComments]['text_comment'];
+        $lastComment = $CommentsManager->find_last($img_id);
+        $findAuthorComment = $UsersManager->find_login($lastComment[0]['user_id']);
+
+        $author = $findAuthorComment[0]['u_login'];
+        $created = $lastComment[0]['date_creation'];
+        $text = $lastComment[0]['text_comment'];
 
         $to_print .= "<div class='one_comment' id=lastComment$img_id><span class='author'>$author</span>";
         $to_print .= "<span class='created'>$created</span><span>$text</span></div>
         <div class='add_comment'></div>";
     }
     else {
+
+        $all_comments = $CommentsManager->select_all(array('img_id' => $img_id), FALSE, 'date_creation ASC');
+
         // Display 'Fermer les commentaires'
         $to_print = "<div class='show_comment' id='showComment$img_id'><a href='#'id='undisplayComment;$img_id;$user_id' onClick='displayComment(this.id)'>Fermer les comments</a></span></div>";
 
         // Display All Comments
         foreach ($all_comments as $key => $value) {
-            $author = $value['u_login'];
+            $findAuthorComment = $UsersManager->find_login($value['user_id']);
+            $author = $findAuthorComment[0]['u_login'];
             $created = $value['date_creation'];
             $text = $value['text_comment'];
             $to_print .= "<div class='one_comment'><span class='author'>$author</span>";
@@ -140,6 +140,15 @@ function handle_comments($img_id, $user_id, $data, $post)
     echo $to_print;
 }
 
+function deleteImg($img_id) {
+    $ImagesManager = new ImagesManager();
+    $ImagesManager->delete(array('img_id' => $img_id));
+    $LikesManager = new LikesManager();
+    $LikesManager->delete(array('img_id' => $img_id));
+    $CommentsManager = new CommentsManager();
+    $CommentsManager->delete(array('img_id' => $img_id));
+    echo "";
+}
 
 $img_id = $_POST['img_id'];
 $user_id = $_POST['user_id'];
@@ -149,6 +158,9 @@ $post = $_POST;
 if ($_POST['action'] == 'addLike' || $_POST['action'] == 'killLike') {
     $data = array('user_id' => $user_id, 'img_id' => $img_id);
     handle_like($img_id, $user_id, $data, $post);
+}
+else if ($_POST['action'] == 'deleteImg') {
+    deleteImg($img_id);
 }
 else {
     if ($post['action'] == 'addComment')
