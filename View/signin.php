@@ -49,8 +49,6 @@
 </div>
 
 <script>
-
-
 let button_password_forgotten = document.getElementById('pwd_forgotten');
 button_password_forgotten.addEventListener('click', () => {
 	let popup = document.getElementById('popup_login');
@@ -64,6 +62,24 @@ button_password_forgotten.addEventListener('click', () => {
 {
 	let popup_reinitialize_password = document.getElementById('popup_reinitialize_password');
 		popup_reinitialize_password.style.display = 'block';
-}
-		
+}		
 </script>
+
+<script>
+	function	display_popup_result()
+{
+	let popup_result = document.getElementById('popup_result');
+		popup_result.style.display = 'block';
+}		
+
+	function delete_popup($type)
+{
+	let popup6 = document.getElementById($type);
+		window.onclick = function(event) {
+		if (event.target == popup6) {
+			popup6.style.display = 'none';
+		}}
+}
+</script>
+
+
