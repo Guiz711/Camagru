@@ -66,16 +66,16 @@ button_password_forgotten.addEventListener('click', () => {
 </script>
 
 <script>
-function	display_popup_result($type)
+function	display_popup_result(type)
 {
 	let popup_result = document.getElementById($type);
 	popup_result.style.display = 'block';
 }		
 
-function delete_popup($type)
+function delete_popup(type)
 {
-console.log($type);
-	let popup = document.getElementById($type);
+console.log(type);
+	let popup = document.getElementById(type);
 	console.log('je veux savoir');
 	console.log(popup);
 		window.onclick = function(event) 

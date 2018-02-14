@@ -14,5 +14,5 @@
 </div>
 
 <script>
-delete_popup("popup_modify")
+delete_popup('popup_modify')
 </script>

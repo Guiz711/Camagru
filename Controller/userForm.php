@@ -126,6 +126,11 @@ function user_reinitialize_passwd($login, $passwd, $passwd2)
 		$user->forgot_passwd($login, $forgot_passwd, FALSE);
 		return ("Ton mot de passe a bien été modifié");
 	}
+}
+
+function user_modify($newlogin, $newpasswd, $newmail, $password)
+{
+	$user = new UsersManager();
 
 }
 
@@ -156,6 +161,12 @@ if (array_key_exists('submit_val', $_POST)) {
 		$res = user_reinitialize_passwd(sanitize_input($_POST['login']), 
 			sanitize_input($_POST['passwd']), sanitize_input($_POST['passwd2']));
 		display_result_userform($res, 'reinitialize_passwd');
+	}
+	if ($_POST['submit_val'] == 'modify') {
+		$res = user_modify(sanitize_input($_POST['newlogin']), 
+			sanitize_input($_POST['newpasswd']), sanitize_input($_POST['newmail']), 
+			sanitize_input($_POST['password']));
+		display_result_userform($res, 'modify');
 	}
 }
 else if (isset($_GET['login']) && isset($_GET['cle']))

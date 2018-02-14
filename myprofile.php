@@ -30,4 +30,7 @@ if (!array_key_exists('user_id', $_SESSION))
 </body>
 <footer>     <?php include("./View/footer.html"); ?></footer>
 
+<script>
+</script>
+
 </html>
