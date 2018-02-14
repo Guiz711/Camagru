@@ -72,3 +72,19 @@ function displayComment(load_id) {
 
     preparetoHandle(toSend, path, img_id);
 }
+
+function deleteImg(load_id) {
+    tab = load_id.split(';');
+    
+        var img_id = tab[1];
+        var user_id = tab[2];
+        var action = tab[0];
+        var toSend = 'action='+action+'&img_id='+img_id+'&user_id='+user_id;
+        var path = 'media';
+        
+        console.log('deleteImg to send =');
+        console.log(toSend);
+
+    
+        preparetoHandle(toSend, path, img_id);
+}

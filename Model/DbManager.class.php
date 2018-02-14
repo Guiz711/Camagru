@@ -73,14 +73,14 @@ abstract class DbManager
     }
 
 
-    public function delete($id)
+    public function delete($where)
     {
-        $id_key = implode(array_keys($id));
+        $id_key = implode(array_keys($where));
         $req = "DELETE FROM $this->table WHERE $id_key=:$id_key";
         if ($this->verbose)
             echo "</br >" . $req . "</br >";
         $prep = $this->db->prepare($req);
-        $prep->bindValue(":" . $id_key, $id[$id_key]);
+        $prep->bindValue(":" . $id_key, $where[$id_key]);
         $prep->execute();
     }
 
