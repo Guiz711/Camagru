@@ -1,8 +1,6 @@
-function preparetoHandle(toSend, path, img_id)
+function preparetoHandle(toSend, path, img_id, url)
 {
     var xhr = new XMLHttpRequest();
-    
-    var url = './Controller/handleAjax.php';
 
     xhr.open('POST', url, true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -17,6 +15,23 @@ function preparetoHandle(toSend, path, img_id)
     xhr.send(toSend);
 }
 
+function preparetoHandleLastChild(toSend, elem, img_id, url)
+{
+    var xhr = new XMLHttpRequest();
+
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+    xhr.addEventListener('readystatechange', function() {
+
+        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+            var ret = xhr.responseText;
+            elem.appendChild(ret);
+        }
+    });
+    xhr.send(toSend);
+}
+
 function handleLike(load_id) 
 {
     tab = load_id.split(';');
@@ -24,12 +39,14 @@ function handleLike(load_id)
     var img_id = tab[1];
     var user_id = tab[2];
 
+    var url = './Controller/handleAjax.php';
+
     // Prepare addLike
     var action = tab[0];
     var toSend = 'action='+action+'&img_id='+img_id+'&user_id='+user_id;
     var path = 'allAboutLike';
 
-    preparetoHandle(toSend, path, img_id);
+    preparetoHandle(toSend, path, img_id, url);
 }
 
 
@@ -41,6 +58,8 @@ function addComment(load_id)
 
     var img_id = tab[1];
     var user_id = tab[2];
+
+    var url = './Controller/handleAjax.php';
 
     var is_displayed = document.getElementById('undisplayComment;'+img_id+';'+user_id);
     if (is_displayed)
@@ -56,7 +75,7 @@ function addComment(load_id)
     console.log('addComment to send =');
     console.log(toSend);
 
-    preparetoHandle(toSend, path, img_id);
+    preparetoHandle(toSend, path, img_id, url);
     element.scrollIntoView('commentPart'+img_id);
 }
 
@@ -67,10 +86,13 @@ function displayComment(load_id) {
     var img_id = tab[1];
     var user_id = tab[2];
     var action = tab[0];
+
+    var url = './Controller/handleAjax.php';
+
     var toSend = 'action='+action+'&img_id='+img_id+'&user_id='+user_id;
     var path = 'commentPart';
 
-    preparetoHandle(toSend, path, img_id);
+    preparetoHandle(toSend, path, img_id, url);
 }
 
 function deleteImg(load_id) {
@@ -79,6 +101,9 @@ function deleteImg(load_id) {
         var img_id = tab[1];
         var user_id = tab[2];
         var action = tab[0];
+
+        var url = './Controller/handleAjax.php';
+
         var toSend = 'action='+action+'&img_id='+img_id+'&user_id='+user_id;
         var path = 'media';
         
@@ -86,5 +111,25 @@ function deleteImg(load_id) {
         console.log(toSend);
 
     
-        preparetoHandle(toSend, path, img_id);
+        preparetoHandle(toSend, path, img_id, url);
+}
+
+function displayMore(load_id) {
+    tab = load_id.split(';');
+    
+        var action = tab[0];
+        var nb = tab[1];
+
+        var url = './Controller/displayMedia.php';
+
+        var toSend = 'action='+action+'&nb='+nb;
+        var path = 'displayMore';
+        
+        console.log('deleteImg to send =');
+        console.log(toSend);
+
+        var lastChild = document.getElementById("content_index");
+
+    
+        preparetoHandleLastChild(toSend, lastChild, nb, url);
 }
