@@ -66,19 +66,25 @@ button_password_forgotten.addEventListener('click', () => {
 </script>
 
 <script>
-	function	display_popup_result()
+function	display_popup_result($type)
 {
-	let popup_result = document.getElementById('popup_result');
-		popup_result.style.display = 'block';
+	let popup_result = document.getElementById($type);
+	popup_result.style.display = 'block';
 }		
 
-	function delete_popup($type)
+function delete_popup($type)
 {
-	let popup6 = document.getElementById($type);
-		window.onclick = function(event) {
-		if (event.target == popup6) {
-			popup6.style.display = 'none';
-		}}
+console.log($type);
+	let popup = document.getElementById($type);
+	console.log('je veux savoir');
+	console.log(popup);
+		window.onclick = function(event) 
+		{
+			console.log('je veux savoir2');
+		if (event.target == popup) {
+			popup.style.display = 'none';
+		}
+	}
 }
 </script>
 

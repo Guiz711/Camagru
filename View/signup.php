@@ -1,9 +1,9 @@
 <?php
 
-function signup_result($res)
-{
-	echo $res;
-}
+// function signup_result($res)
+// {
+// 	echo $res;
+// }
 
 ?>
 

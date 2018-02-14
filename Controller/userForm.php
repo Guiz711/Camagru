@@ -9,11 +9,20 @@ function user_signup($login, $passwd1, $passwd2, $mail)
 {
 	$user = new UsersManager();
 	if (strlen($login) < LOGIN_LEN)
-		return "SignUP FAILED : Login too short</br >";
+	{
+		$res = "Votre login est trop court.";
+		return ($res);
+	}
 	if (strlen($passwd1) < PASSWD_LEN)
-		return "SignUP FAILED : Password too short</br >";
+	{
+		$res = "Votre mot de passe est trop court.";
+		return ($res);
+	}
 	if ($passwd1 !== $passwd2)
-		return "SignUP FAILED : Password confirmation different</br >";
+	{
+		$res = "Attention, les deux mots de passe ne sont pas pareils";
+		return ($res);
+	}
 	$passwd = password_hash($passwd1, PASSWORD_DEFAULT);
 	if ($user->is_already_in_bdd(array('u_login' => $login, 'mail' => $mail), "OR", NULL)) {
 		echo "SignUP FAILED : Login or mail already exists </br >";
@@ -32,7 +41,8 @@ function user_signup($login, $passwd1, $passwd2, $mail)
 	http://localhost:8080//camagru_project/index.php?login='.urlencode($login).'&cle='.urlencode($cle).'
 	------------- With <3';
 	mail($mail, $subject, $message, $from_who) ;
-	return "Inscription à confirmer, tu dois aller voir tes mails et valider";
+	$res = 'Inscription à confirmer, tu dois aller voir tes mails et valider';
+	return ($res);
 }
 
 function user_signin($login, $passwd)
@@ -71,32 +81,32 @@ function user_password_forgotten($login, $mail)
 {
 	$user = new UsersManager();
 	if(empty($login) && empty($mail))
-		return ("empty_fields");
+		return ("Les champs doivent être remplis");
 	else if(!empty($login) && !empty($mail))
 	{
 		$result = $user->is_already_in_bdd(array('u_login' => $login, 'mail' => $mail), "AND", NULL);
 		if ($result == FALSE)
-			return ("wrong_params");
+			return ("Les champs remplis ne sont pas exacts");
 	}
 	else if(!empty($login) && empty($mail))
 	{
 		$res = $user->auth($login);
 		$mail = $res[0]['mail'];
 		if ($mail == "")
-			return ("wrong_params");
+			return ("Le champ rempli n'est pas exact");
 	}
 	else if(empty($login) && !empty($mail))
 	{
 		$result = $user->select_all(array('mail' => $mail), FALSE, FALSE);
 		$login = $result[0]['u_login'];
 		if ($login == "")
-			return ("wrong_params");
+			return ("Le champ rempli n'est pas exact");
 	}
-	$subject = "Reinitialiser votre mot de passe" ;
+	$subject = "Réinitialiser votre mot de passe" ;
 	$from_who = "From: password@camagru.com" ;
 	$forgot_passwd = md5(microtime(TRUE)*100000);
 	$user->forgot_passwd($login, $forgot_passwd, $mail);
-	$message = 'Bonjour '.$login.', clique la pour reinitialiser ton mot de passe :
+	$message = 'Bonjour '.$login.', clique sur le lien suivant pour réinitialiser ton mot de passe :
 	http://localhost:8080//camagru_project/index.php?login='.urlencode($login).'&forgot_passwd='.urlencode($forgot_passwd).'
 	------------- With <3';
 	mail($mail, $subject, $message, $from_who);
@@ -106,15 +116,15 @@ function user_password_forgotten($login, $mail)
 function user_reinitialize_passwd($login, $passwd, $passwd2)
 {
 	$user = new UsersManager();
-	if ($passwd != $passwd2)
-		return ("wrong_params");
+	if ($passwd != $passwd2 || strlen($passwd) < PASSWD_LEN)
+		return ("Les mots de passe sont trop courts et/ou ne sont pas identiques");
 	else
 	{
 		$passwd = password_hash($passwd, PASSWORD_DEFAULT);
 		$user->change_passwd($passwd, $login);
 		$forgot_passwd = md5(microtime(TRUE)*100000);
 		$user->forgot_passwd($login, $forgot_passwd, FALSE);
-		return ("params_changed");
+		return ("Ton mot de passe a bien été modifié");
 	}
 
 }
@@ -161,7 +171,7 @@ else if (isset($_GET['login']) && isset($_GET['forgot_passwd']))
 	if ($user->is_already_in_bdd(array('u_login' => $login, 'forgot_passwd' => $forgot_passwd), "AND", NULL)) 
 		$res = "script";		
 	else
-		$res = "wrong_params";
+		$res = "Lien erroné";
 	display_result_userform($res, 'get_reinitialize_passwd');
 }
 ?>
