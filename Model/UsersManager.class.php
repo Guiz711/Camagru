@@ -54,6 +54,16 @@ class UsersManager extends DbManager {
 		return($forgot_passwd);
     }
 
+    public function find_login($id) {
+        $req = "SELECT u_login FROM $this->table WHERE user_id=:user_id";
+        if ($this->verbose)
+            echo "</br >" . $req . "</br >";
+		$prep = $this->db->prepare($req);
+		$prep->bindValue(":user_id", $id);
+        $prep->execute();
+        $result = $prep->fetchAll();
+        return ($result);
+    }
 }
 
 ?>

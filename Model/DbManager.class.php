@@ -80,7 +80,7 @@ abstract class DbManager
         if ($this->verbose)
             echo "</br >" . $req . "</br >";
         $prep = $this->db->prepare($req);
-        $prep->bindValue(":" . $id_key, $$where[$id_key]);
+        $prep->bindValue(":" . $id_key, $where[$id_key]);
         $prep->execute();
     }
 
