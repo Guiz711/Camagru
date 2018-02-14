@@ -128,9 +128,36 @@ function user_reinitialize_passwd($login, $passwd, $passwd2)
 	}
 }
 
-function user_modify($newlogin, $newpasswd, $newmail, $password)
+function user_modify($newlogin, $newpasswd, $newmail, $passwd)
 {
 	$user = new UsersManager();
+	$id = $_SESSION['user_id'];
+	$find_login = $user->find_login($id);
+	$login = $find_login[0]['u_login'];
+	if ($login == $newlogin)
+	{
+		echo "c'est deja ce login que tu as";
+		return("c'est deja ce login que tu as");
+	}
+	$res = $user->auth($login);
+	if (!password_verify($passwd, $res[0]['passwd'])) {
+		echo "pas le bon mdp";
+		return "pas le bon mdp";
+	}
+	if ($newpasswd == $passwd) {
+		echo "change de mot de passe";
+		return "pas le bon mdp";
+	}
+	if ($newpasswd != "" && strlen($newpasswd) < PASSWD_LEN) {
+		echo "mdp trop court";
+		return "pas le bon mdp";
+	}
+	
+
+
+	echo "<br>";
+	echo "<br>";
+	return ("cool");
 
 }
 
@@ -162,10 +189,15 @@ if (array_key_exists('submit_val', $_POST)) {
 			sanitize_input($_POST['passwd']), sanitize_input($_POST['passwd2']));
 		display_result_userform($res, 'reinitialize_passwd');
 	}
-	if ($_POST['submit_val'] == 'modify') {
+	if ($_POST['submit_val'] == 'modify_user') {
+		echo "POST <br>";
+		echo "POST <br>";
+		echo "POST <br>";
+		echo "POST <br>";
+		echo "POST <br>";
 		$res = user_modify(sanitize_input($_POST['newlogin']), 
 			sanitize_input($_POST['newpasswd']), sanitize_input($_POST['newmail']), 
-			sanitize_input($_POST['password']));
+			sanitize_input($_POST['passwd']));
 		display_result_userform($res, 'modify');
 	}
 }
