@@ -67,12 +67,23 @@ class UsersManager extends DbManager {
 
     public function user_modify($id, $tomodify, $val) {
         $req = "UPDATE $this->table SET $tomodify=:val WHERE user_id=:id";
-        // if ($this->verbose)
+        if ($this->verbose)
             echo "</br >" . $req . "</br >";
 		$prep = $this->db->prepare($req);
 		$prep->bindValue(":val", $val);
 		$prep->bindValue(":id", $id);
 		$prep->execute();
+    }
+
+    public function find_login_mail_notifications($id) {
+        $req = "SELECT u_login, mail, notifications FROM $this->table WHERE user_id=:user_id";
+        if ($this->verbose)
+            echo "</br >" . $req . "</br >";
+		$prep = $this->db->prepare($req);
+		$prep->bindValue(":user_id", $id);
+        $prep->execute();
+        $result = $prep->fetchAll();
+        return ($result);
     }
 }
 

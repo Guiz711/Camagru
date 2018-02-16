@@ -187,6 +187,16 @@ body {
     min-height: 10em;
 }
 
+.modify_myprofile {
+	/* flex: 1; */
+    padding-left: 0.25em;
+    padding-top: 0.25em;
+    /* position: relative; */
+    /* overflow: hidden; */
+    /* background-color: red; */
+}
+
+
  .content .media a {
     display: block;
 }

@@ -1,5 +1,20 @@
 <?php
 
+function  sendMailComment($img_id){
+    $ImagesManager = new ImagesManager();
+    $user_id = $ImagesManager->find_userid($img_id);
+    $user_id =  $user_id[0]['user_id'];
+    $UsersManager = new UsersManager();
+    $res= $UsersManager->find_login_mail_notifications($user_id);
+    $login = $res[0]['u_login'];
+    $mail = $res[0]['mail'];
+    $subject = "Vous avez recu un commentaire sur une de vos photos" ;
+	$from_who = "From: notification@camagru.com" ;
+	$message = 'Vous avez eu nouveau commentaire sur votre image'.$img_id.'
+	------------- With <3';
+	mail($mail, $subject, $message, $from_who);
+}
+
 function is_valid_passwd($passwd)
 {
 	$pattern = '/([0-9]+.*[A-Z]+)|([A-Z]+.*[0-9]+)/';
@@ -173,6 +188,18 @@ function user_modify($newlogin, $newpasswd, $newpasswd2, $newmail, $passwd)
 	mail($mail, $subject, $message, $from_who);
 	return ("Tes informations ont bien été modifiées");
 }
+function user_modify_preferences()
+{
+	$user = new UsersManager();
+	$id = $_SESSION['user_id'];
+	$res = $user->find_login_mail_notifications($id);
+	if ($res[0]['notifications'] == 0)
+		$user->user_modify($id, 'notifications', 1);
+	else if ($res[0]['notifications'] == 1)
+		$user->user_modify($id, 'notifications', 0);
+	return ("Tes préférences ont bien été modifiées");
+}
+
 
 $user = new UsersManager();
 if (array_key_exists('submit_val', $_POST)) {	
@@ -208,6 +235,10 @@ if (array_key_exists('submit_val', $_POST)) {
 			sanitize_input($_POST['passwd']));
 		display_result_userform($res, 'modify');
 	}
+	if ($_POST['submit_val'] == 'modify_preferences' || $_POST['submit_val'] == 'Changer mes préférences') {
+		$res = user_modify_preferences();
+		display_result_userform($res, 'modify_preferences');
+}
 }
 else if (isset($_GET['login']) && isset($_GET['cle']))
 {
