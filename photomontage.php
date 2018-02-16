@@ -98,6 +98,8 @@ if (!array_key_exists('user_id', $_SESSION))
             video.setAttribute('height', height);
             canvas.setAttribute('width', width);
             canvas.setAttribute('height', height);
+            photo.setAttribute('width', width);
+            photo.setAttribute('height', height);
             streaming = true;    
     });
 
