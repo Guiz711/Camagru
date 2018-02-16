@@ -38,14 +38,16 @@ if (!array_key_exists('user_id', $_SESSION))
 
     </div>
     
-    <div class='img_gallery'> 
-    <div class="photo_media">
+    <div class="img_gallery">
+        <div class="content" id="content_index">
     <?php
             include("./Controller/displayMedia.php");
-            // display_photomontage();
+            display_myprofile();
     ?>
     </div>
     </div>
+	<script src='./Controller/thumbnails.js'></script>
+    
 
    
 	

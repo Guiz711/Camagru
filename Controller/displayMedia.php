@@ -171,6 +171,20 @@ function display_photomontage()
     }
 }
 
+function display_myprofile()
+{
+    $ImagesManager = new ImagesManager();
+    $all_imgs = $ImagesManager->select_all(array('user_id' => $_SESSION['user_id']), FALSE, "date_creation desc");
+    $user_id = $_SESSION['user_id'];
+    $all_imgs = add_path_img($all_imgs);
+
+    foreach ($all_imgs as $key => $value) {
+        $img_id = $value['img_id'];
+        $media = $value;
+        display_one_media($img_id, $user_id, $media);
+    }
+}
+
 if ($_POST['action'] == 'displayMore')
     display_more($_POST['nb']);
 

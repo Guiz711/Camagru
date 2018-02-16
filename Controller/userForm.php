@@ -1,6 +1,9 @@
 <?php
 
 function  sendMailComment($img_id){
+	$folder = getcwd();
+	$folder = explode('/', $folder);
+	echo $folder[count($folder) - 2];
     $ImagesManager = new ImagesManager();
     $user_id = $ImagesManager->find_userid($img_id);
     $user_id =  $user_id[0]['user_id'];
@@ -10,7 +13,7 @@ function  sendMailComment($img_id){
     $mail = $res[0]['mail'];
     $subject = "Vous avez recu un commentaire sur une de vos photos" ;
 	$from_who = "From: notification@camagru.com" ;
-	$message = 'Vous avez eu nouveau commentaire sur votre image'.$img_id.'
+	$message = 'Vous avez eu un nouveau commentaire sur votre image'.$img_id.$folder.'
 	------------- With <3';
 	mail($mail, $subject, $message, $from_who);
 }
@@ -50,10 +53,13 @@ function user_signup($login, $passwd1, $passwd2, $mail)
 			'mail' => $mail,
 			'cle' => $cle
 		));
+	$folder = getcwd();
+	$folder = explode('/', $folder);
+	$folder = $folder[count($folder) - 1];
 	$subject = "Activez votre compte" ;
 	$from_who = "From: inscription@camagru.com" ;
 	$message = 'Bienvenue sur le meilleur site dédié aux cookies (les seules autres photos autorisées sont celles de Norminet). Si tu veux toujours participer, active ton compte en cliquant là :
-	http://localhost:8080//camagru_project/index.php?login='.urlencode($login).'&cle='.urlencode($cle).'
+	http://localhost:8080//'.$folder.'/index.php?login='.urlencode($login).'&cle='.urlencode($cle).'
 	------------- With <3';
 	mail($mail, $subject, $message, $from_who) ;
 	$res = 'Inscription à confirmer, tu dois aller voir tes mails et valider';
@@ -85,8 +91,11 @@ function user_confirm_mail($login)
 	$mail = $res[0]['mail'];
 	$subject = "Activez votre compte" ;
 	$from_who = "From: inscription@camagru.com" ;
+	$folder = getcwd();
+	$folder = explode('/', $folder);
+	$folder = $folder[count($folder) - 1];
 	$message = 'Bienvenue sur le meilleur site dédié aux cookies (les seules autres photos autorisées sont celles de Norminet). Si tu veux toujours participer, active ton compte en cliquant là :
-	http://localhost:8080//camagru_project/index.php?login='.urlencode($login).'&cle='.urlencode($cle).'
+	http://localhost:8080//'.$folder.'/index.php?login='.urlencode($login).'&cle='.urlencode($cle).'
 	------------- With <3';
 	mail($mail, $subject, $message, $from_who);
 	return (true);
@@ -121,8 +130,11 @@ function user_password_forgotten($login, $mail)
 	$from_who = "From: password@camagru.com" ;
 	$forgot_passwd = md5(microtime(TRUE)*100000);
 	$user->forgot_passwd($login, $forgot_passwd, $mail);
+	$folder = getcwd();
+	$folder = explode('/', $folder);
+	$folder = $folder[count($folder) - 1];
 	$message = 'Bonjour '.$login.', clique sur le lien suivant pour réinitialiser ton mot de passe :
-	http://localhost:8080//camagru_project/index.php?login='.urlencode($login).'&forgot_passwd='.urlencode($forgot_passwd).'
+	http://localhost:8080//'.$folder.'/index.php?login='.urlencode($login).'&forgot_passwd='.urlencode($forgot_passwd).'
 	------------- With <3';
 	mail($mail, $subject, $message, $from_who);
 	return ("mail_sent");
