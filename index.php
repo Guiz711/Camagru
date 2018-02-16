@@ -35,7 +35,7 @@
 		?>
 		</div>
     </div>
-	<?php include("./View/footer.html"); ?>
+	<footer>   <?php include("./View/footer.html"); ?> </footer>
 	<script src='./Controller/thumbnails.js'></script>
 </body>
 </html>

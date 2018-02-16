@@ -64,6 +64,16 @@ class UsersManager extends DbManager {
         $result = $prep->fetchAll();
         return ($result);
     }
+
+    public function user_modify($id, $tomodify, $val) {
+        $req = "UPDATE $this->table SET $tomodify=:val WHERE user_id=:id";
+        // if ($this->verbose)
+            echo "</br >" . $req . "</br >";
+		$prep = $this->db->prepare($req);
+		$prep->bindValue(":val", $val);
+		$prep->bindValue(":id", $id);
+		$prep->execute();
+    }
 }
 
 ?>

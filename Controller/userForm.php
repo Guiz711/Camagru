@@ -128,37 +128,50 @@ function user_reinitialize_passwd($login, $passwd, $passwd2)
 	}
 }
 
-function user_modify($newlogin, $newpasswd, $newmail, $passwd)
+function user_modify($newlogin, $newpasswd, $newpasswd2, $newmail, $passwd)
 {
 	$user = new UsersManager();
 	$id = $_SESSION['user_id'];
 	$find_login = $user->find_login($id);
 	$login = $find_login[0]['u_login'];
-	if ($login == $newlogin)
-	{
-		echo "c'est deja ce login que tu as";
-		return("c'est deja ce login que tu as");
-	}
+	$mail= $find_login[0]['mail'];
 	$res = $user->auth($login);
 	if (!password_verify($passwd, $res[0]['passwd'])) {
-		echo "pas le bon mdp";
-		return "pas le bon mdp";
+		return "Le mot de passe entré est erroné";
+	}
+	if ($login == $newlogin)
+	{
+		return("Merci de changer de login");
 	}
 	if ($newpasswd == $passwd) {
-		echo "change de mot de passe";
-		return "pas le bon mdp";
+		return "Merci d'entrer un nouveau mot de passe";
+	}
+	if ($newpasswd != $newpasswd2) {
+		return "Merci d'entrer deux mots de passe identiques";
 	}
 	if ($newpasswd != "" && strlen($newpasswd) < PASSWD_LEN) {
-		echo "mdp trop court";
-		return "pas le bon mdp";
+		return "Merci d'entrer un mot de passe plus long";
 	}
-	
-
-
-	echo "<br>";
-	echo "<br>";
-	return ("cool");
-
+	if ($newmail != "" && $newmail == $res[0]['mail']) {
+		echo "tu as deja ce mail";
+		return "pas le bon mail";
+	}
+	if ($newlogin != ""){
+		$user->user_modify($id, "u_login", $newlogin);
+		$login = $newlogin;
+	}
+	if ($newpasswd != "")
+		$user->user_modify($id, "passwd", password_hash($newpasswd, PASSWORD_DEFAULT));
+	if ($newmail != "")
+	{
+		$user->user_modify($id, "mail", $newmail);
+		$mail = $newmail;
+	}
+	$subject = "Changement de tes informations personnelles" ;
+	$from_who = "From: mail@camagru.com" ;
+	$message = 'Bonjour '.$login.', une ou plusieurs de tes informations personnelles viennent d\'être modifiées. Si ce n\'est pas toi, alors qqn a ton mot de passe. contacte-nous <3';
+	mail($mail, $subject, $message, $from_who);
+	return ("Tes informations ont bien été modifiées");
 }
 
 $user = new UsersManager();
@@ -190,13 +203,8 @@ if (array_key_exists('submit_val', $_POST)) {
 		display_result_userform($res, 'reinitialize_passwd');
 	}
 	if ($_POST['submit_val'] == 'modify_user') {
-		echo "POST <br>";
-		echo "POST <br>";
-		echo "POST <br>";
-		echo "POST <br>";
-		echo "POST <br>";
-		$res = user_modify(sanitize_input($_POST['newlogin']), 
-			sanitize_input($_POST['newpasswd']), sanitize_input($_POST['newmail']), 
+			$res = user_modify(sanitize_input($_POST['newlogin']), 
+			sanitize_input($_POST['newpasswd']), sanitize_input($_POST['newpasswd2']), sanitize_input($_POST['newmail']), 
 			sanitize_input($_POST['passwd']));
 		display_result_userform($res, 'modify');
 	}

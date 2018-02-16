@@ -19,6 +19,7 @@ function signin_result($res)
 	}
 	else
 	{
+		// echo $res;
 		$type = 'popup_result';
 		echo "<div id='$type' class='popup_result' onclick='delete_popup(this.id)' > <span>".$res."</span></div>
 		<script> display_popup_result('$type'); 
@@ -28,7 +29,7 @@ function signin_result($res)
 }
 
 function display_result_userform($res, $action)
-{
+{	
 	if ($res == "script" && $action == "get_reinitialize_passwd") {
 		echo "<script> display_popup_reinitialize_password() </script>";
 	}

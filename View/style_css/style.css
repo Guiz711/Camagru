@@ -15,6 +15,7 @@
 } */
 
 .popup_login {
+    justify-content: center;
 	display: none; 
 	position: fixed; 
 	 z-index: 1;  
@@ -44,8 +45,9 @@
 }
 
 .content_popup {
-    margin-top: 5vh;
-    margin-left: 5vw;
+    /* justify-content: center; */
+    margin-top: 15vh;
+    margin-left: 40vw;
     color: white; 
 }
 
@@ -84,7 +86,7 @@
 
 .popup_signup {
     display: none; 
-    /* position: fixed;  */
+    position: fixed; 
     z-index: 1; 
     width: 100%; 
     height: 100%; 

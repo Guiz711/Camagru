@@ -12,16 +12,12 @@ if (!array_key_exists('user_id', $_SESSION))
 	<title>Camagru</title>
 	<meta charset="UTF-8">
 </head>
-
-
 <body>
-
-	<header><?php
+<header><?php
 	require("./requirements.php");
     include("./View/header_user.html");
     ?></header>
-
-    <div> 
+    <div class='img_gallery'> 
     <a id="login" href="#" onclick="document.getElementById('popup_modify').style.display='block'" style="width:auto;">Modifier mes informations</a></div>
     </div>
       
