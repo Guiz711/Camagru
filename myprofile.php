@@ -39,7 +39,12 @@ if (!array_key_exists('user_id', $_SESSION))
     </div>
     
     <div class='img_gallery'> 
-
+    <div class="photo_media">
+    <?php
+            include("./Controller/displayMedia.php");
+            // display_photomontage();
+    ?>
+    </div>
     </div>
 
    
