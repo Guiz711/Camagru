@@ -6,7 +6,8 @@ let webcam = document.querySelector('.webcam');
 let canvas = document.querySelector('#canvas');
 let photo = document.querySelector('#photo');
 let startbutton = document.querySelector('#startbutton');
-let savebutton = document.querySelector('#savebutton')
+let savebutton = document.querySelector('#savebutton');
+let filters = document.querySelectorAll("div[id^='filter']");
 let width = webcam.offsetWidth;
 let height = 0;
 navigator.getMedia = ( navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
@@ -46,8 +47,6 @@ window.addEventListener('resize', function(ev){
         streaming = true;    
 });
 
-
-
 startbutton.addEventListener('click', function(ev){
     takepicture();
     ev.preventDefault();
@@ -86,6 +85,21 @@ savebutton.addEventListener('click', function(ev){
     uploadpicture();
     ev.preventDefault();
 }, false);
+
+let i = 0;
+while (i < filters.length)
+{
+    filters[i].addEventListener('click', function(){
+        console.log(this);
+        let filterscpy = this.cloneNode(true);
+        console.log(filterscpy);
+        let webcam_content = document.querySelector('#webcam_content');
+        filterscpy.id = 'applied_' + this.id;
+        console.log(filterscpy);
+        webcam_content.appendChild(filterscpy);
+    });
+    i++;
+}
 
 })();
 console.log("Script");

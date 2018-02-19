@@ -142,11 +142,10 @@ function display_photomontage()
 }
 function display_filters()
 {
-    
-    echo "<img class='filterimg' src='./resources/filters/1.png' >";
-    echo "<img class='filterimg' src='./resources/filters/2.png' >";
-    echo "<img class='filterimg' src='./resources/filters/3.png' >";
-    echo "<img class='filterimg' src='./resources/filters/4.png' >";
+    echo "<div id='filter1'><img class='filterimg' src='./resources/filters/1.png' ></div>";
+    echo "<div id='filter2'><img class='filterimg' src='./resources/filters/2.png' ></div>";
+    echo "<div id='filter3'><img class='filterimg' src='./resources/filters/3.png' ></div>";
+    echo "<div id='filter4'><img class='filterimg' src='./resources/filters/4.png' ></div>";
 }
 function display_myprofile()
 {
