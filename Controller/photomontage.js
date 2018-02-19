@@ -6,6 +6,7 @@ let webcam = document.querySelector('.webcam');
 let canvas = document.querySelector('#canvas');
 let photo = document.querySelector('#photo');
 let startbutton = document.querySelector('#startbutton');
+let savebutton = document.querySelector('#savebutton')
 let width = webcam.offsetWidth;
 let height = 0;
 navigator.getMedia = ( navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
@@ -59,6 +60,7 @@ function takepicture(){
     let data = canvas.toDataURL('image/png');
     photo.setAttribute('src', data);
     photo.classList.remove('hidden');
+    savebutton.classList.remove('hidden');
     // alert (photo.getAttribute('src'));
 }
 
