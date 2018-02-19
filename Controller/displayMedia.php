@@ -1,5 +1,5 @@
 <?php
-   session_start();
+//    session_start();
 function display_Likes($img_id, $user_id) {
      
     // Gestion des LIKES
