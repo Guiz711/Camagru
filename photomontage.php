@@ -3,8 +3,6 @@ session_start();
 // print_r($_SESSION);
 if (!array_key_exists('user_id', $_SESSION))
     $_SESSION['user_id'] = "unknown";
-
-
 ?>
 
 <html lang="fr">
@@ -22,35 +20,29 @@ if (!array_key_exists('user_id', $_SESSION))
 	<?php
 	require("./requirements.php");
     include("./View/header_user.html");
+    include("./Controller/displayMedia.php");
     ?>
 	</header>
     <div class="corpus">
-    <button id='startbutton'>Prendre une photo</button>
+    
     <div class="webcam">
-    
     <video id='video'></video>
-    <!-- <div class='canvas_div'> -->
     <canvas id='canvas'></canvas>
-    <!-- </div> -->
     <img src='#' class='hidden' id='photo'> 
-
-   
-
-
-
-
+    
+    <!-- <div><button id='startbutton'>Prendre une photo</button></div> -->
+    <div class="filters">   <?php  display_filters();  ?>   </div>
+    </div>
+    <div class="photo_media">  <?php   display_photomontage(); ?>  </div>
     </div>
     
     
     
-    <div class="photo_media">
-    <?php
-            include("./Controller/displayMedia.php");
-            display_photomontage();
-    ?>
-    </div>
-    </div>
     <?php include("./View/footer.html"); ?>
+
+
+
+
     <script src='./Controller/thumbnails.js'></script>
     <script>
     console.log("Script1");
@@ -63,7 +55,6 @@ if (!array_key_exists('user_id', $_SESSION))
     let startbutton = document.querySelector('#startbutton');
     let width = webcam.offsetWidth;
     let height = 0;
-
     navigator.getMedia = ( navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
     
     navigator.getMedia(
@@ -80,7 +71,6 @@ if (!array_key_exists('user_id', $_SESSION))
         function(err){
             console.log("Une erreur est survenue" + err);}
         );
-
     video.addEventListener('canplay', function(ev){
         if (!streaming){
             height = video.videoHeight / (video.videoWidth/width);
@@ -90,7 +80,6 @@ if (!array_key_exists('user_id', $_SESSION))
             canvas.setAttribute('height', height);
             streaming = true;    
         }}, false);
-
     window.addEventListener('resize', function(ev){
             width = webcam.offsetWidth;
             height = video.videoHeight / (video.videoWidth/width);
@@ -102,7 +91,6 @@ if (!array_key_exists('user_id', $_SESSION))
             photo.setAttribute('height', height);
             streaming = true;    
     });
-
     startbutton.addEventListener('click', function(ev){
         takepicture();
         ev.preventDefault();
@@ -118,10 +106,8 @@ if (!array_key_exists('user_id', $_SESSION))
         // alert (photo.getAttribute('src'));
     }
     
-
     })();
     console.log("Script");
-
     </script>
 </body>
 </html>

@@ -165,6 +165,16 @@ function display_photomontage()
     }
 }
 
+function display_filters()
+{
+
+    
+    echo "<div class='picture'>
+            <img src='./resources/filters/1.png' height=5vh >
+        </div>
+    </div>";
+}
+
 function display_myprofile()
 {
     $ImagesManager = new ImagesManager();
