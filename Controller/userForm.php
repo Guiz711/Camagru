@@ -3,7 +3,7 @@
 function  sendMailComment($img_id){
 	$folder = getcwd();
 	$folder = explode('/', $folder);
-	echo $folder[count($folder) - 2];
+	// echo $folder[count($folder) - 2];
     $ImagesManager = new ImagesManager();
     $user_id = $ImagesManager->find_userid($img_id);
     $user_id =  $user_id[0]['user_id'];
@@ -13,7 +13,7 @@ function  sendMailComment($img_id){
     $mail = $res[0]['mail'];
     $subject = "Vous avez recu un commentaire sur une de vos photos" ;
 	$from_who = "From: notification@camagru.com" ;
-	$message = 'Vous avez eu un nouveau commentaire sur votre image'.$img_id.$folder.'
+	$message = 'Vous avez eu un nouveau commentaire sur votre image
 	------------- With <3';
 	mail($mail, $subject, $message, $from_who);
 }

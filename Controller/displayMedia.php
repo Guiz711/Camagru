@@ -159,9 +159,9 @@ function display_myprofile()
         display_one_media($img_id, $user_id, $media);
     }
 }
-if ($_POST && $_POST['action'] == 'displayMore')
+if ($_POST && array_key_exists('action', $_POST) && $_POST['action'] == 'displayMore')
     display_more($_POST['nb']);
-else if ($_POST && $_POST['action'] == 'IsMoreDisplay')
+else if ($_POST && array_key_exists('action', $_POST) && $_POST['action'] == 'IsMoreDisplay')
     is_moretoDisplay($_POST['nb']);
 
 
