@@ -15,7 +15,32 @@ function preparetoHandle(toSend, path, img_id, url)
     xhr.send(toSend);
 }
 
-function preparetoHandleLastChild(toSend, elem, img_id, url)
+function IsMoreToDisplay(id, action)
+{
+    var xhr = new XMLHttpRequest();
+    var url = './Controller/displayMedia.php';
+    var new_nb = Number(id) + Number(1);
+
+    var toSend = 'action=IsMoreDisplay&nb='+id;
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+    xhr.addEventListener('readystatechange', function() {
+
+        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+            ret = xhr.responseText;
+            console.log("IsMoreToDisplay ret =");
+            console.log(ret);
+            if (ret == 1)
+                document.getElementById(action+';'+id).id = action+';'+new_nb;
+            else
+                document.getElementById(action+';'+id).innerHTML = "";
+        }
+    });
+    xhr.send(toSend);
+}
+
+function preparetoHandleAdd(toSend, action, path, nb, url)
 {
     var xhr = new XMLHttpRequest();
 
@@ -26,7 +51,8 @@ function preparetoHandleLastChild(toSend, elem, img_id, url)
 
         if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
             var ret = xhr.responseText;
-            elem.appendChild(ret);
+            document.getElementById(path).innerHTML += ret;
+            IsMoreToDisplay(nb, action);
         }
     });
     xhr.send(toSend);
@@ -76,7 +102,6 @@ function addComment(load_id)
     console.log(toSend);
 
     preparetoHandle(toSend, path, img_id, url);
-    element.scrollIntoView('commentPart'+img_id);
 }
 
 
@@ -123,13 +148,10 @@ function displayMore(load_id) {
         var url = './Controller/displayMedia.php';
 
         var toSend = 'action='+action+'&nb='+nb;
-        var path = 'displayMore';
+        var path = 'content_index';
         
-        console.log('deleteImg to send =');
+        console.log('DisplayMore to send =');
         console.log(toSend);
-
-        var lastChild = document.getElementById("content_index");
-
     
-        preparetoHandleLastChild(toSend, lastChild, nb, url);
+        preparetoHandleAdd(toSend, action, path, nb, url);
 }

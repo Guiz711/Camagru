@@ -1,6 +1,6 @@
 <?php	
 	session_start();
-	// print_r($_SESSION);
+	//print_r($_SESSION);
 	if (!array_key_exists('user_id', $_SESSION))
 		$_SESSION['user_id'] = "unknown";
 
@@ -10,7 +10,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="./View/style_css/style.css">
+	<!-- <link rel="stylesheet" type="text/css" href="./View/style_css/style.css"> -->
 	<title>Camagru</title>
 	<meta charset="UTF-8">
 </head>
