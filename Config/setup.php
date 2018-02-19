@@ -18,7 +18,8 @@ $req = "CREATE TABLE IF NOT EXISTS $table
     date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     cle VARCHAR(32),
     actif INT DEFAULT 0,
-	forgot_passwd VARCHAR(32)
+	forgot_passwd VARCHAR(32),
+    notifications INT DEFAULT 1
 )";
 
 $pdo->query($req);

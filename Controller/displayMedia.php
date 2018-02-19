@@ -165,7 +165,21 @@ function display_photomontage()
     }
 }
 
-if ($_POST && $_POST['action'] == 'displayMore')
+function display_myprofile()
+{
+    $ImagesManager = new ImagesManager();
+    $all_imgs = $ImagesManager->select_all(array('user_id' => $_SESSION['user_id']), FALSE, "date_creation desc");
+    $user_id = $_SESSION['user_id'];
+    $all_imgs = add_path_img($all_imgs);
+
+    foreach ($all_imgs as $key => $value) {
+        $img_id = $value['img_id'];
+        $media = $value;
+        display_one_media($img_id, $user_id, $media);
+    }
+}
+
+if ($_POST['action'] == 'displayMore')
     display_more($_POST['nb']);
 else if ($_POST && $_POST['action'] == 'IsMoreDisplay')
     is_moretoDisplay($_POST['nb']);

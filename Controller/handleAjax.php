@@ -165,11 +165,14 @@ else if ($_POST['action'] == 'deleteImg') {
     deleteImg($img_id);
 }
 else {
-    if ($post['action'] == 'addComment')
+    if ($post['action'] == 'addComment'){
         $data = array('user_id' => $user_id, 'img_id' => $img_id);
+        sendMailComment($img_id);
+    }
     else
         $data = null;
     handle_comments($img_id, $user_id, $data, $post);
 }
+
 
 ?>

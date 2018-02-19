@@ -1,3 +1,12 @@
+body {
+	width: 99%;
+	/* height: 99%; */
+	display:flex;
+	flex-direction: column;
+	justify-content: center;
+	padding-bottom: 0;
+}
+
 /* form
 {
 	width: 300px;
@@ -14,7 +23,56 @@
     background-color: red;
 } */
 
+
+
+.corpus{
+    display: flex;
+    flex-direction: row;
+    height: 85%;
+
+}
+#photo{
+    position:absolute;
+    top: 0%;
+    left: 0%;
+    z-index:1;
+}
+
+#canvas {
+    position:absolute;
+    top: 0%;
+    left: 0%;
+    z-index:1;
+    display: none;
+}
+
+.startbutton {
+    height : 5vh;
+}
+
+.webcam {
+    /* display:block; */
+     /* display: flex; */
+     position: relative;
+    /* flex:1; */
+    width: 70vw;
+    margin-left : 2px;
+    margin-top : 5px;
+    margin-right : 5px;
+    background-color: grey;
+}
+
+.photo_media {
+    margin-right : 2px;
+    background-color: pink;
+    width : 25vw;
+    height: 100%;
+    /* flex: 1; */
+
+}
+
 .popup_login {
+    justify-content: center;
 	display: none; 
 	position: fixed; 
 	 z-index: 1;  
@@ -44,8 +102,9 @@
 }
 
 .content_popup {
-    margin-top: 5vh;
-    margin-left: 5vw;
+    /* justify-content: center; */
+    margin-top: 15vh;
+    margin-left: 40vw;
     color: white; 
 }
 
@@ -84,7 +143,7 @@
 
 .popup_signup {
     display: none; 
-    /* position: fixed;  */
+    position: fixed; 
     z-index: 1; 
     width: 100%; 
     height: 100%; 
@@ -121,14 +180,7 @@ span
 	justify-content: space-between;
 }
 
-body {
-	width: 99%;
-	height: 99%;
-	display:flex;
-	flex-direction: column;
-	justify-content: center;
-	padding-bottom: 0;
-}
+
 
 #gallery {
 	/* background-color:red; */
@@ -185,12 +237,22 @@ body {
     min-height: 10em;
 }
 
+.modify_myprofile {
+	/* flex: 1; */
+    padding-left: 0.25em;
+    padding-top: 0.25em;
+    /* position: relative; */
+    /* overflow: hidden; */
+    /* background-color: red; */
+}
+
+
  .content .media a {
     display: block;
 }
 
  .picture img {
-    -webkit-transition: -webkit-transform 0.2s ease-in-out;
+    /* -webkit-transition: -webkit-transform 0.2s ease-in-out; */
     transition: transform 0.2s ease-in-out;
     width: 100%;
     height: auto;
@@ -217,7 +279,7 @@ body {
 }
 
 .content .media {
-        -webkit-animation: gallery 0.75s ease-out 0.4s forwards;
+        /* -webkit-animation: gallery 0.75s ease-out 0.4s forwards; */
         animation: gallery 0.75s ease-out 0.4s forwards;
         margin-bottom: 0;
         overflow: hidden;
@@ -244,6 +306,7 @@ body {
 /* Footer */
 
 .footer {
+    position:relative;
     padding: 1.5em 0 1em 0;
     background: #f2f2f2;
 }
