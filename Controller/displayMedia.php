@@ -1,5 +1,5 @@
 <?php
-    session_start();
+   session_start();
 
 function display_Likes($img_id, $user_id) {
      
@@ -87,58 +87,52 @@ function display_one_media($img_id, $user_id, $media)
     $LikesManager = new LikesManager();
     $CommentsManager = new CommentsManager();
     $UsersManager = new UsersManager();
-
-
-    // foreach ($all_imgs as $value) {
-
-    //     $img_id = $value['img_id'];
         
-        $findAuthorId = $UsersManager->find_login($media['user_id']);
-        $ImgAuthorLogin = $findAuthorId[0]['u_login'];
+    $findAuthorId = $UsersManager->find_login($media['user_id']);
+    $ImgAuthorLogin = $findAuthorId[0]['u_login'];
 
-            // Display IMG
-        echo "
-        <div class=media id=media$img_id>
-            <div class='on_picture'>
-                <div class='picture'>
-                    <div class='hover_top hidden'>
-                    </div>
-                    <img src='$media[path_img]' height=1000px >
-                    <div class='hover_bottom hidden'>
-                    </div>
+        // Display IMG
+    echo "
+    <div class=media id=media$img_id>
+        <div class='on_picture'>
+            <div class='picture'>
+                <div class='hover_top hidden'>
                 </div>
-                <div class='info_picture'>";
+                <img src='$media[path_img]' height=1000px >
+                <div class='hover_bottom hidden'>
+                </div>
+            </div>
+            <div class='info_picture'>";
 
-            // Display TRASH (IF)
-        if ($user_id == $media['user_id']) {
-            echo "
-                    <div class='trash' id=deleteImg$img_id>
-                        <a id='deleteImg;$img_id;$user_id' href='#' onClick='deleteImg(this.id)'>
-                        <img src='./resources/trash.png' class='trash'></a>
-                    </div>
-                    <script src='./Controller/display.js'></script>";
-        }
+        // Display TRASH (IF)
+    if ($user_id == $media['user_id']) {
+        echo "
+                <div class='trash' id=deleteImg$img_id>
+                    <a id='deleteImg;$img_id;$user_id' href='#' onClick='deleteImg(this.id)'>
+                    <img src='./resources/trash.png' class='trash'></a>
+                </div>
+                <script language='JavaScript' type='text/javascript' src='./Controller/display.js'></script>";
+    }
         
-            // Display LIKES
-        display_Likes($img_id, $user_id);
-    
-            // Author (& Date ??)
-        echo "<div class =created_by>Created by $ImgAuthorLogin </div></div>";
+        // Display LIKES
+    display_Likes($img_id, $user_id);
 
-            // Display COMMENTS
-        display_Comments($img_id, $user_id);
-    // }
-    // echo "</div>";
+        // Author (& Date ??)
+    echo "<div class =created_by>Created by $ImgAuthorLogin </div></div>";
+
+        // Display COMMENTS
+    display_Comments($img_id, $user_id);
 }
 
 
 function display_index()
 {
     $ImagesManager = new ImagesManager();
-    $all_imgs = $ImagesManager->select_all(FALSE, FALSE, "date_creation DESC LIMIT 3");
+    $all_imgs = $ImagesManager->select_all(FALSE, FALSE, "date_creation DESC LIMIT 10");
 
     $user_id = $_SESSION['user_id'];
     $all_imgs = add_path_img($all_imgs);
+//    DEBUG_print($all_imgs);
 
     foreach ($all_imgs as $key => $value) {
         $img_id = $value['img_id'];
@@ -147,7 +141,7 @@ function display_index()
     }
     // Display Button Display MORE
     $nb_total_imgs = $ImagesManager->count_id(False, null, null);
-    if ($nb_total_imgs > 3) {
+    if ($nb_total_imgs > 10) {
         echo "</div><div class='button-displayMore' id=displayMore1>
         <a id='displayMore;1' href='#' onClick='displayMore(this.id)'>
         Affichez +</a>
@@ -187,40 +181,41 @@ function display_myprofile()
 
 if ($_POST['action'] == 'displayMore')
     display_more($_POST['nb']);
+else if ($_POST && $_POST['action'] == 'IsMoreDisplay')
+    is_moretoDisplay($_POST['nb']);
 
 function display_more($id) {
     // INCLUDES
 
 // CONFIG
-require_once("../Config/database.php");
-require_once('../Config/config.php');
+include("../Config/database.php");
+include('../Config/config.php');
 define('DB_USER', $DB_USER);
 define('DB_PASS', $DB_PASS);
 define('DB_DSN', $DB_DSN);
 
 // VIEW
-require_once("../View/path_img.php");
-require_once("../View/view.php");
+include("../View/path_img.php");
+include("../View/view.php");
 
 // MODEL
-require_once("../Model/DbManager.class.php");
-require_once("../Model/SelectElem.class.php");
-require_once("../Model/ImagesManager.class.php");
-require_once("../Model/CommentsManager.class.php");
-require_once("../Model/LikesManager.class.php");
-require_once("../Model/UsersManager.class.php");
+include("../Model/DbManager.class.php");
+include("../Model/SelectElem.class.php");
+include("../Model/ImagesManager.class.php");
+include("../Model/CommentsManager.class.php");
+include("../Model/LikesManager.class.php");
+include("../Model/UsersManager.class.php");
 
 // CONTROLLER
-require_once("../Controller/utility.php");
-require_once("../Controller/userForm.php");
+include("../Controller/utility.php");
+include("../Controller/userForm.php");
 
 // DEBUG
 
-require_once("../DEBUG_print.php");
+include("../DEBUG_print.php");
     
     $start = $id * 10;
     $limit = $start + 10;
-    echo "";
     $ImagesManager = new ImagesManager();
     $all_imgs = $ImagesManager->select_all(FALSE, FALSE, "date_creation DESC LIMIT $limit");
 
@@ -234,14 +229,40 @@ require_once("../DEBUG_print.php");
             display_one_media($img_id, $user_id, $media);
         }
     }
-    $id++;
-    echo "</div><div class='button-displayMore' id=displayMore$id>
-    <a id='displayMore;$id' href='#' onClick='displayMore(this.id)'>
-    Affichez +</a>
-    </div>
-    <script src='./Controller/display.js'></script>";
+}
 
+function is_moretoDisplay($nb) {
+        // INCLUDES
 
+// CONFIG
+include("../Config/database.php");
+include('../Config/config.php');
+define('DB_USER', $DB_USER);
+define('DB_PASS', $DB_PASS);
+define('DB_DSN', $DB_DSN);
+
+// VIEW
+// include("../View/path_img.php");
+// include("../View/view.php");
+
+// MODEL
+include("../Model/DbManager.class.php");
+include("../Model/SelectElem.class.php");
+include("../Model/ImagesManager.class.php");
+include("../Model/CommentsManager.class.php");
+include("../Model/LikesManager.class.php");
+include("../Model/UsersManager.class.php");
+
+// DEBUG
+
+include("../DEBUG_print.php");
+    $ImagesManager = new ImagesManager();
+    $nb_img = $ImagesManager->count_id(FALSE, NULL, NULL);
+    $ret = 0;
+    // echo "DANS PHP IsMoreDIsplay";
+    if ($nb_img > $nb * 10)
+        $ret = 1;
+    echo $ret;
 }
 
 ?>
