@@ -179,7 +179,7 @@ function display_myprofile()
     }
 }
 
-if ($_POST['action'] == 'displayMore')
+if ($_POST && $_POST['action'] == 'displayMore')
     display_more($_POST['nb']);
 else if ($_POST && $_POST['action'] == 'IsMoreDisplay')
     is_moretoDisplay($_POST['nb']);
