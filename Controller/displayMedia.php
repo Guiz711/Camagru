@@ -118,7 +118,7 @@ function display_index()
         display_one_media($img_id, $user_id, $media);
     }
     // Display Button Display MORE
-    $nb_total_imgs = count($all_imgs);
+    $nb_total_imgs = $ImagesManager->count_id(False, null, null);
     if ($nb_total_imgs > 10) {
         echo "</div><div class='button-displayMore' id=displayMore1>
         <a id='displayMore;1' href='#' onClick='displayMore(this.id)'>
@@ -165,7 +165,7 @@ if ($_POST && $_POST['action'] == 'displayMore')
 else if ($_POST && $_POST['action'] == 'IsMoreDisplay')
     is_moretoDisplay($_POST['nb']);
 
-
+    
 function display_more($id) {
     // INCLUDES
 // CONFIG
