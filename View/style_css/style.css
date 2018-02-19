@@ -28,12 +28,17 @@ body {
     background-color: red;
 } */
 
+#webcam_content
+{
+    position: relative;
+}
+
 div[id^='applied_filter']
 {
     position:absolute;
     display: inline;
-    top: 0%;
-    left: 0%;
+    top: 50%;
+    left: 50%;
     z-index:1;
 }
 
