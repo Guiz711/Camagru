@@ -24,13 +24,11 @@ if (!array_key_exists('user_id', $_SESSION))
     ?>
 	</header>
     <div class="corpus">
-    
     <div class="webcam">
     <video id='video'></video>
     <canvas id='canvas'></canvas>
     <img src='#' class='hidden' id='photo'> 
-    
-    <!-- <div><button id='startbutton'>Prendre une photo</button></div> -->
+        <div><button id='startbutton'>Prendre une photo</button></div>
     <div class="filters">   <?php  display_filters();  ?>   </div>
     </div>
     <div class="photo_media">  <?php   display_photomontage(); ?>  </div>

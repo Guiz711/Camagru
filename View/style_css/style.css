@@ -23,10 +23,10 @@ body {
     background-color: red;
 } */
 
-.filters
+.filterimg
 {
     /* position: relative; */
-    width:200px;
+    width:14vw;
 }
 
 .corpus{
@@ -54,6 +54,7 @@ body {
     margin-top : 5px;
     padding: 5px;
     height : 5vh;
+    z-index:1;
 }
 
 .webcam {

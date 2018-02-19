@@ -65,6 +65,33 @@ catch (Exception $error) {
     die('Erreur : ' . $error->getMessage());
 }
 
+// $table = "filters";
+// $req = "CREATE TABLE IF NOT EXISTS $table 
+// (
+//     filter_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
+//     filter_description VARCHAR(256) NOT NULL
+// )";
+
+// $pdo->query($req);
+// echo "--> Creation Table : $table</br >";
+
+
+// //insertion filters
+// $table = "$db.filters";
+// $filter_id = "1";
+// $filter_description = "Ceci est un filtre";
+// $req = "INSERT INTO $table ($filter_id, $filter_description) VALUES ('$filter_id', '$filter_description')";
+// echo "--> Insertion filter : 1 </br >";
+// $pdo->query($req);
+
+// $table = "$db.filters";
+// $filter_id = "2";
+// $filter_description = "Ceci est un filtre cool";
+// $req = "INSERT INTO $table ($filter_id, $filter_description) VALUES ('$filter_id', '$filter_description')";
+// echo "--> Insertion filter : 1 </br >";
+// $pdo->query($req);
+
+
 // INSERTION USERS
 echo "</br >Insertion Datas</br >";
 
