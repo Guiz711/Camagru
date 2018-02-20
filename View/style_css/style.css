@@ -1,5 +1,5 @@
 body {
-	width: 100%;
+	width: 99%;
 	/* height: 99%; */
 	display:flex;
 	flex-direction: column;
@@ -10,6 +10,20 @@ body {
 .filters{
     display:flex;
     flex:column;
+}
+
+.me{
+    display: flex;
+    flex : column;
+    /* background-color: red; */
+    padding : 5px;
+    margin-top : 2vh;
+}
+
+.modify_myprofile{
+    justify-content: center;
+    width : 100%;
+
 }
 
 /* form
@@ -387,4 +401,3 @@ body {
 	left: 0;
 }
 
-    
