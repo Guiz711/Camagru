@@ -78,6 +78,7 @@ function handle_comments($img_id, $user_id, $data, $post)
     // Handle Comments
 
     $action = $post['action'];
+    $to_print = "";
 
     if ($post['action'] == 'addComment') {
 
