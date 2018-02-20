@@ -20,6 +20,8 @@ function IsMoreToDisplay(id, action)
     var xhr = new XMLHttpRequest();
     var url = './Controller/displayMedia.php';
     var new_nb = Number(id) + Number(1);
+    console.log("New_nb =");
+    console.log(new_nb);
 
     var toSend = 'action=IsMoreDisplay&nb='+id;
     xhr.open('POST', url, true);
@@ -33,8 +35,12 @@ function IsMoreToDisplay(id, action)
             console.log(ret);
             if (ret == 1)
                 document.getElementById(action+';'+id).id = action+';'+new_nb;
-            else
-                document.getElementById(action+';'+id).innerHTML = "";
+            else {
+                console.log("kill div");
+                elem = document.getElementById(action+';'+id);
+                elem.innerHTML = "";
+                elem.parentNode.removeChild(elem);
+            }
         }
     });
     xhr.send(toSend);
