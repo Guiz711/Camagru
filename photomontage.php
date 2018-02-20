@@ -21,8 +21,6 @@ if (!array_key_exists('user_id', $_SESSION))
 	require("./requirements.php");
     include("./View/header_user.html");
     include("./Controller/displayMedia.php");
-
-
     
     ?>
 	</header>
