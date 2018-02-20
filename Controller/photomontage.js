@@ -10,6 +10,7 @@ let savebutton = document.querySelector('#savebutton');
 let description = document.querySelector('#Description');
 let filters = document.querySelectorAll("div[id^='filter']");
 let cancel_photomontage = document.querySelector('#cancel_photomontage');
+let choose_img = document.querySelector('#choose_img');
 startbutton.disabled = true;
 let width = webcam.offsetWidth;
 let height = 0;
@@ -116,6 +117,21 @@ cancel_photomontage.addEventListener('click', function(){
     filterexists.classList.remove('hidden');
 })
 
+let reader = new FileReader();
+choose_img.addEventListener('change', function(){
+    let file = choose_img.files[0];
+    console.log(file);
+    reader.addEventListener('load', function(){
+        photo.setAttribute('src', reader.result);
+        photo.setAttribute('width', width);
+        photo.setAttribute('height', height);
+        photo.classList.remove('hidden');
+        // savebutton.classList.remove('hidden');
+        // console.log(reader.result);
+    });
+    reader.readAsDataURL(file);
+})
+
 savebutton.addEventListener('click', function(ev){
     uploadpicture();
     document.location.href="myprofile.php";
@@ -135,6 +151,7 @@ while (i < filters.length)
             console.log(iffilter);
             if (iffilter.length == 0)
                 startbutton.disabled = true;
+            
         }
         else {
             let filterscpy = this.cloneNode(true);
