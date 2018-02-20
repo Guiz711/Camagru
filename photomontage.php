@@ -34,6 +34,7 @@ if (!array_key_exists('user_id', $_SESSION))
         <div><button id='startbutton'>Prendre une photo</button></div>
         <div><input class='hidden' id='Description' type="text" name="description">Description</input></div>
         <div><button class='hidden' id='savebutton'>Enregistrer la photo</button></div>
+        <div><button class='hidden' id='cancel_photomontage'>Annuler</button></div>
     <div class="filters">   <?php  display_filters();  ?>   </div>
     </div>
     <div class="photo_media">  <?php   display_photomontage(); ?>  </div>

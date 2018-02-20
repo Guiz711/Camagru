@@ -9,6 +9,8 @@ let startbutton = document.querySelector('#startbutton');
 let savebutton = document.querySelector('#savebutton');
 let description = document.querySelector('#Description');
 let filters = document.querySelectorAll("div[id^='filter']");
+let cancel_photomontage = document.querySelector('#cancel_photomontage');
+startbutton.disabled = true;
 let width = webcam.offsetWidth;
 let height = 0;
 navigator.getMedia = ( navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
@@ -32,8 +34,8 @@ video.addEventListener('canplay', function(ev){
         height = video.videoHeight / (video.videoWidth/width);
         video.setAttribute('width', width);
         video.setAttribute('height', height);
-        canvas.setAttribute('width', width);
-        canvas.setAttribute('height', height);
+        // canvas.setAttribute('width', width);
+        // canvas.setAttribute('height', height);
         photo.setAttribute('width', width);
         photo.setAttribute('height', height);
         streaming = true;    
@@ -43,8 +45,8 @@ window.addEventListener('resize', function(ev){
         height = video.videoHeight / (video.videoWidth/width);
         video.setAttribute('width', width);
         video.setAttribute('height', height);
-        canvas.setAttribute('width', width);
-        canvas.setAttribute('height', height);
+        // canvas.setAttribute('width', width);
+        // canvas.setAttribute('height', height);
         photo.setAttribute('width', width);
         photo.setAttribute('height', height);
         streaming = true;    
@@ -56,9 +58,9 @@ startbutton.addEventListener('click', function(ev){
 }, false);
 
 function takepicture(){
-    canvas.width = width;
-    canvas.height = height;
-    canvas.getContext('2d').drawImage(video, 0, 0, width, height);
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    canvas.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
     let data = canvas.toDataURL('image/png');
     photo.setAttribute('src', data);
     photo.setAttribute('width', width);
@@ -66,6 +68,9 @@ function takepicture(){
     photo.classList.remove('hidden');
     description.classList.remove('hidden');
     savebutton.classList.remove('hidden');
+    let filterexists = document.querySelector('.filters');
+    filterexists.classList.add('hidden');
+    cancel_photomontage.classList.remove('hidden');
     // alert (photo.getAttribute('src'));
 }
 
@@ -105,8 +110,15 @@ function uploadpicture()
     xhr.send('image=' + data + '&description=' + data_description + '&ids=' + id_list);
 }
 
+cancel_photomontage.addEventListener('click', function(){
+    photo.classList.add('hidden');
+    let filterexists = document.querySelector('.filters');
+    filterexists.classList.remove('hidden');
+})
+
 savebutton.addEventListener('click', function(ev){
     uploadpicture();
+    document.location.href="myprofile.php";
     ev.preventDefault();
 }, false);
 
@@ -114,13 +126,23 @@ let i = 0;
 while (i < filters.length)
 {
     filters[i].addEventListener('click', function(){
-        console.log(this);
-        let filterscpy = this.cloneNode(true);
-        console.log(filterscpy);
-        let webcam_content = document.querySelector('#webcam_content');
-        filterscpy.id = 'applied_' + this.id;
-        console.log(filterscpy);
-        webcam_content.appendChild(filterscpy);
+        let filterexists = document.querySelector('#applied_' + this.id);
+        console.log(filterexists);
+        if (filterexists != null){
+            console.log("hey you");
+            filterexists.remove();
+            let iffilter = document.querySelectorAll("div[id^='applied_']");
+            console.log(iffilter);
+            if (iffilter.length == 0)
+                startbutton.disabled = true;
+        }
+        else {
+            let filterscpy = this.cloneNode(true);
+            let webcam_content = document.querySelector('#webcam_content');
+            filterscpy.id = 'applied_' + this.id;
+            webcam_content.appendChild(filterscpy);
+            startbutton.disabled = false;
+        }
     });
     i++;
 }
