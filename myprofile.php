@@ -21,7 +21,7 @@ if (!array_key_exists('user_id', $_SESSION))
     ?></header>
 
     <div class='me'>
-        <div class='modify_myprofile'> <a id='login' href="#" onclick="document.getElementById('popup_modify').style.display='block'" style="width:auto;" justify-content="center";>Modifier mes informations</a></div>
+        <div class='modify_myprofile'> <a id='login' href="#" onclick="document.getElementById('popup_modify').style.display='block'" style="width:auto;";>Modifier mes informations</a></div>
         <div class='modify_myprofile'><a> Changer mes préférences :</a> <form action=<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?> method='POST'>
         <?php
         $notifications= $res[0]['notifications'];

@@ -23,6 +23,8 @@ body {
 .modify_myprofile{
     justify-content: center;
     width : 100%;
+    text-align: center;
+    /* background-color: red; */
 
 }
 
