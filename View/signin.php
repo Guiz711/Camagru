@@ -26,7 +26,7 @@
 <div id='popup_reinitialize_password' class='popup_reinitialize_password'>
 	<form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?> method='POST'>
 	Il faut que tu indiques ton nouveau mot de passe
-	<div class='champ_signin'>Nom d'utilisateur <input type='text' oninvalid='this.setCustomValidity('Merci de remplir ce champ.')' oninput='setCustomValidity('')' name='login'></div>
+	<div class='champ_signin'>Nom d'utilisateur <input type='text' name='login'></div>
 	<div class='champ_signin'>Mot de passe <input type='password' name='passwd'></div>
 	<div class='champ_signin'>Mot de passe <input type='password' name='passwd2'></div>
 	<div class='submit_button'><input type='submit'  name='submit_val' value='reinitialize_passwd'></div>

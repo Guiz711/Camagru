@@ -22,20 +22,32 @@ require_once("./uploadImage.php");
 // include("./Controller/displayMedia.php");
 // require_once("./Controller/handleAjax.php");
 
+function insert_filters($ids_array, $img_data)
+{
+    $img = imagecreatefromstring($img_data);
+    print_r($ids_array);
+    foreach ($ids_array as $id) {
+        $filter = imagecreatefrompng("../resources/filters/$id.png");
+        imagecopy($img, $filter, 0, 0, 0, 0, imagesx($filter), imagesy($filter));
+    }
+    return ($img);
+}
 
-
-if (array_key_exists('image', $_POST) && array_key_exists('description', $_POST)) {
+if (array_key_exists('image', $_POST) && array_key_exists('description', $_POST) && array_key_exists('ids', $_POST)) {
     $ImagesManager = new ImagesManager();
     $image = substr($_POST['image'], strpos($_POST['image'], ','));
-    
+    // $image = $_POST['image'];
     $image = str_replace(' ', '+', $image);
-    $image = base64_decode($image);
+    $image = insert_filters(explode(';', $_POST['ids']), base64_decode($image));
+    // $image = base64_decode($image);
     $ImagesManager->insert(array(
         'user_id' => $_SESSION['user_id'],
         'img_description' => $_POST['description']
     ));
     $image_name = $ImagesManager->userLastImage($_SESSION['user_id']);
-    file_put_contents('../img/' . $image_name . '.png', $image);
+    echo $image;
+    imagepng($image, '../img/' . $image_name . '.png');
+    // file_put_contents('../img/' . $image_name . '.png', $image);
 } else {
     echo 'Ca fonctionne pas T_T';
 }
