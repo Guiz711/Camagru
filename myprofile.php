@@ -22,13 +22,13 @@ if (!array_key_exists('user_id', $_SESSION))
 
     <div class='me'>
         <div class='modify_myprofile'> <a id='login' href="#" onclick="document.getElementById('popup_modify').style.display='block'" style="width:auto;";>Modifier mes informations</a></div>
-        <div class='modify_myprofile'><a> Changer mes préférences :</a> <form action=<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?> method='POST'>
+        <div class='modify_myprofile'><a> Notifications par mail :</a> <form action=<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?> method='POST'>
         <?php
         $notifications= $res[0]['notifications'];
         if ($notifications == 1)
-            echo "Arrêter de recevoir des mails à chaque commentaire sur une de mes images <div class='submit_button'><input type='submit'  name='submit_val' value='Changer mes préférences'</div>";
+            echo "<div class='submit_button'><input type='submit'  name='submit_val' value='Désactiver'</div>";
         else
-            echo "Recevoir des mails quand mes images sont commentées <div class='submit_button'><input type='submit'  name='submit_val' value='Changer mes préférences'></div>";
+            echo "<div class='submit_button'><input type='submit'  name='submit_val' value='Activer'></div>";
         ?></form></div>
     </div></div>
     

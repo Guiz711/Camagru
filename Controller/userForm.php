@@ -247,7 +247,7 @@ if (array_key_exists('submit_val', $_POST)) {
 			sanitize_input($_POST['passwd']));
 		display_result_userform($res, 'modify');
 	}
-	if ($_POST['submit_val'] == 'modify_preferences' || $_POST['submit_val'] == 'Changer mes préférences') {
+	if ($_POST['submit_val'] == 'Désactiver' || $_POST['submit_val'] == 'Activer') {
 		$res = user_modify_preferences();
 		display_result_userform($res, 'modify_preferences');
 }
