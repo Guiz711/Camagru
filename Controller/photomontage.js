@@ -128,6 +128,7 @@ cancel_photomontage.addEventListener('click', function(){
     photo.classList.add('hidden');
     startbutton.classList.remove('hidden');
     choose_img.classList.remove('hidden');
+
     let filterexists = document.querySelector('.filters');
     filterexists.classList.remove('hidden');
 })
@@ -141,18 +142,45 @@ choose_img.addEventListener('change', function(){
         photo.setAttribute('width', width);
         photo.setAttribute('height', height);
         photo.classList.remove('hidden');
-        // startbutton.classList.add('hidden');
+        startbutton.classList.add('hidden');
+        choose_img.classList.add('hidden');
         savebutton.classList.remove('hidden');
+        savebutton.disabled = true;
+        cancel_photomontage.classList.remove('hidden');
         // console.log(reader.result);
     });
     reader.readAsDataURL(file);
 })
 
+function	display_popup_result(type)
+{
+	// alert (type);
+	let popup_result = document.getElementById(type);
+	// alert (popup_result);
+	popup_result.style.display = 'block';
+}		
+
+function delete_popup(type)
+{
+console.log(type);
+	let popup = document.getElementById(type);
+	console.log('je veux savoir');
+	console.log(popup);
+		window.onclick = function(event) 
+		{
+			console.log('je veux savoir2');
+		if (event.target == popup) {
+			popup.style.display = 'none';
+		}
+	}
+}
+
 savebutton.addEventListener('click', function(ev){
     uploadpicture();
-    photo.remove('src');
-    startbutton.classList.remove('hidden'); 
+    photo.classList.add('hidden');
+    choose_img.classList.remove('hidden'); 
     savebutton.classList.add('hidden'); 
+    savebutton.disabled = true
     let filterexists = document.querySelector('.filters');
     filterexists.classList.remove('hidden');
     let iffilter = document.querySelectorAll("div[id^='applied_']");
@@ -161,6 +189,8 @@ savebutton.addEventListener('click', function(ev){
         iffilter[i].remove();
         i++;
     }   
+    display_popup_result('popup_photomontage_uploaded');
+    delete_popup('popup_photomontage_uploaded');
     ev.preventDefault();
 }, false);
 
@@ -169,14 +199,20 @@ while (i < filters.length)
 {
     filters[i].addEventListener('click', function(){
         let filterexists = document.querySelector('#applied_' + this.id);
-        console.log(filterexists);
+        let iffilter = document.querySelectorAll("div[id^='applied_']");
+        console.log("filterexist");
+        console.log(iffilter.length);
+        console.log("filterexist");
+        savebutton.disabled = false;
         if (filterexists != null){
             console.log("hey you");
+            savebutton.disabled = true;
             filterexists.remove();
             let iffilter = document.querySelectorAll("div[id^='applied_']");
             console.log(iffilter);
             if (iffilter.length == 0)
                 startbutton.disabled = true;
+           
             
         }
         else {
