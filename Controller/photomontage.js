@@ -50,7 +50,18 @@ window.addEventListener('resize', function(ev){
         // canvas.setAttribute('height', height);
         photo.setAttribute('width', width);
         photo.setAttribute('height', height);
-        streaming = true;    
+        streaming = true;
+        let iffilter = document.querySelectorAll("div[id^='applied_']");
+        let i = 0;
+        while (i < iffilter.length)
+        {
+            iffilter[i].style.height = height;
+            iffilter[i].children[0].style.height = height;
+            iffilter[i].style.width = width;
+            iffilter[i].children[0].style.width = width;   
+            i++;
+        }
+      
 });
 
 startbutton.addEventListener('click', function(ev){
@@ -71,6 +82,8 @@ function takepicture(){
     savebutton.classList.remove('hidden');
     let filterexists = document.querySelector('.filters');
     filterexists.classList.add('hidden');
+    startbutton.classList.add('hidden');
+    choose_img.classList.add('hidden');
     cancel_photomontage.classList.remove('hidden');
     // alert (photo.getAttribute('src'));
 }
@@ -113,6 +126,8 @@ function uploadpicture()
 
 cancel_photomontage.addEventListener('click', function(){
     photo.classList.add('hidden');
+    startbutton.classList.remove('hidden');
+    choose_img.classList.remove('hidden');
     let filterexists = document.querySelector('.filters');
     filterexists.classList.remove('hidden');
 })
@@ -126,7 +141,8 @@ choose_img.addEventListener('change', function(){
         photo.setAttribute('width', width);
         photo.setAttribute('height', height);
         photo.classList.remove('hidden');
-        // savebutton.classList.remove('hidden');
+        // startbutton.classList.add('hidden');
+        savebutton.classList.remove('hidden');
         // console.log(reader.result);
     });
     reader.readAsDataURL(file);
@@ -134,7 +150,17 @@ choose_img.addEventListener('change', function(){
 
 savebutton.addEventListener('click', function(ev){
     uploadpicture();
-    document.location.href="myprofile.php";
+    photo.remove('src');
+    startbutton.classList.remove('hidden'); 
+    savebutton.classList.add('hidden'); 
+    let filterexists = document.querySelector('.filters');
+    filterexists.classList.remove('hidden');
+    let iffilter = document.querySelectorAll("div[id^='applied_']");
+    let i = 0
+    while (i < iffilter.length){
+        iffilter[i].remove();
+        i++;
+    }   
     ev.preventDefault();
 }, false);
 
@@ -157,7 +183,24 @@ while (i < filters.length)
             let filterscpy = this.cloneNode(true);
             let webcam_content = document.querySelector('#webcam_content');
             filterscpy.id = 'applied_' + this.id;
+
+            let heightval = video.videoHeight / (video.videoWidth/width) + "px";
+             filterscpy.style.height = heightval;
+             filterscpy.children[0].style.height = heightval;
+             filterscpy.style.width = width;
+             filterscpy.children[0].style.width = width;
+            // filterscpy.style.transform = "rotate("+(30)+"deg)";
+            // filterscpy.children[0].style.transform = "rotate(25deg)";
+  
+
+            // let heightval = video.videoHeight / (video.videoWidth/width);
+            // let iffilter = document.querySelectorAll("div[id^='applied_']");
+            // console.log(heightval);
+            // iffilter.style.height = heightval + "px";
+            // console.log(iffilter.height);
+            //  iffilter.setAttribute('width', width);
             webcam_content.appendChild(filterscpy);
+
             startbutton.disabled = false;
         }
     });

@@ -18,7 +18,7 @@ require_once("../Model/UsersManager.class.php");
 // CONTROLLER
 require_once("./utility.php");
 require_once("./userForm.php");
-require_once("./uploadImage.php");
+// require_once("./uploadImage.php");
 // include("./Controller/displayMedia.php");
 // require_once("./Controller/handleAjax.php");
 
@@ -33,6 +33,7 @@ function insert_filters($ids_array, $img_data)
     return ($img);
 }
 
+// echo "hey";
 if (array_key_exists('image', $_POST) && array_key_exists('description', $_POST) && array_key_exists('ids', $_POST)) {
     $ImagesManager = new ImagesManager();
     $image = substr($_POST['image'], strpos($_POST['image'], ','));

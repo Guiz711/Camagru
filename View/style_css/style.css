@@ -50,20 +50,25 @@ body {
 #webcam_content
 {
     position: relative;
+    /* height: 100%;
+    width: 100%; */
 }
 
 div[id^='applied_filter']
 {
     position:absolute;
-    display: inline;
-    top: 50%;
-    left: 50%;
+    /* display: inline; */
+    height: 100%;
+    width: 100%; 
+    top: 0%;
+    left: 0%;
     z-index:1;
+    /* width: 70vw; */
 }
 
 .filterimg
 {
-    /* position: relative; */
+    position: relative;
     width:14vw;
 }
 
