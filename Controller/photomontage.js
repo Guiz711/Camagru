@@ -117,7 +117,9 @@ function uploadpicture()
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onload = () => {
         if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-            var ret = xhr.responseText;
+            let ret = xhr.responseText;
+            let div_media = document.querySelector('.photo_media');
+            div_media.innerHTML = ret;
             console.log(ret);
         }
     }
@@ -225,17 +227,7 @@ while (i < filters.length)
              filterscpy.children[0].style.height = heightval;
              filterscpy.style.width = width;
              filterscpy.children[0].style.width = width;
-            // filterscpy.style.transform = "rotate("+(30)+"deg)";
-            // filterscpy.children[0].style.transform = "rotate(25deg)";
-  
-
-            // let heightval = video.videoHeight / (video.videoWidth/width);
-            // let iffilter = document.querySelectorAll("div[id^='applied_']");
-            // console.log(heightval);
-            // iffilter.style.height = heightval + "px";
-            // console.log(iffilter.height);
-            //  iffilter.setAttribute('width', width);
-            webcam_content.appendChild(filterscpy);
+                webcam_content.appendChild(filterscpy);
 
             startbutton.disabled = false;
         }
