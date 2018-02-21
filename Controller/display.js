@@ -33,8 +33,11 @@ function IsMoreToDisplay(id, action)
             ret = xhr.responseText;
             console.log("IsMoreToDisplay ret =");
             console.log(ret);
-            if (ret == 1)
+            if (ret == 1) {
+                console.log("New_id =");
+                console.log(action+';'+new_nb);
                 document.getElementById(action+';'+id).id = action+';'+new_nb;
+            }
             else {
                 console.log("kill div");
                 elem = document.getElementById(action+';'+id);
