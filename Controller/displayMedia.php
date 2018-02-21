@@ -226,7 +226,7 @@ include("../DEBUG_print.php");
     $ImagesManager = new ImagesManager();
     $nb_img = $ImagesManager->count_id(FALSE, NULL, NULL);
     $ret = 0;
-     echo "nb Imgaes = $nb_img <-- DANS PHP IsMoreDIsplay";
+    //  echo "nb Imgaes = $nb_img <-- DANS PHP IsMoreDIsplay";
     if ($nb_img > ($nb + 1) * 10)
         $ret = 1;
     echo $ret;
