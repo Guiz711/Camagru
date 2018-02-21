@@ -130,6 +130,8 @@ cancel_photomontage.addEventListener('click', function(){
     photo.classList.add('hidden');
     startbutton.classList.remove('hidden');
     choose_img.classList.remove('hidden');
+    choose_img.value = "";
+     savebutton.classList.add('hidden');
 
     let filterexists = document.querySelector('.filters');
     filterexists.classList.remove('hidden');
@@ -185,6 +187,7 @@ savebutton.addEventListener('click', function(ev){
     savebutton.disabled = true
     let filterexists = document.querySelector('.filters');
     filterexists.classList.remove('hidden');
+    choose_img.value = "";
     let iffilter = document.querySelectorAll("div[id^='applied_']");
     let i = 0
     while (i < iffilter.length){
