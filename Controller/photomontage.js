@@ -138,7 +138,7 @@ cancel_photomontage.addEventListener('click', function(){
 let reader = new FileReader();
 choose_img.addEventListener('change', function(){
     let file = choose_img.files[0];
-    console.log(file);
+    // console.log(file);
     reader.addEventListener('load', function(){
         photo.setAttribute('src', reader.result);
         photo.setAttribute('width', width);

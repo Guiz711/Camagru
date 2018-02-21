@@ -27,7 +27,29 @@ require_once("../View/path_img.php");
 
 function insert_filters($ids_array, $img_data)
 {
-    $img = imagecreatefromstring($img_data);
+    $img_src = imagecreatefromstring($img_data);
+    // print_r($img_src);
+    $img = imagecreatetruecolor(655, 491);
+    header('Content-type: image/jpeg');
+    // list($width, $height) = getimagesize($img_src);
+    $ratio = bcdiv('491.0', '655.0', 3);
+    $width = imagesx($img_src);
+    $height = imagesy($img_src);
+    if ($width < $height) {
+        $new_height = bcmul($width, $ratio, 3);
+        $pos_x = 0;
+        $pos_y = bcdiv(bcsub($height, $new_height, 3), '2.0', 3);
+        $height = $new_height;
+    }
+    else {
+        $new_width = bcdiv($height, $ratio, 3);
+        echo "$new_width + $height";
+        $pos_x = bcdiv(bcsub($width, $new_width, 3), '2.0', 3);
+        $pos_y = 0;
+        $width = $new_width;
+    }
+    imagecopyresampled($img, $img_src, 0, 0, $pos_x, $pos_y, 655, 491, $width, $height);
+    // $img = imagecrop($img, ['x' => 0, 'y' => 0, 'width' => '655', 'height' => '491']);
     foreach ($ids_array as $id) {
         $filter = imagecreatefrompng("../resources/filters/$id.png");
         imagecopy($img, $filter, 0, 0, 0, 0, imagesx($filter), imagesy($filter));
