@@ -93,7 +93,7 @@ function display_one_media($img_id, $user_id, $media)
         echo "
                 <div class='trash' id=deleteImg$img_id>
                     <a id='deleteImg;$img_id;$user_id' href='#' onClick='deleteImg(this.id)'>
-                    <img src='./resources/trash.png' class='trash'></a>
+                    <img src='./resources/trash.png' class='trash' id=trash$img_id onmouseover='document.getElementById(this.id).style.display = 'block';'></a>
                 </div>
                 <script language='JavaScript' type='text/javascript' src='./Controller/display.js'></script>";
     }
