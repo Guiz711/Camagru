@@ -83,8 +83,11 @@ function handle_comments($img_id, $user_id, $data, $post)
     if ($post['action'] == 'addComment') {
 
         // Insert New Comment
-        $data['text_comment'] = $post['text_comment'];
-        $CommentsManager->insert($data);
+        if ($post['text_comment'] != "") {
+            $data['text_comment'] = $post['text_comment'];
+            $CommentsManager->insert($data);
+        }
+
     }
 
     // Has to Be Displayed ?
