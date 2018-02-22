@@ -150,7 +150,7 @@ function display_filters()
 function display_myprofile()
 {
     $ImagesManager = new ImagesManager();
-    $all_imgs = $ImagesManager->select_all(array('user_id' => $_SESSION['user_id']), FALSE, "date_creation desc");
+    $all_imgs = $ImagesManager->select_all(array('user_id' => $_SESSION['user_id']), FALSE, "date_creation desc LIMIT 10");
     $user_id = $_SESSION['user_id'];
     $all_imgs = add_path_img($all_imgs);
     foreach ($all_imgs as $key => $value) {
@@ -158,7 +158,17 @@ function display_myprofile()
         $media = $value;
         display_one_media($img_id, $user_id, $media);
     }
+    // Display Button Display MORE
+    $nb_total_imgs = $ImagesManager->count_id(True, 'user_id', $_SESSION['user_id']);
+    if ($nb_total_imgs > 10) {
+        echo "</div><div class='button-displayMore' id=displayMore1>
+        <a id='displayMore;1' href='#' onClick='displayMore(this.id)'>
+        Affichez +</a>
+        </div>
+        <script src='./Controller/display.js'></script>";
+    }
 }
+
 if ($_POST && array_key_exists('action', $_POST) && $_POST['action'] == 'displayMore')
     display_more($_POST['nb']);
 else if ($_POST && array_key_exists('action', $_POST) && $_POST['action'] == 'IsMoreDisplay')
@@ -184,8 +194,8 @@ include("../Model/CommentsManager.class.php");
 include("../Model/LikesManager.class.php");
 include("../Model/UsersManager.class.php");
 // CONTROLLER
-include("../Controller/utility.php");
-include("../Controller/userForm.php");
+// include("../Controller/utility.php");
+// include("../Controller/userForm.php");
 // DEBUG
 include("../DEBUG_print.php");
     
