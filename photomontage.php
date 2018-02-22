@@ -3,6 +3,8 @@ session_start();
 // print_r($_SESSION);
 if (!array_key_exists('user_id', $_SESSION))
     $_SESSION['user_id'] = "unknown";
+if ($_SESSION && array_key_exists('display_id', $_SESSION))
+    unset($_SESSION['display_id']);
 ?>
 
 <html lang="fr">

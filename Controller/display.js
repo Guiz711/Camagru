@@ -67,6 +67,23 @@ function preparetoHandleAdd(toSend, action, path, nb, url)
     xhr.send(toSend);
 }
 
+function preparetoHandleDelete(toSend, path, img_id, url)
+{
+    var xhr = new XMLHttpRequest();
+
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+    xhr.addEventListener('readystatechange', function() {
+
+        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+            var ret = xhr.responseText;
+            document.getElementById(path).innerHTML = ret;
+        }
+    });
+    xhr.send(toSend);
+}
+
 function handleLike(load_id) 
 {
     tab = load_id.split(';');
@@ -137,17 +154,19 @@ function deleteImg(load_id) {
         var img_id = tab[1];
         var user_id = tab[2];
         var action = tab[0];
+        var display_id = tab[3];
 
-        var url = './Controller/handleAjax.php';
+        var url = './Controller/displayMedia.php';
 
-        var toSend = 'action='+action+'&img_id='+img_id+'&user_id='+user_id;
-        var path = 'media';
+        var toSend = 'action='+action+'&img_id='+img_id+'&user_id='+user_id+'&display_id='+display_id;
+        var path = 'content_index';
         
         console.log('deleteImg to send =');
         console.log(toSend);
+        
+        preparetoHandleDelete(toSend, path, img_id, url);
 
-    
-        preparetoHandle(toSend, path, img_id, url);
+
 }
 
 function displayMore(load_id) {

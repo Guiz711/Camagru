@@ -32,7 +32,7 @@ require_once("../Controller/userForm.php");
 
 require_once("../DEBUG_print.php");
 
-
+require_once("../Controller/displayMedia.php");
 // echo "</br>POST</br>";
 // print_r($post);
 
@@ -146,16 +146,6 @@ function handle_comments($img_id, $user_id, $data, $post)
     echo $to_print;
 }
 
-function deleteImg($img_id) {
-    $ImagesManager = new ImagesManager();
-    $ImagesManager->delete(array('img_id' => $img_id));
-    $LikesManager = new LikesManager();
-    $LikesManager->delete(array('img_id' => $img_id));
-    $CommentsManager = new CommentsManager();
-    $CommentsManager->delete(array('img_id' => $img_id));
-    echo "";
-}
-
 $img_id = $_POST['img_id'];
 $user_id = $_POST['user_id'];
 
@@ -164,9 +154,6 @@ $post = $_POST;
 if ($_POST['action'] == 'addLike' || $_POST['action'] == 'killLike') {
     $data = array('user_id' => $user_id, 'img_id' => $img_id);
     handle_like($img_id, $user_id, $data, $post);
-}
-else if ($_POST['action'] == 'deleteImg') {
-    deleteImg($img_id);
 }
 else {
     if ($post['action'] == 'addComment'){
