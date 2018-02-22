@@ -184,7 +184,9 @@ savebutton.addEventListener('click', function(ev){
     photo.classList.add('hidden');
     choose_img.classList.remove('hidden'); 
     savebutton.classList.add('hidden'); 
-    savebutton.disabled = true
+    savebutton.disabled = true;
+    startbutton.classList.remove('hidden'); 
+    startbutton.disabled = true;
     let filterexists = document.querySelector('.filters');
     filterexists.classList.remove('hidden');
     choose_img.value = "";

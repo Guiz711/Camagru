@@ -44,24 +44,3 @@ function display_result_userform($res, $action)
 	}
 }
 ?>
-
-
-
-<!-- 
-if ($res == "script" && $action == "get_reinitialize_passwd") {
-		echo "<script> display_popup_reinitialize_password() </script>";
-		return;
-
-	}
-	$type = 'popup_result';
-	echo "<div id=$type class='popup_result'>".$res."</div>
-	<script> display_popup_result($type); 
-	delete_popup('$type');
-	</script>
-	";
-	// $type = 'popup_result_userform';
-	// echo "<div id=$type class='popup_result_userform'>".$res.$action."</div>
-	// <script>
-	// display_popup_result($type); 
-	// delete_popup('$type');
-	// </script>"; -->

@@ -75,13 +75,13 @@ function	display_popup_result(type)
 
 function delete_popup(type)
 {
-console.log(type);
+// console.log(type);
 	let popup = document.getElementById(type);
-	console.log('je veux savoir');
-	console.log(popup);
+	// console.log('je veux savoir');
+	// console.log(popup);
 		window.onclick = function(event) 
 		{
-			console.log('je veux savoir2');
+			// console.log('je veux savoir2');
 		if (event.target == popup) {
 			popup.style.display = 'none';
 		}
