@@ -172,14 +172,6 @@ $table = "$db.images";
 $user_id = "2";
 $img_description = "test A table";
 $req = "INSERT INTO $table (user_id, img_description) VALUES ('$user_id', '$img_description')";
-echo "--> Insertion IMAGE : 9 </br >";
-
-$pdo->query($req);
-
-$table = "$db.images";
-$user_id = "1";
-$img_description = "Gourmandise test";
-$req = "INSERT INTO $table (user_id, img_description) VALUES ('$user_id', '$img_description')";
 echo "--> Insertion IMAGE : 10 </br >";
 
 $pdo->query($req);
