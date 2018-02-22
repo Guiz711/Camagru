@@ -3,8 +3,6 @@ session_start();
 // print_r($_SESSION);
 if (!array_key_exists('user_id', $_SESSION))
     $_SESSION['user_id'] = "unknown";
-if ($_SESSION && array_key_exists('display_id', $_SESSION))
-    unset($_SESSION['display_id']);
 ?>
 
 <html lang="fr">
@@ -27,20 +25,26 @@ if ($_SESSION && array_key_exists('display_id', $_SESSION))
     ?>
 	</header>
     <div class="corpus">
-    <div class="webcam">
-    <div id="webcam_content">
-    <video id='video'></video>
-    <canvas id='canvas'></canvas>
-    <img src='#' class='hidden' id='photo'> 
-    </div>
-        <div><button id='startbutton'>Prendre une photo</button></div>
-        <div><input class='hidden' id='Description' type="text" name="description">Description</input></div>
-        <div><button class='hidden' id='savebutton'>Enregistrer la photo</button></div>
-        <div><button class='hidden' id='cancel_photomontage'>Annuler</button></div>
-        <div><input type="file" id="choose_img" name="choose_img" accept=".jpg, .jpeg, .png"> </div>
-    <div class="filters">   <?php  display_filters();  ?>   </div>
-    </div>
-    <div class="photo_media"> Tes 5 derniers photomontages  <?php   display_photomontage(); ?>  </div>
+
+        <div class="webcam">
+
+            <div id="webcam_content">
+                <video id='video'></video>
+                <canvas id='canvas'></canvas>
+                <img src='#' class='hidden' id='photo'> </div>
+    
+            <div><button id='startbutton'>Prendre une photo</button></div>
+            <div><input class='hidden' id='Description' type="text" name="description">Description</input></div>
+            <div><button class='hidden' id='savebutton'>Enregistrer la photo</button></div>
+            <div><button class='hidden' id='cancel_photomontage'>Annuler</button></div>
+            <div><input type="file" id="choose_img" name="choose_img" accept=".jpg, .jpeg, .png"> </div>
+            
+            <div class="filters">   <?php  display_filters();  ?>   </div>
+        
+        </div>
+
+        <div class="photo_media"> Tes 3 derniers photomontages  <?php   display_photomontage(); ?>  </div>
+
     </div>
     
     
