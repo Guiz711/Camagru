@@ -86,7 +86,7 @@ function preparetoHandleDelete(toSend, path, img_id, url)
 
 function handleLike(load_id) 
 {
-    tab = load_id.split(';');
+    var tab = load_id.split(';');
 
     var img_id = tab[1];
     var user_id = tab[2];
@@ -104,7 +104,7 @@ function handleLike(load_id)
 
 function addComment(load_id) 
 {
-    tab = load_id.split(';');
+    var tab = load_id.split(';');
     console.log('add comment');
     console.log(tab);
 
@@ -134,7 +134,7 @@ function addComment(load_id)
 
 
 function displayComment(load_id) {
-    tab = load_id.split(';');
+    var tab = load_id.split(';');
 
     var img_id = tab[1];
     var user_id = tab[2];
@@ -149,48 +149,48 @@ function displayComment(load_id) {
 }
 
 function deleteImg(load_id) {
-    tab = load_id.split(';');
+    var tab = load_id.split(';');
     
-        var img_id = tab[1];
-        var user_id = tab[2];
-        var action = tab[0];
-        var display_id = tab[3];
+    var img_id = tab[1];
+    var user_id = tab[2];
+    var action = tab[0];
+    var display_id = tab[3];
 
-        var url = './Controller/displayMedia.php';
+    var url = './Controller/displayMedia.php';
 
-        var path = 'content_index';
-        if (document.getElementById('content_profile') !== null)
-            path = 'content_profile';
+    var path = 'content_index';
+    if (document.getElementById('content_profile') !== null)
+        path = 'content_profile';
 
-        var toSend = 'action='+action+'&img_id='+img_id+'&user_id='+user_id+'&display_id='+display_id+'&where='+path;
-        
-        console.log('deleteImg to send =');
-        console.log(toSend);
+    var toSend = 'action='+action+'&img_id='+img_id+'&user_id='+user_id+'&display_id='+display_id+'&where='+path;
+    
+    console.log('deleteImg to send =');
+    console.log(toSend);
 
-        preparetoHandleDelete(toSend, path, img_id, url);
+    preparetoHandleDelete(toSend, path, img_id, url);
 
 
 }
 
 function displayMore(load_id) {
-    tab = load_id.split(';');
+    var tab = load_id.split(';');
     
-        var action = tab[0];
-        var nb = tab[1];
+    var action = tab[0];
+    var nb = tab[1];
 
-        var url = './Controller/displayMedia.php';
+    var url = './Controller/displayMedia.php';
 
-        var toSend = 'action='+action+'&nb='+nb;
-        var path = 'content_index';
-        
-        console.log('DisplayMore to send =');
-        console.log(toSend);
+    var toSend = 'action='+action+'&nb='+nb;
+    var path = 'content_index';
     
-        preparetoHandleAdd(toSend, action, path, nb, url);
+    console.log('DisplayMore to send =');
+    console.log(toSend);
+
+    preparetoHandleAdd(toSend, action, path, nb, url);
 }
 
 function showElem(load_id) {
-    tab = load_id.split(';');
+    var tab = load_id.split(';');
     var id = tab[1];
     console.log('Show elem id = ');
     console.log(id);
@@ -200,11 +200,52 @@ function showElem(load_id) {
 }
 
 function hideElem(load_id) {
-    tab = load_id.split(';');
+    var tab = load_id.split(';');
     var id = tab[1];
     console.log('Show elem id = ');
     console.log(id);
 
     document.getElementById('author'+id).style.display = 'none';
-    document.getElementById('deleteImg'+id).style.display = 'none'
+    document.getElementById('deleteImg'+id).style.display = 'none';
+}
+
+function displayImage(load_id) {
+    var tab = load_id.split(';');
+    var action = 'displayImage';
+    var img_id = tab[1];
+
+    var url = './Controller/displayMedia.php';
+
+    var toSend = 'action='+action+'&img_id='+img_id;
+    var path = 'Bigmedia';
+    
+    console.log('DisplayMore to send =');
+    console.log(toSend);
+
+    document.getElementById('media'+img_id).id = 'Bigmedia'+img_id;
+    document.getElementById('Bigmedia'+img_id).className = 'Big_media';
+    preparetoHandle(toSend, path, img_id, url);
+
+    
+
+}
+
+function undisplayImage(load_id) {
+    var tab = load_id.split(';');
+    var action = 'undisplayImage';
+    var img_id = tab[1];
+
+    var url = './Controller/displayMedia.php';
+
+    var toSend = 'action='+action+'&img_id='+img_id;
+    var path = 'media';
+    
+    console.log('DisplayMore to send =');
+    console.log(toSend);
+
+    document.getElementById('Bigmedia'+img_id).id = 'media'+img_id;
+    document.getElementById('media'+img_id).className = 'media';
+    preparetoHandle(toSend, path, img_id, url);
+
+
 }
