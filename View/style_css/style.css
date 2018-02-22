@@ -473,3 +473,11 @@ body {
 .created_by {
     display: none;
 }
+
+.Bigmedia {
+    height : 100%;
+}
+
+.Bigmedia .img {
+    height : 50%;
+}
