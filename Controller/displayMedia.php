@@ -237,11 +237,7 @@ include("../DEBUG_print.php");
     $ImagesManager = new ImagesManager();
     $nb_img = $ImagesManager->count_id(FALSE, NULL, NULL);
     $ret = 0;
-<<<<<<< HEAD
-     echo "nb Images = $nb_img <-- DANS PHP IsMoreDIsplay";
-=======
     //  echo "nb Imgaes = $nb_img <-- DANS PHP IsMoreDIsplay";
->>>>>>> refs/remotes/origin/master
     if ($nb_img > ($nb + 1) * 10)
         $ret = 1;
     echo $ret;
