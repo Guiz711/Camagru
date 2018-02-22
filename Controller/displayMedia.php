@@ -79,8 +79,8 @@ function display_one_media($img_id, $user_id, $media)
         // Display IMG
     echo "
     <div class=media id=media$img_id>
-        <div class='on_picture'>
-            <div class='picture' id='picture;$img_id' onMouseOver='showElem(this.id)' onMouseOut='hideElem(this.id)'>
+        <div class='on_picture' id='on_picture;$img_id' onMouseOver='showElem(this.id)' onMouseOut='hideElem(this.id)'>
+            <div class='picture'>
                 <div class='hover_top hidden'>
                 </div>
                 <img src='$media[path_img]' height=1000px >
