@@ -185,9 +185,9 @@ if ($_POST && array_key_exists('action', $_POST) && $_POST['action'] == 'display
 else if ($_POST && array_key_exists('action', $_POST) && $_POST['action'] == 'IsMoreDisplay')
     is_moretoDisplay($_POST['nb']);
 else if ($_POST && array_key_exists('action', $_POST) && $_POST['action'] == 'deleteImg')
-    deleteImg($_POST['img_id']);
+    deleteImg($_POST['img_id'], $_POST['img_id']);
 
-function deleteImg($img_id) {
+function deleteImg($img_id, $where) {
  
     include("./allIncludes.php");
 
@@ -197,7 +197,10 @@ function deleteImg($img_id) {
     $LikesManager->delete(array('img_id' => $img_id));
     $CommentsManager = new CommentsManager();
     $CommentsManager->delete(array('img_id' => $img_id));
-    display_index();
+    if ($where == "content_index")
+        display_index();
+    else
+        display_myprofile();
 }
 
 

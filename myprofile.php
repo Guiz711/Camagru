@@ -35,7 +35,7 @@ if ($_SESSION && array_key_exists('display_id', $_SESSION))
     </div></div>
     
     <div class="img_gallery">
-        <div class="content" id="content_index">
+        <div class="content" id="content_profile">
     <?php
             include("./Controller/displayMedia.php");
             display_myprofile();
