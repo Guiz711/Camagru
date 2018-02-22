@@ -130,8 +130,7 @@ function display_index()
 function display_photomontage()
 {
     $ImagesManager = new ImagesManager();
-    $all_imgs = $ImagesManager->select_all(array('user_id' => $_SESSION['user_id']), FALSE, "date_creation desc");
-    
+    $all_imgs = $ImagesManager->select_all(array('user_id' => $_SESSION['user_id']), FALSE, "date_creation DESC LIMIT 5"); 
     $user_id = $_SESSION['user_id'];
     $all_imgs = add_path_img($all_imgs);
     foreach ($all_imgs as $key => $value) {
