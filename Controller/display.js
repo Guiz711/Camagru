@@ -40,9 +40,9 @@ function IsMoreToDisplay(id, action)
             }
             else {
                 console.log("kill div");
-                elem = document.getElementById(action+';'+id);
+                elem = document.getElementById(action+'1');
                 elem.innerHTML = "";
-                elem.parentNode.removeChild(elem);
+                elem.remove();
             }
         }
     });
