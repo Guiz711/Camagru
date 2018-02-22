@@ -164,3 +164,23 @@ function displayMore(load_id) {
     
         preparetoHandleAdd(toSend, action, path, nb, url);
 }
+
+function showElem(load_id) {
+    tab = load_id.split(';');
+    var id = tab[1];
+    console.log('Show elem id = ');
+    console.log(id);
+
+    document.getElementById('deleteImg'+id).style.display = 'block';
+    document.getElementById('author'+id).style.display = 'block';
+}
+
+function hideElem(load_id) {
+    tab = load_id.split(';');
+    var id = tab[1];
+    console.log('Show elem id = ');
+    console.log(id);
+
+    document.getElementById('deleteImg'+id).style.display = 'none';
+    document.getElementById('author'+id).style.display = 'none';
+}

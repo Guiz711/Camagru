@@ -415,3 +415,7 @@ body {
 .trash {
     display : none;
 }
+
+.created_by {
+    display: none;
+}
