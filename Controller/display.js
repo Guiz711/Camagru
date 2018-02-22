@@ -105,6 +105,8 @@ function addComment(load_id)
     // Prepare AddComment
     var action = tab[0];
     var textcomment = document.getElementById('textComment;'+img_id+';'+user_id).value;
+    if (textcomment === "")
+        return;
     var path = 'commentPart';
     var toSend = 'action='+action+'&img_id='+img_id+'&user_id='+user_id+'&text_comment='+textcomment+'&is_displayed='+is_displayed;
     console.log('addComment to send =');
