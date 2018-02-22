@@ -171,8 +171,8 @@ function showElem(load_id) {
     console.log('Show elem id = ');
     console.log(id);
 
-    document.getElementById('deleteImg'+id).style.display = 'block';
     document.getElementById('author'+id).style.display = 'block';
+    document.getElementById('deleteImg'+id).style.display = 'block';
 }
 
 function hideElem(load_id) {
@@ -181,6 +181,6 @@ function hideElem(load_id) {
     console.log('Show elem id = ');
     console.log(id);
 
-    document.getElementById('deleteImg'+id).style.display = 'none';
     document.getElementById('author'+id).style.display = 'none';
+    document.getElementById('deleteImg'+id).style.display = 'none'
 }
