@@ -158,12 +158,15 @@ function deleteImg(load_id) {
 
         var url = './Controller/displayMedia.php';
 
-        var toSend = 'action='+action+'&img_id='+img_id+'&user_id='+user_id+'&display_id='+display_id;
         var path = 'content_index';
+        if (document.getElementById('content_profile') !== null)
+            path = 'content_profile';
+
+        var toSend = 'action='+action+'&img_id='+img_id+'&user_id='+user_id+'&display_id='+display_id+'&where='+path;
         
         console.log('deleteImg to send =');
         console.log(toSend);
-        
+
         preparetoHandleDelete(toSend, path, img_id, url);
 
 
