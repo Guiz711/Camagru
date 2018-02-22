@@ -38,7 +38,7 @@ if (!array_key_exists('user_id', $_SESSION))
         <div><input type="file" id="choose_img" name="choose_img" accept=".jpg, .jpeg, .png"> </div>
     <div class="filters">   <?php  display_filters();  ?>   </div>
     </div>
-    <div class="photo_media">  <?php   display_photomontage(); ?>  </div>
+    <div class="photo_media"> Tes 5 derniers photomontages  <?php   display_photomontage(); ?>  </div>
     </div>
     
     

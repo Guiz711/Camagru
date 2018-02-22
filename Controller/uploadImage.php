@@ -43,7 +43,7 @@ function insert_filters($ids_array, $img_data)
     }
     else {
         $new_width = bcdiv($height, $ratio, 3);
-        echo "$new_width + $height";
+        // echo "$new_width + $height";
         $pos_x = bcdiv(bcsub($width, $new_width, 3), '2.0', 3);
         $pos_y = 0;
         $width = $new_width;
