@@ -107,21 +107,27 @@ function display_one_media($img_id, $user_id, $media)
 }
 function display_index()
 {
+    if (!$_SESSION || !array_key_exists('display_id', $_SESSION))
+        $_SESSION['display_id'] = 1;
+    $display_id = $_SESSION['display_id'];
     $ImagesManager = new ImagesManager();
-    $all_imgs = $ImagesManager->select_all(FALSE, FALSE, "date_creation DESC LIMIT 10");
+    $all_imgs = $ImagesManager->select_all(FALSE, FALSE, "date_creation DESC");
     $user_id = $_SESSION['user_id'];
     $all_imgs = add_path_img($all_imgs);
+    $limit = $display_id * 10;
 //    DEBUG_print($all_imgs);
     foreach ($all_imgs as $key => $value) {
-        $img_id = $value['img_id'];
-        $media = $value;
-        display_one_media($img_id, $user_id, $media);
+        if ($key < $limit) {
+            $img_id = $value['img_id'];
+            $media = $value;
+            display_one_media($img_id, $user_id, $media);
+        }
     }
     // Display Button Display MORE
     $nb_total_imgs = $ImagesManager->count_id(False, null, null);
-    if ($nb_total_imgs > 10) {
+    if ($nb_total_imgs > $limit) {
         echo "</div><div class='button-displayMore' id=displayMore1>
-        <a id='displayMore;1' href='#' onClick='displayMore(this.id)'>
+        <a id='displayMore;$display_id' href='#' onClick='displayMore(this.id)'>
         Affichez +</a>
         </div>
         <script src='./Controller/display.js'></script>";
@@ -148,20 +154,26 @@ function display_filters()
 }
 function display_myprofile()
 {
+    if (!$_SESSION || !array_key_exists('display_id', $_SESSION))
+        $_SESSION['display_id'] = 1;
+    $display_id = $_SESSION['display_id'];
     $ImagesManager = new ImagesManager();
     $all_imgs = $ImagesManager->select_all(array('user_id' => $_SESSION['user_id']), FALSE, "date_creation desc LIMIT 10");
     $user_id = $_SESSION['user_id'];
     $all_imgs = add_path_img($all_imgs);
+    $limit = $display_id * 10;
     foreach ($all_imgs as $key => $value) {
-        $img_id = $value['img_id'];
-        $media = $value;
-        display_one_media($img_id, $user_id, $media);
+        if ($key < $limit) {
+            $img_id = $value['img_id'];
+            $media = $value;
+            display_one_media($img_id, $user_id, $media);
+        }
     }
     // Display Button Display MORE
     $nb_total_imgs = $ImagesManager->count_id(True, 'user_id', $_SESSION['user_id']);
-    if ($nb_total_imgs > 10) {
+    if ($nb_total_imgs > $limit) {
         echo "</div><div class='button-displayMore' id=displayMore1>
-        <a id='displayMore;1' href='#' onClick='displayMore(this.id)'>
+        <a id='displayMore;$display_id' href='#' onClick='displayMore(this.id)'>
         Affichez +</a>
         </div>
         <script src='./Controller/display.js'></script>";
@@ -172,31 +184,26 @@ if ($_POST && array_key_exists('action', $_POST) && $_POST['action'] == 'display
     display_more($_POST['nb']);
 else if ($_POST && array_key_exists('action', $_POST) && $_POST['action'] == 'IsMoreDisplay')
     is_moretoDisplay($_POST['nb']);
+else if ($_POST && array_key_exists('action', $_POST) && $_POST['action'] == 'deleteImg')
+    deleteImg($_POST['img_id']);
 
-    
+function deleteImg($img_id) {
+ 
+    include("./allIncludes.php");
+
+    $ImagesManager = new ImagesManager();
+    $ImagesManager->delete(array('img_id' => $img_id));
+    $LikesManager = new LikesManager();
+    $LikesManager->delete(array('img_id' => $img_id));
+    $CommentsManager = new CommentsManager();
+    $CommentsManager->delete(array('img_id' => $img_id));
+    display_index();
+}
+
+
 function display_more($id) {
-    // INCLUDES
-// CONFIG
-include("../Config/database.php");
-include('../Config/config.php');
-define('DB_USER', $DB_USER);
-define('DB_PASS', $DB_PASS);
-define('DB_DSN', $DB_DSN);
-// VIEW
-include("../View/path_img.php");
-include("../View/view.php");
-// MODEL
-include("../Model/DbManager.class.php");
-include("../Model/SelectElem.class.php");
-include("../Model/ImagesManager.class.php");
-include("../Model/CommentsManager.class.php");
-include("../Model/LikesManager.class.php");
-include("../Model/UsersManager.class.php");
-// CONTROLLER
-// include("../Controller/utility.php");
-// include("../Controller/userForm.php");
-// DEBUG
-include("../DEBUG_print.php");
+    
+    include("./allIncludes.php");
     
     $start = $id * 10;
     $limit = $start + 10;
@@ -209,30 +216,15 @@ include("../DEBUG_print.php");
         if ($key >= $start && $key < $limit) {
             $img_id = $value['img_id'];
             $media = $value;
-            display_one_media($img_id, $user_id, $media);
+            display_one_media($img_id, $user_id, $media, $id);
         }
     }
+    $_SESSION['display_id'] = $id + 1;
 }
 function is_moretoDisplay($nb) {
-        // INCLUDES
-// CONFIG
-include("../Config/database.php");
-include('../Config/config.php');
-define('DB_USER', $DB_USER);
-define('DB_PASS', $DB_PASS);
-define('DB_DSN', $DB_DSN);
-// VIEW
-// include("../View/path_img.php");
-// include("../View/view.php");
-// MODEL
-include("../Model/DbManager.class.php");
-include("../Model/SelectElem.class.php");
-include("../Model/ImagesManager.class.php");
-include("../Model/CommentsManager.class.php");
-include("../Model/LikesManager.class.php");
-include("../Model/UsersManager.class.php");
-// DEBUG
-include("../DEBUG_print.php");
+
+    include("./allIncludes.php");
+
     $ImagesManager = new ImagesManager();
     $nb_img = $ImagesManager->count_id(FALSE, NULL, NULL);
     $ret = 0;
@@ -241,4 +233,6 @@ include("../DEBUG_print.php");
         $ret = 1;
     echo $ret;
 }
+
+
 ?>
