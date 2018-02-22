@@ -67,9 +67,7 @@ button_password_forgotten.addEventListener('click', () => {
 <script>
 function	display_popup_result(type)
 {
-	// alert (type);
 	let popup_result = document.getElementById(type);
-	// alert (popup_result);
 	popup_result.style.display = 'block';
 }		
 
