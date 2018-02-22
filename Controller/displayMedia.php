@@ -80,7 +80,7 @@ function display_one_media($img_id, $user_id, $media)
     echo "
     <div class=media id=media$img_id>
         <div class='on_picture'>
-            <div class='picture'>
+            <div class='picture' id='picture;$img_id' onMouseOver='showElem(this.id)' onMouseOut='hideElem(this.id)'>
                 <div class='hover_top hidden'>
                 </div>
                 <img src='$media[path_img]' height=1000px >
@@ -93,7 +93,7 @@ function display_one_media($img_id, $user_id, $media)
         echo "
                 <div class='trash' id=deleteImg$img_id>
                     <a id='deleteImg;$img_id;$user_id' href='#' onClick='deleteImg(this.id)'>
-                    <img src='./resources/trash.png' class='trash' id=trash$img_id onmouseover='document.getElementById(this.id).style.display = 'block';'></a>
+                    <img src='./resources/trash.png'></a>
                 </div>
                 <script language='JavaScript' type='text/javascript' src='./Controller/display.js'></script>";
     }
@@ -101,7 +101,7 @@ function display_one_media($img_id, $user_id, $media)
         // Display LIKES
     display_Likes($img_id, $user_id);
         // Author (& Date ??)
-    echo "<div class =created_by>Created by $ImgAuthorLogin </div></div>";
+    echo "<div class =created_by id='author$img_id'>Created by $ImgAuthorLogin </div></div>";
         // Display COMMENTS
     display_Comments($img_id, $user_id);
 }
