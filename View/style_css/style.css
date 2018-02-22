@@ -412,3 +412,6 @@ body {
 	left: 0;
 }
 
+.trash {
+    display : hidden;
+}
