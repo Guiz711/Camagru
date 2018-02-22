@@ -192,11 +192,12 @@ include("../DEBUG_print.php");
     $start = $id * 10;
     $limit = $start + 10;
     $ImagesManager = new ImagesManager();
-    $all_imgs = $ImagesManager->select_all(FALSE, FALSE, "date_creation DESC LIMIT $limit");
+    $all_imgs = $ImagesManager->select_all(FALSE, FALSE, "date_creation DESC");
     $user_id = $_SESSION['user_id'];
     $all_imgs = add_path_img($all_imgs);
+    // DEBUG_print($all_imgs);
     foreach ($all_imgs as $key => $value) {
-        if ($key >= $start) {
+        if ($key >= $start && $key < $limit) {
             $img_id = $value['img_id'];
             $media = $value;
             display_one_media($img_id, $user_id, $media);
@@ -226,7 +227,11 @@ include("../DEBUG_print.php");
     $ImagesManager = new ImagesManager();
     $nb_img = $ImagesManager->count_id(FALSE, NULL, NULL);
     $ret = 0;
+<<<<<<< HEAD
      echo "nb Images = $nb_img <-- DANS PHP IsMoreDIsplay";
+=======
+    //  echo "nb Imgaes = $nb_img <-- DANS PHP IsMoreDIsplay";
+>>>>>>> refs/remotes/origin/master
     if ($nb_img > ($nb + 1) * 10)
         $ret = 1;
     echo $ret;
