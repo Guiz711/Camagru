@@ -83,19 +83,21 @@ function display_one_media($img_id, $user_id, $media)
             <div class='picture' id='picture;$img_id' onClick='displayImage(this.id)'>
                 <img src='$media[path_img]' height=1000px >
                 <div class='hover_bottom hidden' id='hover_bottom$img_id' hidden'>
-                    <div class='created_by' id='author$img_id'>Posté par $ImgAuthorLogin </div></div>
-                </div>
+                    <div class='created_by' id='author$img_id'>Posté par $ImgAuthorLogin </div>";
+                if ($user_id == $media['user_id']) {
+                    echo "
+                            <div class='trash' id=deleteImg$img_id>
+                                <a id='deleteImg;$img_id;$user_id' href='#' onClick='deleteImg(this.id)'>
+                                <img src='./resources/trash.png'></a>
+                            </div>
+                            <script language='JavaScript' type='text/javascript' src='./Controller/display.js'></script>";
+                };
+                echo"
+                </div></div>
             </div>
             <div class='info_picture'>";
               // Display TRASH (IF)
-    if ($user_id == $media['user_id']) {
-        echo "
-                <div class='trash' id=deleteImg$img_id>
-                    <a id='deleteImg;$img_id;$user_id' href='#' onClick='deleteImg(this.id)'>
-                    <img src='./resources/trash.png'></a>
-                </div>
-                <script language='JavaScript' type='text/javascript' src='./Controller/display.js'></script>";
-    }
+   
         // Display LIKES
     display_Likes($img_id, $user_id);
         // Author (& Date ??)
