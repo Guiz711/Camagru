@@ -84,7 +84,7 @@ function display_one_media($img_id, $user_id, $media)
                 <div class='hover_top hidden'>
                 </div>
                 <img src='$media[path_img]' height=1000px >
-                <div class='hover_bottom hidden'>
+                <div class='hover_bottom hidden' id='hover_bottom$img_id' hidden'>
                 </div>
             </div>
             <div class='info_picture'>";

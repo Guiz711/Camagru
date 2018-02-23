@@ -1,20 +1,21 @@
-// let thumbnail = document.querySelectorAll(".picture");
+let thumbnail = document.querySelectorAll(".picture");
 
 
-// for (var i = 0; i < thumbnail.length; i++) {
-// 	thumbnail[i].addEventListener("mouseover", () => {
-// 		let hover_bottom = document.querySelector(".hover_bottom");
-// 		let hover_top = document.querySelector(".hover_top");
+for (var i = 0; i < thumbnail.length; i++) {
+	thumbnail[i].addEventListener("mouseover", function(){
+        // console.log("#" + this.id + ">.hover_bottom");
+        let test = this.id.slice(8);
+        console.log("youhou test : " + test);
+        let hover_bottom = document.querySelector("#hover_bottom" + test);
+        console.log("youhou : " + hover_bottom);
 
-// 		hover_bottom.classList.remove("hidden");
-// 		hover_top.classList.remove("hidden");
-// 	},false);
+		hover_bottom.classList.remove("hidden");
+	});
 
-// 	thumbnail[i].addEventListener("mouseout", () => {
-// 		let hover_bottom = document.querySelector(".hover_bottom");
-// 		let hover_top = document.querySelector(".hover_top");
+	thumbnail[i].addEventListener("mouseout", function(){
+        let test = this.id.slice(8);
+        let hover_bottom = document.querySelector("#hover_bottom" + test);
 
-// 		hover_bottom.classList.add("hidden");
-// 		hover_top.classList.add("hidden");
-// 	},false);
-// }
+		hover_bottom.classList.add("hidden");
+	});
+}

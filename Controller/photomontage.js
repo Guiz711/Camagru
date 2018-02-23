@@ -210,9 +210,9 @@ while (i < filters.length)
     filters[i].addEventListener('click', function(){
         let filterexists = document.querySelector('#applied_' + this.id);
         let iffilter = document.querySelectorAll("div[id^='applied_']");
-        console.log("filterexist");
-        console.log(iffilter.length);
-        console.log("filterexist");
+        // console.log("filterexist");
+        // console.log(iffilter.length);
+        // console.log("filterexist");
         savebutton.disabled = false;
         if (filterexists != null){
             console.log("hey you");
