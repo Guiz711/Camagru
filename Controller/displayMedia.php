@@ -81,14 +81,13 @@ function display_one_media($img_id, $user_id, $media)
     <div class=media id=media$img_id>";
         echo "<div class='on_picture' id='on_picture;$img_id' onMouseOver='showElem(this.id)' onMouseOut='hideElem(this.id)'>
             <div class='picture' id='picture;$img_id' onClick='displayImage(this.id)'>
-                <div class='hover_top hidden'>
-                </div>
                 <img src='$media[path_img]' height=1000px >
                 <div class='hover_bottom hidden' id='hover_bottom$img_id' hidden'>
+                    <div class='created_by' id='author$img_id'>Posté par $ImgAuthorLogin </div></div>
                 </div>
             </div>
             <div class='info_picture'>";
-        // Display TRASH (IF)
+              // Display TRASH (IF)
     if ($user_id == $media['user_id']) {
         echo "
                 <div class='trash' id=deleteImg$img_id>
@@ -97,13 +96,12 @@ function display_one_media($img_id, $user_id, $media)
                 </div>
                 <script language='JavaScript' type='text/javascript' src='./Controller/display.js'></script>";
     }
-        
         // Display LIKES
     display_Likes($img_id, $user_id);
         // Author (& Date ??)
-    echo "<div class =created_by id='author$img_id'>Created by $ImgAuthorLogin </div></div>";
         // Display COMMENTS
     display_Comments($img_id, $user_id);
+    
 }
 function display_index()
 {
