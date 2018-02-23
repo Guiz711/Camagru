@@ -10,15 +10,13 @@
 	</header>
 	
 	<script>
-					function disconnect_user()
-					{
-						let disc = document.querySelector("#disconnect_form");
-						disc.submit();
-					}
-					var popup_login = document.querySelector('#popup_login');
-					popup_login.style.display = "none";
-					let btn_login = document.querySelector("#disconnect");
-					btn_login.addEventListener("click", disconnect_user, false);
+		function disconnect_user(){
+			let disc = document.querySelector("#disconnect_form");
+			disc.submit();
+		}
+		var popup_login = document.querySelector('#popup_login');
+		popup_login.style.display = "none";
+		let btn_login = document.querySelector("#disconnect");
+		btn_login.addEventListener("click", disconnect_user, false);
 	</script>
 </html>
-        
