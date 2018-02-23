@@ -333,7 +333,7 @@ span
     background-color:#0d1217;;
     height: 3vh;
     width: 100%;
-    min-height: 80px;
+    min-height: 100px;
     min-width: 300px;
 }
 
@@ -342,12 +342,13 @@ span
     padding: 2vw;
     font-weight: bold;
     opacity: 0.9;
+    display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .header_nav_categories a {
-    top:50%;
-    bottom:50%;
+    /* vertical-align: middle; */
     color: rgba(255, 253, 253, 0.849);
     text-decoration: none;
     font-size: 1.04em;
@@ -513,4 +514,9 @@ body {
 
 .Bigmedia .img {
     height : 50%;
+}
+
+#disconnect_form
+{
+    display: none;
 }
