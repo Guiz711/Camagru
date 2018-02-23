@@ -22,6 +22,7 @@ if ($_SESSION && array_key_exists('display_id', $_SESSION))
     $res= $UsersManager->find_login_mail_notifications($_SESSION['user_id']);
     ?></header>
 
+    <div class='hello'>Bonjour <?php echo $res[0]['u_login']; ?> !</div>
     <div class='me'>
         <div class='modify_myprofile'> <a id='login' href="#" onclick="document.getElementById('popup_modify').style.display='block'" style="width:auto;";>Modifier mes informations</a></div>
         <div class='modify_myprofile'><a> Notifications par mail :</a> <form action=<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?> method='POST'>

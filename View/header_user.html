@@ -1,35 +1,24 @@
 <html>
     <!-- Barre du haut - Navigation  -->
-        <header><div class="header_nav">
-				<div class="header_nav_categories">
-						<a href='./index.php'>Accueil</a>
-					</div>
-            <div class="header_nav_categories">
-					<a href='./myprofile.php'>Mon profil</a>
-			</div>
-			<div class="header_nav_categories">
-					<a href='./photomontage.php'>Faire un photomontage</a>
-			</div>
-			<div class="header_nav_categories">
-					<a id="disconnect" href="#">Se déconnecter
-						<form id="disconnect_form" action="index.php" method="POST">
-							<input class="hidden" type="text" name="submit_val" value="disconnect">
-						</form>
-						
-					</a>
-				</div>
-		</div></header>
-				<script>
+    <header>
+		<div class="header_nav">
+			<div class="header_nav_categories"><a href='./index.php'>Accueil</a></div>
+            <div class="header_nav_categories"><a href='./myprofile.php'>Mon profil</a></div>
+			<div class="header_nav_categories"><a href='./photomontage.php'>Faire un photomontage</a></div>
+			<div class="header_nav_categories"><a id="disconnect" href="#">Se déconnecter <form id="disconnect_form" action="index.php" method="POST"><input class="hidden" type="text" name="submit_val" value="disconnect"></form></a></div>
+		</div>
+	</header>
+	
+	<script>
 					function disconnect_user()
 					{
 						let disc = document.querySelector("#disconnect_form");
-
 						disc.submit();
 					}
 					var popup_login = document.querySelector('#popup_login');
 					popup_login.style.display = "none";
 					let btn_login = document.querySelector("#disconnect");
 					btn_login.addEventListener("click", disconnect_user, false);
-				</script>
+	</script>
 </html>
         
