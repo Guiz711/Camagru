@@ -3,6 +3,7 @@ console.log("Script1");
 let streaming = false;
 let video = document.querySelector('#video');
 let webcam = document.querySelector('.webcam');
+let webcam_content = document.querySelector('#webcam_content');
 let canvas = document.querySelector('#canvas');
 let photo = document.querySelector('#photo');
 let startbutton = document.querySelector('#startbutton');
@@ -29,7 +30,8 @@ navigator.getMedia(
         video.play();},
     function(err){
         console.log("Une erreur est survenue" + err);}
-    );
+	);
+	
 video.addEventListener('canplay', function(ev){
     if (!streaming){
         height = video.videoHeight / (video.videoWidth/width);
@@ -40,9 +42,10 @@ video.addEventListener('canplay', function(ev){
         photo.setAttribute('width', width);
         photo.setAttribute('height', height);
         streaming = true;    
-    }}, false);
+	}}, false);
+	
 window.addEventListener('resize', function(ev){
-        width = webcam.offsetWidth;
+        width = window.innerWidth * 0.80;
         height = video.videoHeight / (video.videoWidth/width);
         video.setAttribute('width', width);
         video.setAttribute('height', height);
