@@ -214,38 +214,26 @@ function displayImage(load_id) {
     var action = 'displayImage';
     var img_id = tab[1];
 
-    var url = './Controller/displayMedia.php';
+        console.log('DisplayImage to send =');
+        console.log(img_id);
 
-    var toSend = 'action='+action+'&img_id='+img_id;
-    var path = 'Bigmedia';
-    
-    console.log('DisplayMore to send =');
-    console.log(toSend);
-
-    document.getElementById('media'+img_id).id = 'Bigmedia'+img_id;
-    document.getElementById('Bigmedia'+img_id).className = 'Big_media';
-    preparetoHandle(toSend, path, img_id, url);
-
-    
-
+        document.getElementById('media'+img_id).id = 'Bigmedia'+img_id;
+        document.getElementById('Bigmedia'+img_id).className = 'Big_media';
+        document.getElementById('description'+img_id).className = 'description';
+        document.getElementById('picture;'+img_id).onclick = function (){undisplayImage(this.id)};
 }
 
 function undisplayImage(load_id) {
     var tab = load_id.split(';');
     var action = 'undisplayImage';
     var img_id = tab[1];
-
-    var url = './Controller/displayMedia.php';
-
-    var toSend = 'action='+action+'&img_id='+img_id;
-    var path = 'media';
     
-    console.log('DisplayMore to send =');
-    console.log(toSend);
+    console.log('UndisplayImage to send =');
+    console.log(img_id);
 
     document.getElementById('Bigmedia'+img_id).id = 'media'+img_id;
     document.getElementById('media'+img_id).className = 'media';
-    preparetoHandle(toSend, path, img_id, url);
-
+    document.getElementById('description'+img_id).className = 'hidden';
+    document.getElementById('picture;'+img_id).onclick = function (){displayImage(this.id)};
 
 }
