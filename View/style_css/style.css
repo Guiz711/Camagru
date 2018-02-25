@@ -275,7 +275,9 @@ span
 	justify-content: space-between;
 }
 
-
+.description {
+    display: block;
+}
 
 #gallery {
 	flex:1;

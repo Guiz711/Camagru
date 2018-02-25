@@ -1,6 +1,8 @@
 <?php
 if (!isset($_SESSION))
     session_start();
+
+    
 function display_Likes($img_id, $user_id) {
      
     // Gestion des LIKES
@@ -37,6 +39,9 @@ function display_Likes($img_id, $user_id) {
         }
         echo "</div>";
 }
+
+
+
 function display_Comments($img_id, $user_id) {
     $CommentsManager = new CommentsManager();
     $UsersManager = new UsersManager();
@@ -68,6 +73,10 @@ function display_Comments($img_id, $user_id) {
     echo "</div>";
     echo "</div>";
 }
+
+
+
+
 function display_one_media($img_id, $user_id, $media)
 {
     $LikesManager = new LikesManager();
@@ -76,6 +85,7 @@ function display_one_media($img_id, $user_id, $media)
         
     $findAuthorId = $UsersManager->find_login($media['user_id']);
     $ImgAuthorLogin = $findAuthorId[0]['u_login'];
+    $description = $media['img_description'];
         // Display IMG
     echo "
     <div class=media id=media$img_id>";
@@ -96,6 +106,7 @@ function display_one_media($img_id, $user_id, $media)
                 </div></div>
             </div>
             <div class='info_picture'>";
+            echo "<div class ='hidden' id='description$img_id'>Description : $description</div>";
               // Display TRASH (IF)
    
         // Display LIKES
@@ -148,6 +159,9 @@ function display_photomontage()
         display_one_media($img_id, $user_id, $media);
     }
 }
+
+
+
 function display_filters()
 {
     echo "<div id='filter1'><img class='filterimg' src='./resources/filters/1.png' ></div>";
@@ -155,6 +169,9 @@ function display_filters()
     // echo "<div id='filter3'><img class='filterimg' src='./resources/filters/3.png' ></div>";
     echo "<div id='filter4'><img class='filterimg' src='./resources/filters/4.png' ></div>";
 }
+
+
+
 function display_myprofile()
 {
     if (!$_SESSION || !array_key_exists('display_id', $_SESSION))
@@ -182,6 +199,7 @@ function display_myprofile()
         <script src='./Controller/display.js'></script>";
     }
 }
+
 
 function deleteImg($img_id, $where) {
  
@@ -220,6 +238,8 @@ function display_more($id) {
     }
     $_SESSION['display_id'] = $id + 1;
 }
+
+
 function is_moretoDisplay($nb) {
 
     include("./allIncludes.php");
@@ -233,103 +253,10 @@ function is_moretoDisplay($nb) {
     echo $ret;
 }
 
-function displayBig($img_id)
-{
-    include("./allIncludes.php");
-
-    $ImagesManager = new ImagesManager();
-    $media = $ImagesManager->select_all(array('img_id' => $img_id),'and', False);
-    $media = add_path_img($media);
-    $media = $media[0];
-    $user_id = $_SESSION['user_id'];
-
-    $UsersManager = new UsersManager();
-        
-    $findAuthorId = $UsersManager->find_login($media['user_id']);
-    $ImgAuthorLogin = $findAuthorId[0]['u_login'];
-    $description = $media['img_description'];
-
-
-    echo "<div class='on_BIG_picture' id='on_picture;$img_id' onMouseOver='showElem(this.id)' onMouseOut='hideElem(this.id)'>
-            <div class='BIG_picture' id='picture;$img_id' onClick='undisplayImage(this.id)'>
-                <div class='hover_top hidden'>
-                </div>
-                <img src='$media[path_img]' height=1000px >
-                <div class='hover_bottom hidden'>
-                </div>
-            </div>
-            <div class='info_picture'>";
-        // Display TRASH (IF)
-    if ($user_id == $media['user_id']) {
-        echo "
-                <div class='trash' id=deleteImg$img_id>
-                    <a id='deleteImg;$img_id;$user_id' href='#' onClick='deleteImg(this.id)'>
-                    <img src='./resources/trash.png'></a>
-                </div>
-                <script language='JavaScript' type='text/javascript' src='./Controller/display.js'></script>";
-    }
-        
-        // Display LIKES
-    display_Likes($img_id, $user_id);
-        // Author (& Date ??)
-    echo "<div class =created_by id='author$img_id'>Created by $ImgAuthorLogin </div></div>";
-    // Display Description
-    echo "<div class =description id='description$img_id'>Description : $description</div>";
-        // Display COMMENTS
-    display_Comments($img_id, $user_id);
-
-}
-
-function undisplayBig($img_id)
-{
-    include("./allIncludes.php");
-
-    $ImagesManager = new ImagesManager();
-    $media = $ImagesManager->select_all(array('img_id' => $img_id),'and', False);
-    $media = add_path_img($media);
-    $media = $media[0];
-    $user_id = $_SESSION['user_id'];
-
-    $UsersManager = new UsersManager();
-        
-    $findAuthorId = $UsersManager->find_login($media['user_id']);
-    $ImgAuthorLogin = $findAuthorId[0]['u_login'];
-
-    echo "<div class='on_picture' id='on_picture;$img_id' onMouseOver='showElem(this.id)' onMouseOut='hideElem(this.id)'>
-    <div class='picture' id='picture;$img_id' onClick='displayImage(this.id)'>
-        <div class='hover_top hidden'>
-        </div>
-        <img src='$media[path_img]' height=1000px >
-        <div class='hover_bottom hidden'>
-        </div>
-    </div>
-    <div class='info_picture'>";
-    // Display TRASH (IF)
-    if ($user_id == $media['user_id']) {
-    echo "
-            <div class='trash' id=deleteImg$img_id>
-                <a id='deleteImg;$img_id;$user_id' href='#' onClick='deleteImg(this.id)'>
-                <img src='./resources/trash.png'></a>
-            </div>
-            <script language='JavaScript' type='text/javascript' src='./Controller/display.js'></script>";
-    }
-
-    // Display LIKES
-    display_Likes($img_id, $user_id);
-    // Author (& Date ??)
-    echo "<div class =created_by id='author$img_id'>Created by $ImgAuthorLogin </div></div>";
-    // Display COMMENTS
-    display_Comments($img_id, $user_id);
-}
-
 if ($_POST && array_key_exists('action', $_POST) && $_POST['action'] == 'displayMore')
     display_more($_POST['nb']);
 else if ($_POST && array_key_exists('action', $_POST) && $_POST['action'] == 'IsMoreDisplay')
     is_moretoDisplay($_POST['nb']);
 else if ($_POST && array_key_exists('action', $_POST) && $_POST['action'] == 'deleteImg')
     deleteImg($_POST['img_id'], $_POST['img_id']);
-else if ($_POST && array_key_exists('action', $_POST) && $_POST['action'] == 'displayImage')
-    displayBig($_POST['img_id']);
-else if ($_POST && array_key_exists('action', $_POST) && $_POST['action'] == 'undisplayImage')
-    undisplayBig($_POST['img_id']);
 ?>
