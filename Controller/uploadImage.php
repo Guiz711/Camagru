@@ -1,5 +1,10 @@
 <?php
 session_start();
+$vault = true;
+if (!array_key_exists('user_id', $_SESSION))
+	$_SESSION['user_id'] = "unknown";
+if ($_SESSION['user_id'] === "unknown")
+	header('location: ../index.php');
 
 require_once("../Config/database.php");
 require_once('../Config/config.php');
@@ -60,14 +65,14 @@ function insert_filters($ids_array, $img_data)
 // echo "hey";
 if (array_key_exists('image', $_POST) && array_key_exists('description', $_POST) && array_key_exists('ids', $_POST)) {
     $ImagesManager = new ImagesManager();
-    $image = substr($_POST['image'], strpos($_POST['image'], ','));
+    $image = substr(sanitize_input($_POST['image']), strpos(sanitize_input($_POST['image']), ','));
     // $image = $_POST['image'];
     $image = str_replace(' ', '+', $image);
-    $image = insert_filters(explode(';', $_POST['ids']), base64_decode($image));
+    $image = insert_filters(explode(';', sanitize_input($_POST['ids'])), base64_decode($image));
     // $image = base64_decode($image);
     $ImagesManager->insert(array(
         'user_id' => $_SESSION['user_id'],
-        'img_description' => $_POST['description']
+        'img_description' => sanitize_input($_POST['description'])
     ));
     $image_name = $ImagesManager->userLastImage($_SESSION['user_id']);
     imagepng($image, '../img/' . $image_name . '.png');

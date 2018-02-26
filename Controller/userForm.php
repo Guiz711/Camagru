@@ -1,4 +1,9 @@
 <?php
+if (!isset($vault) || $vault !== true)
+{
+	header('HTTP/1.0 403 Forbidden');
+	die();
+}
 
 function  sendMailComment($img_id){
 	$folder = getcwd();
@@ -21,26 +26,23 @@ function  sendMailComment($img_id){
 function is_valid_passwd($passwd)
 {
 	$pattern = '/([0-9]+.*[A-Z]+)|([A-Z]+.*[0-9]+)/';
+
+	if (!preg_match($pattern, $passwd))
+		return (false);
+	return (true);
 }
 
 function user_signup($login, $passwd1, $passwd2, $mail)
 {
 	$user = new UsersManager();
 	if (strlen($login) < LOGIN_LEN)
-	{
-		$res = "Votre login est trop court.";
-		return ($res);
-	}
+		return ("Votre login est trop court.");
 	if (strlen($passwd1) < PASSWD_LEN)
-	{
-		$res = "Votre mot de passe est trop court.";
-		return ($res);
-	}
+		return ("Votre mot de passe est trop court.");
+	if (!is_valid_passwd($passwd1))
+		return ("Votre mot de passe doit contenir au moins une majuscule et un chiffre");
 	if ($passwd1 !== $passwd2)
-	{
-		$res = "Attention, les deux mots de passe ne sont pas pareils";
-		return ($res);
-	}
+		return ("Attention, les deux mots de passe ne sont pas pareils");
 	$passwd = password_hash($passwd1, PASSWORD_DEFAULT);
 	if ($user->is_already_in_bdd(array('u_login' => $login, 'mail' => $mail), "OR", NULL)) {
 		echo "SignUP FAILED : Login or mail already exists </br >";

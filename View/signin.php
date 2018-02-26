@@ -1,3 +1,11 @@
+<?php
+if (!isset($vault) || $vault !== true)
+{
+	header('HTTP/1.0 403 Forbidden');
+	die();
+}
+?>
+
 <div id="popup_login_confirm" class="popup_login">
   
 	<form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?> method="POST">

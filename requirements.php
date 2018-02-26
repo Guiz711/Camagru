@@ -1,5 +1,9 @@
 <?php
-
+if (!isset($vault) || $vault !== true)
+{
+	header('HTTP/1.0 403 Forbidden');
+	die();
+}
 // CONFIG
 require_once("./Config/database.php");
 require_once('./Config/config.php');
