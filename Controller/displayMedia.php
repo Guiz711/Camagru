@@ -1,7 +1,6 @@
 <?php
-if (!isset($_SESSION))
-    session_start();
-
+// if (!isset($_SESSION))
+    // session_start();
     
 function display_Likes($img_id, $user_id) {
      
@@ -21,7 +20,7 @@ function display_Likes($img_id, $user_id) {
     
             // Nb Likes
         echo "<div class='nb_likes' id=nbLikes$img_id>$nb_likes";
-        if ($nb_likes < 2) 
+        if ($nb_likes < 2)
             echo " Like</div>";
         else 
             echo " Likes</div>";
@@ -165,8 +164,8 @@ function display_photomontage()
 function display_filters()
 {
     echo "<div id='filter1'><img class='filterimg' src='./resources/filters/1.png' ></div>";
-    // echo "<div id='filter2'><img class='filterimg' src='./resources/filters/2.png' ></div>";
-    // echo "<div id='filter3'><img class='filterimg' src='./resources/filters/3.png' ></div>";
+    echo "<div id='filter2'><img class='filterimg' src='./resources/filters/2.png' ></div>";
+    echo "<div id='filter3'><img class='filterimg' src='./resources/filters/3.png' ></div>";
     echo "<div id='filter4'><img class='filterimg' src='./resources/filters/4.png' ></div>";
 }
 
@@ -254,9 +253,9 @@ function is_moretoDisplay($nb) {
 }
 
 if ($_POST && array_key_exists('action', $_POST) && $_POST['action'] == 'displayMore')
-    display_more($_POST['nb']);
+    display_more(sanitize_input($_POST['nb']));
 else if ($_POST && array_key_exists('action', $_POST) && $_POST['action'] == 'IsMoreDisplay')
-    is_moretoDisplay($_POST['nb']);
+    is_moretoDisplay(sanitize_input($_POST['nb']));
 else if ($_POST && array_key_exists('action', $_POST) && $_POST['action'] == 'deleteImg')
-    deleteImg($_POST['img_id'], $_POST['img_id']);
+    deleteImg(sanitize_input($_POST['img_id']), sanitize_input($_POST['img_id']));
 ?>

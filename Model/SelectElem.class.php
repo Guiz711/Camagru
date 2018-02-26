@@ -1,4 +1,9 @@
 <?php
+if (!isset($vault) || $vault !== true)
+{
+	header('HTTP/1.0 403 Forbidden');
+	die();
+}
 
 trait SelectElem {
     function select_elem($id, $table, $id_table, $db) {
