@@ -1,6 +1,8 @@
 <?php
 // if (!isset($_SESSION))
-    // session_start();
+	// session_start();
+
+	
     
 function display_Likes($img_id, $user_id) {
      
@@ -272,10 +274,18 @@ function is_moretoDisplay($nb) {
     echo $ret;
 }
 
+function sanitize_input2($input)
+{
+	$input = trim($input);
+	$input = stripslashes($input);
+	$input = htmlspecialchars($input);
+	return $input;
+}
+
 if ($_POST && array_key_exists('action', $_POST) && $_POST['action'] == 'displayMore')
-    display_more(sanitize_input($_POST['nb']));
+    display_more(sanitize_input2($_POST['nb']));
 else if ($_POST && array_key_exists('action', $_POST) && $_POST['action'] == 'IsMoreDisplay')
-    is_moretoDisplay(sanitize_input($_POST['nb']));
+    is_moretoDisplay(sanitize_input2($_POST['nb']));
 else if ($_POST && array_key_exists('action', $_POST) && $_POST['action'] == 'deleteImg')
-    deleteImg(sanitize_input($_POST['img_id']), sanitize_input($_POST['img_id']));
+    deleteImg(sanitize_input2($_POST['img_id']), sanitize_input2($_POST['img_id']));
 ?>

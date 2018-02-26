@@ -17,7 +17,7 @@ include("../Model/CommentsManager.class.php");
 include("../Model/LikesManager.class.php");
 include("../Model/UsersManager.class.php");
 // CONTROLLER
-// include("../Controller/utility.php");
+ include("./utility.php");
 // include("../Controller/userForm.php");
 // DEBUG
 include("../DEBUG_print.php");
