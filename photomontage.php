@@ -49,7 +49,10 @@ if ($_SESSION['user_id'] === "unknown")
         
         </div>
 
-        <div class="photo_media"> Tes 3 derniers photomontages  <?php   display_photomontage(); ?>  </div>
+        <div class="photo_media">
+			<div class="title_photo_media">Tes trois derniers photomontages</div>
+			<?php   display_photomontage(); ?>
+		</div>
 
     </div>
     

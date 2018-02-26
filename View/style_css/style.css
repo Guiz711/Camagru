@@ -141,6 +141,13 @@ div[id^='applied_filter'] {
     flex:column;
 }
 
+.title_photo_media {
+	width: 100%;
+	background-color: grey;
+	text-align : center;
+	padding: 10px;
+	color: white;
+}
 
 
 /* Footer */

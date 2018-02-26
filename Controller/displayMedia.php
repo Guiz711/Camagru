@@ -106,11 +106,9 @@ function display_one_media($img_id, $user_id, $media)
             </div>
             <div class='info_picture'>";
             echo "<div class ='hidden' id='description$img_id'>Description : $description</div>";
-              // Display TRASH (IF)
    
         // Display LIKES
     display_Likes($img_id, $user_id);
-        // Author (& Date ??)
         // Display COMMENTS
     display_Comments($img_id, $user_id);
     
@@ -148,6 +146,9 @@ function display_index()
 
 function display_photomontage()
 {
+    $LikesManager = new LikesManager();
+    $CommentsManager = new CommentsManager();
+    $UsersManager = new UsersManager();
     $ImagesManager = new ImagesManager();
     $all_imgs = $ImagesManager->select_all(array('user_id' => $_SESSION['user_id']), FALSE, "date_creation DESC LIMIT 3"); 
     $user_id = $_SESSION['user_id'];
@@ -155,7 +156,26 @@ function display_photomontage()
     foreach ($all_imgs as $key => $value) {
         $img_id = $value['img_id'];
         $media = $value;
-        display_one_media($img_id, $user_id, $media);
+	//    display_one_media($img_id, $user_id, $media;
+		$findAuthorId = $UsersManager->find_login($media['user_id']);
+    	$ImgAuthorLogin = $findAuthorId[0]['u_login'];
+    	$description = $media['img_description'];
+        // Display IMG
+			echo "<div class=media id=media$img_id>";
+			echo "<div class='on_picture' id='on_picture;$img_id' onMouseOver='showElem(this.id)' onMouseOut='hideElem(this.id)'>
+				<div class='picture' id='picture;$img_id'>
+					<img src='$media[path_img]' height=1000px >
+					<div class='hover_bottom hidden' id='hover_bottom$img_id' hidden'>
+						<div class='created_by' id='author$img_id'>Posté par $ImgAuthorLogin </div>";
+					if ($user_id == $media['user_id']) {
+						echo "
+								<div class='trash' id=deleteImg$img_id>
+									<a id='deleteImg;$img_id;$user_id' href='#' onClick='deleteImg(this.id)'>
+									<img src='./resources/trash.png'></a>
+								</div>
+								<script language='JavaScript' type='text/javascript' src='./Controller/display.js'></script>";
+					};
+					echo "</div></div></div></div>";
     }
 }
 
