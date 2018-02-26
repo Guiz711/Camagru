@@ -235,3 +235,7 @@ function undisplayImage(load_id) {
     document.getElementById('picture;'+img_id).onclick = function (){displayImage(this.id)};
 
 }
+
+// displayPopupImage(load_id) {
+
+// }
