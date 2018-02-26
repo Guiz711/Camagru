@@ -1,5 +1,5 @@
 <?php
-
+$vault = true;
 // INCLUDES
 
 

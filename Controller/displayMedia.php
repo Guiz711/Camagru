@@ -1,6 +1,6 @@
 <?php
-if (!isset($_SESSION))
-    session_start();
+// if (!isset($_SESSION))
+    // session_start();
     
 function display_Likes($img_id, $user_id) {
      
@@ -20,7 +20,7 @@ function display_Likes($img_id, $user_id) {
     
             // Nb Likes
         echo "<div class='nb_likes' id=nbLikes$img_id>$nb_likes";
-        if ($nb_likes < 2) 
+        if ($nb_likes < 2)
             echo " Like</div>";
         else 
             echo " Likes</div>";

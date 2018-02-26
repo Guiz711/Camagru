@@ -4,7 +4,10 @@ $vault = true;
 if (!array_key_exists('user_id', $_SESSION))
 	$_SESSION['user_id'] = "unknown";
 if ($_SESSION['user_id'] === "unknown")
+{
 	header('location: ../index.php');
+	die();
+}
 
 require_once("../Config/database.php");
 require_once('../Config/config.php');
