@@ -1,5 +1,5 @@
 <?php
-
+$vault = true;
 // INCLUDES
 
 
@@ -77,14 +77,14 @@ function handle_comments($img_id, $user_id, $data, $post)
 
     // Handle Comments
 
-    $action = $post['action'];
+    $action = sanitize_input($post['action']);
     $to_print = "";
 
     if ($post['action'] == 'addComment') {
 
         // Insert New Comment
         if ($post['text_comment'] != "") {
-            $data['text_comment'] = $post['text_comment'];
+            $data['text_comment'] = sanitize_input($post['text_comment']);
             $CommentsManager->insert($data);
         }
 
@@ -146,8 +146,8 @@ function handle_comments($img_id, $user_id, $data, $post)
     echo $to_print;
 }
 
-$img_id = $_POST['img_id'];
-$user_id = $_POST['user_id'];
+$img_id = sanitize_input($_POST['img_id']);
+$user_id = sanitize_input($_POST['user_id']);
 
 $post = $_POST;
 

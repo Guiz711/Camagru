@@ -1,5 +1,10 @@
 <?php
 // require_once("../Model/DbManager.class.php");
+if (!isset($vault) || $vault !== true)
+{
+	header('HTTP/1.0 403 Forbidden');
+	die();
+}
 
 class UsersManager extends DbManager {
     function __construct() {

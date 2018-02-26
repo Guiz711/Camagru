@@ -1,8 +1,14 @@
 <?php	
 	session_start();
+	$vault = true;
 	//print_r($_SESSION);
 	if (!array_key_exists('user_id', $_SESSION))
 		$_SESSION['user_id'] = "unknown";
+	if ($_SESSION['user_id'] === "unknown")
+	{
+		header('location: index.php');
+		die();
+	}
 	if ($_SESSION && array_key_exists('display_id', $_SESSION))
         unset($_SESSION['display_id']);
 ?>
@@ -30,7 +36,7 @@
 	</header>
 	<div class="img_gallery">
         <div class="content" id="content_index">
-		<?php
+		<?php   
 			include("./Controller/displayMedia.php");
 			// display_index($_post);
 		?>

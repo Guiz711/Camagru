@@ -1,3 +1,10 @@
+<?php
+if (!isset($vault) || $vault !== true)
+{
+	header('HTTP/1.0 403 Forbidden');
+	die();
+}
+?>
 <div id="popup_photomontage_uploaded" class="popup_login">
 <div class="content_popup">
     <a>Ta photo a bien été uploadée</a>
