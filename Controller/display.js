@@ -211,7 +211,6 @@ function hideElem(load_id) {
 
 function displayImage(load_id) {
     var tab = load_id.split(';');
-    var action = 'displayImage';
     var img_id = tab[1];
 
         console.log('DisplayImage to send =');
@@ -225,7 +224,6 @@ function displayImage(load_id) {
 
 function undisplayImage(load_id) {
     var tab = load_id.split(';');
-    var action = 'undisplayImage';
     var img_id = tab[1];
     
     console.log('UndisplayImage to send =');
