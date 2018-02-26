@@ -36,9 +36,9 @@
 	</header>
 	<div class="img_gallery">
         <div class="content" id="content_index">
-		<?php
-			include("./Controller/displayOneMedia.php");
-			display_index($_POST);
+		<?php   
+			include("./Controller/displayMedia.php");
+			// display_index($_post);
 		?>
 		</div>
     </div>
