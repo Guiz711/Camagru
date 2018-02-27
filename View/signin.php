@@ -7,40 +7,41 @@ if (!isset($vault) || $vault !== true)
 ?>
 
 <div id="popup_login_confirm" class="popup_login">
-  
+<div class="content_popup">
 	<form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?> method="POST">
-	Tu as pas encore confirmé ton inscription ! Pour avoir un nouveau mail redonne nous ton login
+	Tu as pas encore confirmé ton inscription ! Pour avoir un nouveau mail, indique ton login. <br>
 		<div class="champ_signin">
 			Nom d'utilisateur<input type="text" placeholder="Nom d'utilisateur" oninvalid="this.setCustomValidity('Merci de remplir ce champ.')" oninput="setCustomValidity('')" name="login"></div>
-   <div class="submit_button"><input type="submit"  name="submit_val" value="confirm_mail"></div>
-		<!-- <div class="cancel_button"><button type="button" onclick="document.getElementById('popup_login_confirm').style.display='none'">Annuler</button></div> -->
-    </div>
-  </form>
+   <div ><input class="submit_button" type="submit"  name="submit_val" value="confirm_mail">
+	 <button class="cancel_button" type="button" onclick="document.getElementById('popup_login_confirm').style.display='none'">Annuler</button></div>
+  </form>  
+	 </div>
 </div>
 
 
-<div id="popup_login_password_forgotten" class="popup_pwd_forgotten">
+<div id="popup_login_password_forgotten" class="popup_login">
+<div class="content_popup">
   
   <form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?> method="POST">
-  redonne ton login et/ou ton mail stp
-		  <div class="champ_signin">Login <input type="text" placeholder="Login" oninvalid="this.setCustomValidity('Merci de remplir ce champ.')" oninput="setCustomValidity('')" name="login"></div>
+  Peux-tu indiquer ton login et/ou ton mail, s'il-te-plaît ? 
+		  <div class="champ_signin"><br>Login <input type="text" placeholder="Login" oninvalid="this.setCustomValidity('Merci de remplir ce champ.')" oninput="setCustomValidity('')" name="login"></div>
 		  <div class="champ_signin">Adresse e-mail <input type="email" placeholder="Mail" oninvalid="this.setCustomValidity('Merci de remplir ce champ.')" oninput="setCustomValidity('')" name="mail"></div>
-		<div class="submit_button"><input type="submit"  name="submit_val" value="password_forgotten"></div>
-		<!-- <div class="cancel_button"><button type="button" onclick="document.getElementById('popup_login_confirm').style.display='none'">Annuler</button></div> -->
-    </div>
-  </form>
+		<div ><input class="submit_button" type="submit"  name="submit_val" value="password_forgotten">
+		<button class="cancel_button"type="button" onclick="document.getElementById('popup_login_password_forgotten').style.display='none'">Annuler</button></div>
+  </form>    </div>
 </div>
 
-<div id='popup_reinitialize_password' class='popup_reinitialize_password'>
+<div id='popup_reinitialize_password' class='popup_login'>
+	<div class="content_popup">
 	<form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?> method='POST'>
 	Il faut que tu indiques ton nouveau mot de passe
 	<div class='champ_signin'>Nom d'utilisateur <input type='text' name='login'></div>
 	<div class='champ_signin'>Mot de passe <input type='password' name='passwd'></div>
 	<div class='champ_signin'>Mot de passe <input type='password' name='passwd2'></div>
 	<div class='hidden'>Cle <input id='cle' type='text' name='forgot_passwd'></div>
-	<div class='submit_button'><input type='submit'  name='submit_val' value='reinitialize_passwd'></div>
-	  </div>
-	</form>
+	<div ><input class='submit_button'type='submit'  name='submit_val' value='reinitialize_passwd'>
+	<button class="cancel_button"type="button" onclick="document.getElementById('popup_reinitialize_password').style.display='none'">Annuler</button></div>
+	</form>  </div>
   </div>
 	
 
@@ -50,9 +51,9 @@ if (!isset($vault) || $vault !== true)
   <form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?> method="POST">
 		<div class="champ_signin">Nom d'utilisateur <input type="text" placeholder="Nom d'utilisateur" oninvalid="this.setCustomValidity('Merci de remplir ce champ.')" oninput="setCustomValidity('')" name="login"></div>
 		<div class="champ_signin">Mot de passe <input type="password" placeholder="Mot de passe" oninvalid="this.setCustomValidity('Merci de remplir ce champ.')" oninput="setCustomValidity('')" name="passwd"></div>
-		<div class="submit_button"><input type="submit"  name="submit_val" value="Connexion"></div>
-		<div class="cancel_button"><button type="button" onclick="document.getElementById('popup_login').style.display='none'">Annuler</button></div>
-		<div class="submit_button"><button type="button" onclick="document.getElementById('popup_login_password_forgotten').style.display='block'" name="submit_val" id="pwd_forgotten" value="pwd_forgotten">Je suis trop bete j ai zappe mon mdp</button></div>
+		<div><input class="submit_button" type="submit"  name="submit_val" value="Connexion">
+		<button type="button" class="cancel_button" onclick="document.getElementById('popup_login').style.display='none'">Annuler</button>
+		<button class="new_button" type="button" onclick="document.getElementById('popup_login_password_forgotten').style.display='block'" name="submit_val" id="pwd_forgotten" value="pwd_forgotten">Mot de passe et/ou login oublié</button></div>
 	</form>
 	</div>
 </div>

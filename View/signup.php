@@ -19,8 +19,8 @@ if (!isset($vault) || $vault !== true)
 		<div class="champ_signin">Mot de passe <input type="password" placeholder="Mot de passe" required="" oninvalid="this.setCustomValidity('Merci de remplir ce champ.')" oninput="setCustomValidity('')" name="passwd1"></div>
 		<div class="champ_signin">Confirmer le mot de passe <input type="password" placeholder="Mot de passe" required="" oninvalid="this.setCustomValidity('Merci de remplir ce champ.')" oninput="setCustomValidity('')" name="passwd2"></div>
 		<div class="champ_signin">Adresse e-mail <input type="email" placeholder="Mail" required="" oninvalid="this.setCustomValidity('Merci de remplir ce champ.')" oninput="setCustomValidity('')" name="mail"></div>
-		<div class="submit_button"><input type="submit"  name="submit_val" id="button_signin" value="Inscription"></div>
-		<div class="cancel_button"><button type="button" onclick="document.getElementById('popup_signup').style.display='none'">Annuler</button></div>
+		<div ><input class="submit_button"type="submit"  name="submit_val" id="button_signin" value="Inscription">
+		<button class="cancel_button" type="button" onclick="document.getElementById('popup_signup').style.display='none'">Annuler</button></div>
 	</form>
 	</div>
 </div>

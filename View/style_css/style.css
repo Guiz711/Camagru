@@ -1,5 +1,3 @@
-/* Partie principale */
-
 html{
     margin: 0; 
     padding: 0;
@@ -179,6 +177,26 @@ div[id^='applied_filter'] {
 
 /* Pop-ups */
 
+button, .submit_button {
+    margin: 2rem auto;
+    /* max-width:100px; */
+    border:none;
+    color: black;
+    border-radius: .2rem;
+    font-size: 1 rem;
+    padding: 10px 10px;
+    cursor:pointer;
+} 
+	
+.submit_button {
+    color:white;
+    background:linear-gradient(135deg, #F5515F 0%,#A1051D 100%);
+}
+
+.champ_signin {
+    padding:5px;
+}
+
 .popup_login {
     justify-content: center;
 	display: none; 
@@ -285,11 +303,11 @@ div[id^='applied_filter'] {
         margin-left:7vw;
 }
 
-.cancel_button {
+/* .cancel_button {
     padding: 5px;
     justify-content: right;
     margin-right: 5px;
-}
+} */
 
 /* Trucs generaux */
 
