@@ -14,9 +14,9 @@ define('DB_DSN', $DB_DSN);
 
 // VIEW
 require_once("../View/path_img.php");
-require_once("../View/view.php");
-require_once("../View/signin.php");
-require_once("../View/modify_user.php");
+// require_once("../View/view.php");
+// require_once("../View/signin.php");
+// require_once("../View/modify_user.php");
 
 // MODEL
 require_once("../Model/DbManager.class.php");
@@ -28,7 +28,7 @@ require_once("../Model/UsersManager.class.php");
 
 // CONTROLLER
 require_once("../Controller/utility.php");
-require_once("../Controller/userForm.php");
+// require_once("../Controller/userForm.php");
 
 // DEBUG
 
@@ -69,8 +69,8 @@ function handle_like($img_id, $user_id, $data, $post)
     //     $nbLikes .= ' Like';
     if ($nbLikes > 0) {
         $nbLikes = "<div class=\"nb_likes\" id=\"$where;nbLikes$img_id\">$nbLikes</div>";
-        $to_print = $nbLikes . $to_print;
-    }
+		$to_print = $nbLikes . $to_print;
+	}
     echo $to_print;
 }
 

@@ -35,7 +35,9 @@ require_once("../View/path_img.php");
 
 function insert_filters($ids_array, $img_data)
 {
-    $img_src = imagecreatefromstring($img_data);
+	$img_src = @imagecreatefromstring($img_data);
+	if ($img_src === false)
+		return (false);
     // print_r($img_src);
     $img = imagecreatetruecolor(655, 491);
     header('Content-type: image/jpeg');
@@ -71,12 +73,16 @@ if (array_key_exists('image', $_POST) && array_key_exists('description', $_POST)
     $image = substr(sanitize_input($_POST['image']), strpos(sanitize_input($_POST['image']), ','));
     // $image = $_POST['image'];
     $image = str_replace(' ', '+', $image);
-    $image = insert_filters(explode(';', sanitize_input($_POST['ids'])), base64_decode($image));
+	$image = insert_filters(explode(';', sanitize_input($_POST['ids'])), base64_decode($image));
+	if (!$image) {
+		echo "ERROR";
+		die();
+	}
     // $image = base64_decode($image);
     $ImagesManager->insert(array(
         'user_id' => $_SESSION['user_id'],
         'img_description' => sanitize_input($_POST['description'])
-    ));
+	));
     $image_name = $ImagesManager->userLastImage($_SESSION['user_id']);
     imagepng($image, '../img/' . $image_name . '.png');
     display_photomontage();
