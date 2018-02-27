@@ -37,8 +37,7 @@
 	<div class="img_gallery">
         <div class="content" id="content_index">
 		<?php   
-			include("./Controller/displayMedia.php");
-			// display_index($_post);
+
 		?>
 		</div>
     </div>
