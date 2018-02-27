@@ -67,9 +67,10 @@ function handle_like($img_id, $user_id, $data, $post)
     //     $nbLikes .= ' Likes';
     // else
     //     $nbLikes .= ' Like';
-    if ($nbLikes > 0)
+    if ($nbLikes > 0) {
         $nbLikes = "<div class=\"nb_likes\" id=\"$where;nbLikes$img_id\">$nbLikes</div>";
-    $to_print = $nbLikes . $to_print;
+        $to_print = $nbLikes . $to_print;
+    }
     echo $to_print;
 }
 
