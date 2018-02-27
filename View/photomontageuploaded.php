@@ -9,6 +9,12 @@ if (!isset($vault) || $vault !== true)
 <div class="content_popup">
     <a>Ta photo a bien été uploadée</a>
 		<div class="cancel_button"><button type="button" onclick="document.getElementById('popup_photomontage_uploaded').style.display='none'">Annuler</button></div>
-	</form>
+	</div>
+</div>
+
+<div id="popup_photomontage_not_uploaded" class="popup_login">
+<div class="content_popup">
+    <a>Mauvais format</a>
+		<div class="cancel_button"><button type="button" onclick="document.getElementById('popup_photomontage_not_uploaded').style.display='none'">Annuler</button></div>
 	</div>
 </div>

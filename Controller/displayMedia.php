@@ -185,7 +185,7 @@ function display_photomontage()
         // Display IMG
         // display_one_media($img_id, $user_id, $media);
 			echo "<div class=media id=media$img_id>";
-			echo "<div class='on_picture' id='on_picture;$img_id' onMouseOver='showElem(this.id)' onMouseOut='hideElem(this.id)'>
+			echo "<div class='on_picture' id='on_picture;$img_id'>
 				<div class='picture' id='picture;$img_id'>
 					<img src='$media[path_img]' height=1000px >
 					<div class='hover_bottom hidden' id='hover_bottom$img_id' hidden'>
