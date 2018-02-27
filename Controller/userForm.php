@@ -77,7 +77,7 @@ function user_signin($login, $passwd)
 	}
 	if ($res[0]['actif'] == 0)
 	{
-		return array("msg" => "Tu as pas encore confirmé ton inscription ! Crétin des alpes ! </br>", "login" => $login, "cle" => $res[0]['cle'], "mail" => $res[0]['mail']);
+		return array("msg" => "Tu as pas encore confirmé ton inscription ! </br>", "login" => $login, "cle" => $res[0]['cle'], "mail" => $res[0]['mail']);
 	}
 	$_SESSION['user_id'] = $res[0]['user_id'];
 	return "Connexion réussie!</br>";
@@ -88,7 +88,7 @@ function user_confirm_mail($login)
 	$user = new UsersManager();
 	$res = $user->auth($login);
 	if (empty($res))
-		return (false);
+		return ("Erreur");
 	$cle = $res[0]['cle'];
 	$mail = $res[0]['mail'];
 	$subject = "Activez votre compte" ;
@@ -100,7 +100,7 @@ function user_confirm_mail($login)
 	http://localhost:8080//'.$folder.'/index.php?login='.urlencode($login).'&cle='.urlencode($cle).'
 	------------- With <3';
 	mail($mail, $subject, $message, $from_who);
-	return (true);
+	return ("Le mail de confirmation a bien été envoyé");
 }
 
 function user_password_forgotten($login, $mail)
@@ -139,21 +139,26 @@ function user_password_forgotten($login, $mail)
 	http://localhost:8080//'.$folder.'/index.php?login='.urlencode($login).'&forgot_passwd='.urlencode($forgot_passwd).'
 	------------- With <3';
 	mail($mail, $subject, $message, $from_who);
-	return ("mail_sent");
+	return ("Mail envoyé");
 }
 
-function user_reinitialize_passwd($login, $passwd, $passwd2)
+function user_reinitialize_passwd($login, $passwd, $passwd2, $forgot_passwd)
 {
 	$user = new UsersManager();
-	if ($passwd != $passwd2 || strlen($passwd) < PASSWD_LEN)
-		return ("Les mots de passe sont trop courts et/ou ne sont pas identiques");
-	else
-	{
-		$passwd = password_hash($passwd, PASSWORD_DEFAULT);
-		$user->change_passwd($passwd, $login);
-		$forgot_passwd = md5(microtime(TRUE)*100000);
-		$user->forgot_passwd($login, $forgot_passwd, FALSE);
-		return ("Ton mot de passe a bien été modifié");
+	if ($user->is_already_in_bdd(array('u_login' => $login, 'forgot_passwd' => $forgot_passwd), "AND", NULL)){ 
+		if ($passwd != $passwd2 || strlen($passwd) < PASSWD_LEN)
+			return ("Les mots de passe sont trop courts et/ou ne sont pas identiques");
+		else
+		{
+			$passwd = password_hash($passwd, PASSWORD_DEFAULT);
+			$user->change_passwd($passwd, $login);
+			$forgot_passwd = md5(microtime(TRUE)*100000);
+			$user->forgot_passwd($login, $forgot_passwd, FALSE);
+			return ("Ton mot de passe a bien été modifié");
+		}
+	}
+	else {
+		return("Erreur");
 	}
 }
 
@@ -167,6 +172,9 @@ function user_modify($newlogin, $newpasswd, $newpasswd2, $newmail, $passwd)
 	$res = $user->auth($login);
 	if (!password_verify($passwd, $res[0]['passwd'])) {
 		return "Le mot de passe entré est erroné";
+	}
+	if ($user->is_already_in_bdd(array('u_login' => $newlogin, 'mail' => $newmail), "OR", NULL)){
+		return "Ce login ou ce mail existe déjà";
 	}
 	if ($login == $newlogin)
 	{
@@ -189,6 +197,8 @@ function user_modify($newlogin, $newpasswd, $newpasswd2, $newmail, $passwd)
 		$user->user_modify($id, "u_login", $newlogin);
 		$login = $newlogin;
 	}
+	if ($newpasswd != "" && !is_valid_passwd($newpasswd))
+		return ("Votre mot de passe doit contenir au moins une majuscule et un chiffre");
 	if ($newpasswd != "")
 		$user->user_modify($id, "passwd", password_hash($newpasswd, PASSWORD_DEFAULT));
 	if ($newmail != "")
@@ -229,21 +239,21 @@ if (array_key_exists('submit_val', $_POST)) {
 	if ($_POST['submit_val'] == 'disconnect') {
 		$_SESSION['user_id'] = 'unknown';
 	}
-	if ($_POST['submit_val'] == 'confirm_mail') {
+	if ($_POST['submit_val'] == 'Confirmer') {
 		$res = user_confirm_mail(sanitize_input($_POST['login']));
 		display_result_userform($res, 'confirm_mail');
 	}
-	if ($_POST['submit_val'] == 'password_forgotten') {
+	if ($_POST['submit_val'] == "Mot de passe oublié") {
 		$res = user_password_forgotten(sanitize_input($_POST['login']), 
 			sanitize_input($_POST['mail']));
 		display_result_userform($res, 'password_forgotten');
 	}
-	if ($_POST['submit_val'] == 'reinitialize_passwd') {
+	if ($_POST['submit_val'] == 'Réinitialiser mon mot de passe') {
 		$res = user_reinitialize_passwd(sanitize_input($_POST['login']), 
-			sanitize_input($_POST['passwd']), sanitize_input($_POST['passwd2']));
+			sanitize_input($_POST['passwd']), sanitize_input($_POST['passwd2']), sanitize_input($_POST['forgot_passwd']));
 		display_result_userform($res, 'reinitialize_passwd');
 	}
-	if ($_POST['submit_val'] == 'modify_user') {
+	if ($_POST['submit_val'] == 'Modifier mon compte') {
 			$res = user_modify(sanitize_input($_POST['newlogin']), 
 			sanitize_input($_POST['newpasswd']), sanitize_input($_POST['newpasswd2']), sanitize_input($_POST['newmail']), 
 			sanitize_input($_POST['passwd']));
@@ -268,6 +278,6 @@ else if (isset($_GET['login']) && isset($_GET['forgot_passwd']))
 		$res = "script";		
 	else
 		$res = "Lien erroné";
-	display_result_userform($res, 'get_reinitialize_passwd');
+		display_reinitialize_passwd($res, 'get_reinitialize_passwd', $forgot_passwd);
 }
 ?>

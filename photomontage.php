@@ -18,7 +18,6 @@ if ($_SESSION['user_id'] === "unknown")
 	<meta charset="UTF-8">
 </head>
 <body>
-
 	<header>
 
 	<?php

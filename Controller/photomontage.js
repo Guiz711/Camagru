@@ -120,11 +120,18 @@ function uploadpicture()
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onload = () => {
         if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-            let ret = xhr.responseText;
-            let div_media = document.querySelector('.photo_media');
-            div_media.innerHTML = ret;
-            // console.log(ret);
-        }
+			let ret = xhr.responseText;
+			if (ret == "ERROR"){
+				display_popup_result('popup_photomontage_not_uploaded');
+				delete_popup('popup_photomontage_not_uploaded');
+			}
+			else { 
+            	let div_media = document.querySelector('.photo_media');
+           		div_media.innerHTML = ret;
+    			display_popup_result('popup_photomontage_uploaded');
+    			delete_popup('popup_photomontage_uploaded');
+         	}		
+		}
     }
     xhr.send('image=' + data + '&description=' + data_description + '&ids=' + id_list);
 }
@@ -183,7 +190,7 @@ function delete_popup(type)
 }
 
 savebutton.addEventListener('click', function(ev){
-    uploadpicture();
+	uploadpicture();
     photo.classList.add('hidden');
     choose_img.classList.remove('hidden'); 
     savebutton.classList.add('hidden'); 
@@ -198,9 +205,7 @@ savebutton.addEventListener('click', function(ev){
     while (i < iffilter.length){
         iffilter[i].remove();
         i++;
-    }   
-    display_popup_result('popup_photomontage_uploaded');
-    delete_popup('popup_photomontage_uploaded');
+	}
     ev.preventDefault();
 }, false);
 
