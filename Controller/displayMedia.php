@@ -6,7 +6,7 @@
 // 	die();
 // }
 
-function display_Likes($img_id, $user_id) {
+function display_Likes($img_id, $user_id, $where) {
      
     // Gestion des LIKES
      $LikesManager = new LikesManager();
