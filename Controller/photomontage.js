@@ -216,14 +216,12 @@ while (i < filters.length)
         savebutton.disabled = false;
         if (filterexists != null){
             // console.log("hey you");
-            savebutton.disabled = true;
+            // savebutton.disabled = true;
             filterexists.remove();
             let iffilter = document.querySelectorAll("div[id^='applied_']");
             // console.log(iffilter);
             if (iffilter.length == 0)
-                startbutton.disabled = true;
-           
-            
+                startbutton.disabled = true;   
         }
         else {
             let filterscpy = this.cloneNode(true);

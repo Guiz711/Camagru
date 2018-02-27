@@ -1,7 +1,6 @@
 <?php	
 session_start();
 $vault = true;
-// print_r($_SESSION);
 if (!array_key_exists('user_id', $_SESSION))
 	$_SESSION['user_id'] = "unknown";
 if ($_SESSION['user_id'] === "unknown")
@@ -10,7 +9,6 @@ if ($_SESSION['user_id'] === "unknown")
 	die();
 }
 ?>
-
 <html lang="fr">
 <head>
 	<meta charset="UTF-8">
@@ -27,18 +25,17 @@ if ($_SESSION['user_id'] === "unknown")
 	require("./requirements.php");
     include("./View/header_user.html");
     include("./Controller/displayMedia.php");
-    
     ?>
 	</header>
+    
     <div class="corpus">
-
         <div class="webcam">
-
             <div id="webcam_content">
                 <video id='video'></video>
                 <canvas id='canvas'></canvas>
-                <img src='#' class='hidden' id='photo'> </div>
-    
+                <img src='#' class='hidden' id='photo'> 
+            </div>
+            
             <div><button id='startbutton'>Prendre une photo</button></div>
             <div><input class='hidden' id='Description' type="text" name="description">Description</input></div>
             <div><button class='hidden' id='savebutton'>Enregistrer la photo</button></div>
@@ -59,9 +56,6 @@ if ($_SESSION['user_id'] === "unknown")
     
     
     <?php include("./View/footer.html"); ?>
-
-
-
 
     <script src='./Controller/thumbnails.js'></script>
     <script src='./Controller/photomontage.js'></script>
