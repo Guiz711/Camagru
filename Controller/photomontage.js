@@ -123,7 +123,7 @@ function uploadpicture()
             let ret = xhr.responseText;
             let div_media = document.querySelector('.photo_media');
             div_media.innerHTML = ret;
-            console.log(ret);
+            // console.log(ret);
         }
     }
     xhr.send('image=' + data + '&description=' + data_description + '&ids=' + id_list);
@@ -169,13 +169,13 @@ function	display_popup_result(type)
 
 function delete_popup(type)
 {
-console.log(type);
+// console.log(type);
 	let popup = document.getElementById(type);
-	console.log('je veux savoir');
-	console.log(popup);
+	// console.log('je veux savoir');
+	// console.log(popup);
 		window.onclick = function(event) 
 		{
-			console.log('je veux savoir2');
+			// console.log('je veux savoir2');
 		if (event.target == popup) {
 			popup.style.display = 'none';
 		}
@@ -210,38 +210,27 @@ while (i < filters.length)
     filters[i].addEventListener('click', function(){
         let filterexists = document.querySelector('#applied_' + this.id);
         let iffilter = document.querySelectorAll("div[id^='applied_']");
-        // console.log("filterexist");
-        // console.log(iffilter.length);
-        // console.log("filterexist");
         savebutton.disabled = false;
         if (filterexists != null){
-            console.log("hey you");
-            savebutton.disabled = true;
+            // savebutton.disabled = true;
             filterexists.remove();
             let iffilter = document.querySelectorAll("div[id^='applied_']");
-            console.log(iffilter);
             if (iffilter.length == 0)
-                startbutton.disabled = true;
-           
-            
+                startbutton.disabled = true;   
         }
         else {
             let filterscpy = this.cloneNode(true);
             let webcam_content = document.querySelector('#webcam_content');
             filterscpy.id = 'applied_' + this.id;
-
             let heightval = video.videoHeight / (video.videoWidth/width) + "px";
-             filterscpy.style.height = heightval;
-             filterscpy.children[0].style.height = heightval;
-             filterscpy.style.width = width;
-             filterscpy.children[0].style.width = width;
-                webcam_content.appendChild(filterscpy);
-
+            filterscpy.style.height = heightval;
+            filterscpy.children[0].style.height = heightval;
+            filterscpy.style.width = width;
+            filterscpy.children[0].style.width = width;
+            webcam_content.appendChild(filterscpy);
             startbutton.disabled = false;
         }
     });
     i++;
 }
-
 })();
-console.log("Script");

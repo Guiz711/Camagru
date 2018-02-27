@@ -20,8 +20,8 @@ function IsMoreToDisplay(id, action)
     var xhr = new XMLHttpRequest();
     var url = './Controller/displayMedia.php';
     var new_nb = Number(id) + Number(1);
-    console.log("New_nb =");
-    console.log(new_nb);
+    // console.log("New_nb =");
+    // console.log(new_nb);
 
     var toSend = 'action=IsMoreDisplay&nb='+id;
     xhr.open('POST', url, true);
@@ -31,15 +31,15 @@ function IsMoreToDisplay(id, action)
 
         if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
             ret = xhr.responseText;
-            console.log("IsMoreToDisplay ret =");
-            console.log(ret);
+            // console.log("IsMoreToDisplay ret =");
+            // console.log(ret);
             if (ret == 1) {
-                console.log("New_id =");
-                console.log(action+';'+new_nb);
+                // console.log("New_id =");
+                // console.log(action+';'+new_nb);
                 document.getElementById(action+';'+id).id = action+';'+new_nb;
             }
             else {
-                console.log("kill div");
+                // console.log("kill div");
                 elem = document.getElementById(action+'1');
                 elem.innerHTML = "";
                 elem.remove();
@@ -106,8 +106,8 @@ function handleLike(load_id)
 function addComment(load_id) 
 {
     var tab = load_id.split(';');
-    console.log('add comment');
-    console.log(tab);
+    // console.log('add comment');
+    // console.log(tab);
 
     var where = tab[0];
     var img_id = tab[2];
@@ -187,18 +187,19 @@ function displayMore(load_id) {
     var toSend = 'action='+action+'&nb='+nb;
     var path = 'content_index';
     
-    console.log('DisplayMore to send =');
-    console.log(toSend);
+    // console.log('DisplayMore to send =');
+    // console.log(toSend);
 
     preparetoHandleAdd(toSend, action, path, nb, url);
 }
+
 
 function displayImage(load_id) {
     var tab = load_id.split(';');
     var img_id = tab[2];
 
-        console.log('DisplayImage to send =');
-        console.log(img_id);
+        // console.log('DisplayImage to send =');
+        // console.log(img_id);
 
         document.getElementById('popup_media'+img_id).style.display = 'block';
 }
@@ -207,8 +208,8 @@ function undisplayImage(load_id) {
     var tab = load_id.split(';');
     var img_id = tab[2];
     
-    console.log('UndisplayImage to send =');
-    console.log(img_id);
+    // console.log('UndisplayImage to send =');
+    // console.log(img_id);
 
     document.getElementById('popup_media'+img_id).style.display = 'none';
 

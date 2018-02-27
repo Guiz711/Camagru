@@ -1,9 +1,12 @@
 <?php
-// if (!isset($_SESSION))
-	// session_start();
-	
-    
-function display_Likes($img_id, $user_id, $where) {
+
+// if (!isset($vault) || $vault !== true)
+// {
+// 	header('HTTP/1.0 403 Forbidden');
+// 	die();
+// }
+
+function display_Likes($img_id, $user_id) {
      
     // Gestion des LIKES
      $LikesManager = new LikesManager();
@@ -234,6 +237,9 @@ function display_myprofile()
 }
 function deleteImg($img_id, $where) {
  
+	if (!isset($_SESSION))
+		session_start();
+	$vault = true;
     include("./allIncludes.php");
     $ImagesManager = new ImagesManager();
     $ImagesManager->delete(array('img_id' => $img_id));
@@ -248,6 +254,9 @@ function deleteImg($img_id, $where) {
 }
 function display_more($id) {
     
+	if (!isset($_SESSION))
+		session_start();
+	$vault = true;
     include("./allIncludes.php");
     
     $start = $id * 10;
@@ -267,6 +276,11 @@ function display_more($id) {
     $_SESSION['display_id'] = $id + 1;
 }
 function is_moretoDisplay($nb) {
+
+	if (!isset($_SESSION))
+		session_start();
+	$vault = true;
+
     include("./allIncludes.php");
     $ImagesManager = new ImagesManager();
     $nb_img = $ImagesManager->count_id(FALSE, NULL, NULL);
