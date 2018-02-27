@@ -1,11 +1,12 @@
 <?php
+
 // if (!isset($vault) || $vault !== true)
 // {
 // 	header('HTTP/1.0 403 Forbidden');
 // 	die();
 // }
 
-function display_Likes($img_id, $user_id) {
+function display_Likes($img_id, $user_id, $where) {
      
     // Gestion des LIKES
      $LikesManager = new LikesManager();
@@ -19,10 +20,10 @@ function display_Likes($img_id, $user_id) {
         $action = "addLike";
     }
     $nb_likes = $LikesManager->count_id(TRUE, "img_id", $img_id);
-    echo "<div class='all_about_like' id=allAboutLike$img_id>";
+    echo "<div class='all_about_like' id=$where;allAboutLike$img_id>";
     
             // Nb Likes
-        echo "<div class='nb_likes' id=nbLikes$img_id>$nb_likes";
+        echo "<div class='nb_likes' id=$where;nbLikes$img_id>$nb_likes";
         if ($nb_likes < 2)
             echo " Like</div>";
         else 
@@ -30,8 +31,8 @@ function display_Likes($img_id, $user_id) {
     
             // Display Heart (IF)
         if ($_SESSION['user_id'] !== 'unknown') {
-            echo "<div class='add_like' id=handleLike$img_id>
-            <a id='$action;$img_id;$user_id' href='#' onClick='handleLike(this.id)'>
+            echo "<div class='add_like' id=$where;handleLike$img_id>
+            <a id='$where;$action;$img_id;$user_id' href='#' onClick='handleLike(this.id)'>
             <img src='$heart' class='like'></a>
             </div>
             <script src='./Controller/display.js'></script>";
@@ -41,18 +42,15 @@ function display_Likes($img_id, $user_id) {
         }
         echo "</div>";
 }
-
-
-
-function display_Comments($img_id, $user_id) {
+function display_Comments($img_id, $user_id, $where) {
     $CommentsManager = new CommentsManager();
     $UsersManager = new UsersManager();
     $nb_comments_todisplay = $CommentsManager->count_id(TRUE, "img_id", $img_id) - 1;
-    echo "<div class=comment_part id=commentPart$img_id>";
+    echo "<div class=comment_part id=$where;commentPart$img_id>";
     // Nb Comments (IF)
     if ($nb_comments_todisplay > 0) {
-        echo "<div class='show_comment' id='showComment$img_id'><a href='#'id='displayComment;$img_id;$user_id' onClick='displayComment(this.id)'>Afficher 
-        <span class='nb_comments' id=nbComments$img_id>$nb_comments_todisplay Comment(s)</a></span></div>";
+        echo "<div class='show_comment' id='$where;showComment$img_id'><a href='#'id='$where;displayComment;$img_id;$user_id' onClick='displayComment(this.id)'>Afficher 
+        <span class='nb_comments' id=$where;nbComments$img_id>$nb_comments_todisplay Comment(s)</a></span></div>";
     }
         // Display All Comments (IF)
     if ($nb_comments_todisplay > -1) {
@@ -61,24 +59,20 @@ function display_Comments($img_id, $user_id) {
         $author = $findAuthorComment[0]['u_login'];
         $created = $lastComment[0]['date_creation'];
         $text = $lastComment[0]['text_comment'];
-        echo "<div class='one_comment' id=lastComment$img_id><span class='author'>$author</span>";
+        echo "<div class='one_comment' id=$where;lastComment$img_id><span class='author'>$author</span>";
         echo "<span class='created'>$created</span><span>$text</span></div>";
     }
         // Add New Comment (IF)
     if ($_SESSION['user_id'] !== 'unknown') {
-        echo "<div class='add_comment' id=addComment$img_id>
-        <input type=text id='textComment;$img_id;$user_id'>
-        <div><a href='#' id='addComment;$img_id;$user_id' onClick='addComment(this.id)'>POST</a></div></div>";
+        echo "<div class='add_comment' id=$where;addComment$img_id>
+        <input type=text id='$where;textComment;$img_id;$user_id'>
+        <div><a href='#' id='$where;addComment;$img_id;$user_id' onClick='addComment(this.id)'>POST</a></div></div>";
     }
     echo "<script src='./Controller/display.js'></script>";
     echo "</div>";
     echo "</div>";
     echo "</div>";
 }
-
-
-
-
 function display_one_media($img_id, $user_id, $media)
 {
     $LikesManager = new LikesManager();
@@ -90,16 +84,42 @@ function display_one_media($img_id, $user_id, $media)
     $description = $media['img_description'];
         // Display IMG
     echo "
-    <div class=media id=media$img_id>";
-        echo "<div class='on_picture' id='on_picture;$img_id' onMouseOver='showElem(this.id)' onMouseOut='hideElem(this.id)'>
-            <div class='picture' id='picture;$img_id' onClick='displayImage(this.id)'>
+    <div class=media id=index_media$img_id>";
+        echo "<div class='on_picture' id='index;on_picture;$img_id'>
+            <div class='picture' id='index;picture;$img_id' onClick='displayImage(this.id)'>
                 <img src='$media[path_img]' height=1000px >
                 <div class='hover_bottom hidden' id='hover_bottom$img_id' hidden'>
-                    <div class='created_by' id='author$img_id'>Posté par $ImgAuthorLogin </div>";
+                    <div class='created_by' id='index;author$img_id'>Posté par $ImgAuthorLogin </div>";
                 if ($user_id == $media['user_id']) {
                     echo "
-                            <div class='trash' id=deleteImg$img_id>
-                                <a id='deleteImg;$img_id;$user_id' href='#' onClick='deleteImg(this.id)'>
+                            <div class='trash' id=index;deleteImg$img_id>
+                                <a id='index;deleteImg;$img_id;$user_id' href='#' onClick='deleteImg(this.id)'>
+                                <img src='./resources/trash.png'></a>
+                            </div>
+                            <script language='JavaScript' type='text/javascript' src='./Controller/display.js'></script>";
+                };
+                echo"
+                </div></div>
+            </div>
+            <div class='index_info_picture'>";
+   
+        // Display LIKES
+    display_Likes($img_id, $user_id, "index");
+        // Display COMMENTS
+    display_Comments($img_id, $user_id, "index");
+
+    // Display POPUP
+    echo "
+    <div class=popup_media id=popup_media$img_id>";
+        echo "<div class='on_picture' id='popup;on_picture;$img_id'>
+            <div class='picture' id='popup;picture;$img_id' onClick='undisplayImage(this.id)'>
+                <img src='$media[path_img]' height=1000px >
+                <div class='hover_bottom hidden' id='hover_bottom$img_id' hidden'>
+                    <div class='created_by' id='popup;author$img_id'>Posté par $ImgAuthorLogin </div>";
+                if ($user_id == $media['user_id']) {
+                    echo "
+                            <div class='trash' id=popup;deleteImg$img_id>
+                                <a id='popup;deleteImg;$img_id;$user_id' href='#' onClick='deleteImg(this.id)'>
                                 <img src='./resources/trash.png'></a>
                             </div>
                             <script language='JavaScript' type='text/javascript' src='./Controller/display.js'></script>";
@@ -108,12 +128,14 @@ function display_one_media($img_id, $user_id, $media)
                 </div></div>
             </div>
             <div class='info_picture'>";
-            echo "<div class ='hidden' id='description$img_id'>Description : $description</div>";
-   
-        // Display LIKES
-    display_Likes($img_id, $user_id);
-        // Display COMMENTS
-    display_Comments($img_id, $user_id);
+            echo "<div class ='description' id='description$img_id'>Description : $description</div>";
+
+            // Display LIKES
+        display_Likes($img_id, $user_id, "popup");
+            // Display COMMENTS
+        display_Comments($img_id, $user_id, "popup");
+
+
     
 }
 function display_index()
@@ -144,9 +166,6 @@ function display_index()
         <script src='./Controller/display.js'></script>";
     }
 }
-
-
-
 function display_photomontage()
 {
     $LikesManager = new LikesManager();
@@ -160,30 +179,28 @@ function display_photomontage()
         $img_id = $value['img_id'];
         $media = $value;
 	//    display_one_media($img_id, $user_id, $media;
-		$findAuthorId = $UsersManager->find_login($media['user_id']);
-    	$ImgAuthorLogin = $findAuthorId[0]['u_login'];
-    	$description = $media['img_description'];
+		// $findAuthorId = $UsersManager->find_login($media['user_id']);
+    	// $ImgAuthorLogin = $findAuthorId[0]['u_login'];
+    	// $description = $media['img_description'];
         // Display IMG
-			echo "<div class=media id=media$img_id>";
-			echo "<div class='on_picture' id='on_picture;$img_id' onMouseOver='showElem(this.id)' onMouseOut='hideElem(this.id)'>
-				<div class='picture' id='picture;$img_id'>
-					<img src='$media[path_img]' height=1000px >
-					<div class='hover_bottom hidden' id='hover_bottom$img_id' hidden'>
-						<div class='created_by' id='author$img_id'>Posté par $ImgAuthorLogin </div>";
-					if ($user_id == $media['user_id']) {
-						echo "
-								<div class='trash' id=deleteImg$img_id>
-									<a id='deleteImg;$img_id;$user_id' href='#' onClick='deleteImg(this.id)'>
-									<img src='./resources/trash.png'></a>
-								</div>
-								<script language='JavaScript' type='text/javascript' src='./Controller/display.js'></script>";
-					};
-					echo "</div></div></div></div>";
+        display_one_media($img_id, $user_id, $media);
+			// echo "<div class=media id=media$img_id>";
+			// echo "<div class='on_picture' id='on_picture;$img_id' onMouseOver='showElem(this.id)' onMouseOut='hideElem(this.id)'>
+			// 	<div class='picture' id='picture;$img_id'>
+			// 		<img src='$media[path_img]' height=1000px >
+			// 		<div class='hover_bottom hidden' id='hover_bottom$img_id' hidden'>
+			// 			<div class='created_by' id='author$img_id'>Posté par $ImgAuthorLogin </div>";
+			// 		if ($user_id == $media['user_id']) {
+			// 			echo "
+			// 					<div class='trash' id=deleteImg$img_id>
+			// 						<a id='deleteImg;$img_id;$user_id' href='#' onClick='deleteImg(this.id)'>
+			// 						<img src='./resources/trash.png'></a>
+			// 					</div>
+			// 					<script language='JavaScript' type='text/javascript' src='./Controller/display.js'></script>";
+			// 		};
+			// 		echo "</div></div></div></div>";
     }
 }
-
-
-
 function display_filters()
 {
     echo "<div id='filter1'><img class='filterimg' src='./resources/filters/1.png' ></div>";
@@ -191,9 +208,6 @@ function display_filters()
     echo "<div id='filter3'><img class='filterimg' src='./resources/filters/3.png' ></div>";
     echo "<div id='filter4'><img class='filterimg' src='./resources/filters/4.png' ></div>";
 }
-
-
-
 function display_myprofile()
 {
     if (!$_SESSION || !array_key_exists('display_id', $_SESSION))
@@ -221,15 +235,12 @@ function display_myprofile()
         <script src='./Controller/display.js'></script>";
     }
 }
-
-
 function deleteImg($img_id, $where) {
  
 	if (!isset($_SESSION))
 		session_start();
 	$vault = true;
     include("./allIncludes.php");
-
     $ImagesManager = new ImagesManager();
     $ImagesManager->delete(array('img_id' => $img_id));
     $LikesManager = new LikesManager();
@@ -241,8 +252,6 @@ function deleteImg($img_id, $where) {
     else
         display_myprofile();
 }
-
-
 function display_more($id) {
     
 	if (!isset($_SESSION))
@@ -266,15 +275,13 @@ function display_more($id) {
     }
     $_SESSION['display_id'] = $id + 1;
 }
-
-
 function is_moretoDisplay($nb) {
 
 	if (!isset($_SESSION))
 		session_start();
 	$vault = true;
-    include("./allIncludes.php");
 
+    include("./allIncludes.php");
     $ImagesManager = new ImagesManager();
     $nb_img = $ImagesManager->count_id(FALSE, NULL, NULL);
     $ret = 0;
@@ -283,7 +290,6 @@ function is_moretoDisplay($nb) {
         $ret = 1;
     echo $ret;
 }
-
 function sanitize_input2($input)
 {
 	$input = trim($input);
@@ -291,7 +297,6 @@ function sanitize_input2($input)
 	$input = htmlspecialchars($input);
 	return $input;
 }
-
 if ($_POST && array_key_exists('action', $_POST) && $_POST['action'] == 'displayMore')
     display_more(sanitize_input2($_POST['nb']));
 else if ($_POST && array_key_exists('action', $_POST) && $_POST['action'] == 'IsMoreDisplay')

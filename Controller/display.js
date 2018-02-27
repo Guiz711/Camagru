@@ -88,15 +88,16 @@ function handleLike(load_id)
 {
     var tab = load_id.split(';');
 
-    var img_id = tab[1];
-    var user_id = tab[2];
+    var where = tab[0];
+    var img_id = tab[2];
+    var user_id = tab[3];
 
     var url = './Controller/handleAjax.php';
 
     // Prepare addLike
-    var action = tab[0];
-    var toSend = 'action='+action+'&img_id='+img_id+'&user_id='+user_id;
-    var path = 'allAboutLike';
+    var action = tab[1];
+    var toSend = 'action='+action+'&img_id='+img_id+'&user_id='+user_id+'&where='+where;
+    var path = where+';allAboutLike';
 
     preparetoHandle(toSend, path, img_id, url);
 }
@@ -108,26 +109,27 @@ function addComment(load_id)
     // console.log('add comment');
     // console.log(tab);
 
-    var img_id = tab[1];
-    var user_id = tab[2];
+    var where = tab[0];
+    var img_id = tab[2];
+    var user_id = tab[3];
 
     var url = './Controller/handleAjax.php';
 
-    var is_displayed = document.getElementById('undisplayComment;'+img_id+';'+user_id);
+    var is_displayed = document.getElementById(where+';undisplayComment;'+img_id+';'+user_id);
     if (is_displayed)
         is_displayed = true;
     else
         is_displayed = false;
 
     // Prepare AddComment
-    var action = tab[0];
-    var textcomment = document.getElementById('textComment;'+img_id+';'+user_id).value;
+    var action = tab[1];
+    var textcomment = document.getElementById(where+';textComment;'+img_id+';'+user_id).value;
     if (textcomment === "")
         return;
-    var path = 'commentPart';
-    var toSend = 'action='+action+'&img_id='+img_id+'&user_id='+user_id+'&text_comment='+textcomment+'&is_displayed='+is_displayed;
-    // console.log('addComment to send =');
-    // console.log(toSend);
+    var path = where+';commentPart';
+    var toSend = 'action='+action+'&img_id='+img_id+'&user_id='+user_id+'&text_comment='+textcomment+'&is_displayed='+is_displayed+'&where='+where;
+    console.log('addComment to send =');
+    console.log(toSend);
 
     preparetoHandle(toSend, path, img_id, url);
 }
@@ -136,14 +138,15 @@ function addComment(load_id)
 function displayComment(load_id) {
     var tab = load_id.split(';');
 
-    var img_id = tab[1];
-    var user_id = tab[2];
-    var action = tab[0];
+    var where = tab[0];
+    var img_id = tab[2];
+    var user_id = tab[3];
+    var action = tab[1];
 
     var url = './Controller/handleAjax.php';
 
-    var toSend = 'action='+action+'&img_id='+img_id+'&user_id='+user_id;
-    var path = 'commentPart';
+    var toSend = 'action='+action+'&img_id='+img_id+'&user_id='+user_id+'&where='+where;
+    var path = where+';commentPart';
 
     preparetoHandle(toSend, path, img_id, url);
 }
@@ -151,10 +154,11 @@ function displayComment(load_id) {
 function deleteImg(load_id) {
     var tab = load_id.split(';');
     
-    var img_id = tab[1];
-    var user_id = tab[2];
-    var action = tab[0];
-    var display_id = tab[3];
+    var where = tab[0];
+    var img_id = tab[2];
+    var user_id = tab[3];
+    var action = tab[1];
+    var display_id = tab[4];
 
     var url = './Controller/displayMedia.php';
 
@@ -189,58 +193,24 @@ function displayMore(load_id) {
     preparetoHandleAdd(toSend, action, path, nb, url);
 }
 
-function showElem(load_id) {
-    var tab = load_id.split(';');
-    var id = tab[1];
-	let bin = document.querySelector('#deleteImg' + id);
-    // console.log('Show elem id = ');
-    // console.log(id);
-
-    document.getElementById('author'+id).style.display = 'block';
-	if (bin)
-    	bin.style.display = 'block';
-}
-
-function hideElem(load_id) {
-    var tab = load_id.split(';');
-	var id = tab[1];
-	let bin = document.querySelector('#deleteImg' + id);
-    // console.log('Show elem id = ');
-    // console.log(id);
-
-
-	document.getElementById('author'+id).style.display = 'none';
-	if (bin)
-    	bin.style.display = 'none';
-}
 
 function displayImage(load_id) {
     var tab = load_id.split(';');
-    var img_id = tab[1];
+    var img_id = tab[2];
 
         // console.log('DisplayImage to send =');
         // console.log(img_id);
 
-        document.getElementById('media'+img_id).id = 'Bigmedia'+img_id;
-        document.getElementById('Bigmedia'+img_id).className = 'Big_media';
-        document.getElementById('description'+img_id).className = 'description';
-        document.getElementById('picture;'+img_id).onclick = function (){undisplayImage(this.id)};
+        document.getElementById('popup_media'+img_id).style.display = 'block';
 }
 
 function undisplayImage(load_id) {
     var tab = load_id.split(';');
-    var img_id = tab[1];
+    var img_id = tab[2];
     
     // console.log('UndisplayImage to send =');
     // console.log(img_id);
 
-    document.getElementById('Bigmedia'+img_id).id = 'media'+img_id;
-    document.getElementById('media'+img_id).className = 'media';
-    document.getElementById('description'+img_id).className = 'hidden';
-    document.getElementById('picture;'+img_id).onclick = function (){displayImage(this.id)};
+    document.getElementById('popup_media'+img_id).style.display = 'none';
 
 }
-
-// displayPopupImage(load_id) {
-
-// }
