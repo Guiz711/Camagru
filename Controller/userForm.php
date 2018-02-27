@@ -189,6 +189,8 @@ function user_modify($newlogin, $newpasswd, $newpasswd2, $newmail, $passwd)
 	if ($newpasswd != "" && strlen($newpasswd) < PASSWD_LEN) {
 		return "Merci d'entrer un mot de passe plus long";
 	}
+	if (!is_valid_passwd($newpasswd))
+		return ("Votre mot de passe doit contenir au moins une majuscule et un chiffre");
 	if ($newmail != "" && $newmail == $res[0]['mail']) {
 		echo "tu as deja ce mail";
 		return "pas le bon mail";
