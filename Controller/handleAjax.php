@@ -40,13 +40,14 @@ require_once("../Controller/displayMedia.php");
 function handle_like($img_id, $user_id, $data, $post) 
 {
     $LikesManager = new LikesManager();
+    $where = $post['where'];
 
      // Handle New Likes
     if ($post['action'] == 'addLike') {
         $LikesManager->insert($data);
         $action = 'killLike';
         $heart = './resources/002-hearts.png';
-        $to_print = "<div class='add_like' id=handleLike$img_id><a id='$action;$img_id;$user_id' href='#' onClick='handleLike(this.id)'>
+        $to_print = "<div class='add_like' id=$where;handleLike$img_id><a id='$where;$action;$img_id;$user_id' href='#' onClick='handleLike(this.id)'>
         <img src='$heart' class='like'></a></div>";
     }
     else if ($post['action'] == 'killLike') {
@@ -55,7 +56,7 @@ function handle_like($img_id, $user_id, $data, $post)
         $heart = "./resources/001-favorite.png";
         $LikesManager->delete($tab);
         $action = 'addLike';
-        $to_print = "<a id='$action;$img_id;$user_id' href='#' onClick='handleLike(this.id)'>
+        $to_print = "<a id='$where;$action;$img_id;$user_id' href='#' onClick='handleLike(this.id)'>
         <img src='$heart' class='like'></a><script src='./Controller/display.js'></script>";
     }
 
@@ -65,7 +66,7 @@ function handle_like($img_id, $user_id, $data, $post)
         $nbLikes .= ' Likes';
     else
         $nbLikes .= ' Like';
-    $nbLikes .= "</div><div class='add_like' id=handleLike$img_id>";
+    $nbLikes .= "</div><div class='add_like' id=$where;handleLike$img_id>";
     $to_print = $nbLikes . $to_print;
     echo $to_print;
 }
@@ -79,6 +80,7 @@ function handle_comments($img_id, $user_id, $data, $post)
 
     $action = sanitize_input($post['action']);
     $to_print = "";
+    $where = $post['where'];
 
     if ($post['action'] == 'addComment') {
 
@@ -104,8 +106,8 @@ function handle_comments($img_id, $user_id, $data, $post)
 
         // Display 'Afficher Comments' + Update Nb Comment
         if ($nbComments > 0) {
-            $to_print = "<div class='show_comment' id='showComment$img_id'><a href='#'id='displayComment;$img_id;$user_id' onClick='displayComment(this.id)'>Afficher 
-        <span class='nb_comments' id=nbComments$img_id>$nbComments Comment(s)</a></span></div>";
+            $to_print = "<div class='show_comment' id='$where;showComment$img_id'><a href='#'id='$where;displayComment;$img_id;$user_id' onClick='displayComment(this.id)'>Afficher 
+        <span class='nb_comments' id=$where;nbComments$img_id>$nbComments Comment(s)</a></span></div>";
         }
 
         // Display Last Comment
@@ -116,7 +118,7 @@ function handle_comments($img_id, $user_id, $data, $post)
         $created = $lastComment[0]['date_creation'];
         $text = $lastComment[0]['text_comment'];
 
-        $to_print .= "<div class='one_comment' id=lastComment$img_id><span class='author'>$author</span>";
+        $to_print .= "<div class='one_comment' id=$where;lastComment$img_id><span class='author'>$author</span>";
         $to_print .= "<span class='created'>$created</span><span>$text</span></div>
         <div class='add_comment'></div>";
     }
@@ -125,7 +127,7 @@ function handle_comments($img_id, $user_id, $data, $post)
         $all_comments = $CommentsManager->select_all(array('img_id' => $img_id), FALSE, 'date_creation ASC');
 
         // Display 'Fermer les commentaires'
-        $to_print = "<div class='show_comment' id='showComment$img_id'><a href='#'id='undisplayComment;$img_id;$user_id' onClick='displayComment(this.id)'>Fermer les comments</a></span></div>";
+        $to_print = "<div class='show_comment' id='$where;showComment$img_id'><a href='#'id='$where;undisplayComment;$img_id;$user_id' onClick='displayComment(this.id)'>Fermer les comments</a></span></div>";
 
         // Display All Comments
         foreach ($all_comments as $key => $value) {
@@ -138,9 +140,9 @@ function handle_comments($img_id, $user_id, $data, $post)
         }
 	}
 	if ($user_id != "unknown") {
-		$to_print .= "<div class='add_comment' id=addComment$img_id>
-							<input type=text id='textComment;$img_id;$user_id'>
-							<div><a href='#' id='addComment;$img_id;$user_id' onClick='addComment(this.id)'>POST</a></div></div>
+		$to_print .= "<div class='add_comment' id=$where;addComment$img_id>
+							<input type=text id='$where;textComment;$img_id;$user_id'>
+							<div><a href='#' id='$where;addComment;$img_id;$user_id' onClick='addComment(this.id)'>POST</a></div></div>
 							<script src='./Controller/display.js'></script>";
     }
     echo $to_print;
