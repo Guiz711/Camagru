@@ -210,16 +210,11 @@ while (i < filters.length)
     filters[i].addEventListener('click', function(){
         let filterexists = document.querySelector('#applied_' + this.id);
         let iffilter = document.querySelectorAll("div[id^='applied_']");
-        // console.log("filterexist");
-        // console.log(iffilter.length);
-        // console.log("filterexist");
         savebutton.disabled = false;
         if (filterexists != null){
-            // console.log("hey you");
             // savebutton.disabled = true;
             filterexists.remove();
             let iffilter = document.querySelectorAll("div[id^='applied_']");
-            // console.log(iffilter);
             if (iffilter.length == 0)
                 startbutton.disabled = true;   
         }
@@ -227,19 +222,15 @@ while (i < filters.length)
             let filterscpy = this.cloneNode(true);
             let webcam_content = document.querySelector('#webcam_content');
             filterscpy.id = 'applied_' + this.id;
-
             let heightval = video.videoHeight / (video.videoWidth/width) + "px";
-             filterscpy.style.height = heightval;
-             filterscpy.children[0].style.height = heightval;
-             filterscpy.style.width = width;
-             filterscpy.children[0].style.width = width;
-                webcam_content.appendChild(filterscpy);
-
+            filterscpy.style.height = heightval;
+            filterscpy.children[0].style.height = heightval;
+            filterscpy.style.width = width;
+            filterscpy.children[0].style.width = width;
+            webcam_content.appendChild(filterscpy);
             startbutton.disabled = false;
         }
     });
     i++;
 }
-
 })();
-// console.log("Script");
