@@ -77,7 +77,7 @@ function user_signin($login, $passwd)
 	}
 	if ($res[0]['actif'] == 0)
 	{
-		return array("msg" => "Tu as pas encore confirmé ton inscription ! Crétin des alpes ! </br>", "login" => $login, "cle" => $res[0]['cle'], "mail" => $res[0]['mail']);
+		return array("msg" => "Tu as pas encore confirmé ton inscription ! </br>", "login" => $login, "cle" => $res[0]['cle'], "mail" => $res[0]['mail']);
 	}
 	$_SESSION['user_id'] = $res[0]['user_id'];
 	return "Connexion réussie!</br>";
@@ -88,7 +88,7 @@ function user_confirm_mail($login)
 	$user = new UsersManager();
 	$res = $user->auth($login);
 	if (empty($res))
-		return (false);
+		return ("Erreur");
 	$cle = $res[0]['cle'];
 	$mail = $res[0]['mail'];
 	$subject = "Activez votre compte" ;
@@ -100,7 +100,7 @@ function user_confirm_mail($login)
 	http://localhost:8080//'.$folder.'/index.php?login='.urlencode($login).'&cle='.urlencode($cle).'
 	------------- With <3';
 	mail($mail, $subject, $message, $from_who);
-	return (true);
+	return ("Le mail de confirmation a bien été envoyé");
 }
 
 function user_password_forgotten($login, $mail)

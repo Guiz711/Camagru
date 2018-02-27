@@ -9,7 +9,7 @@ if (!isset($vault) || $vault !== true)
 <div id="popup_login_confirm" class="popup_login">
   
 	<form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?> method="POST">
-		Pour avoir un nouveau mail redonne nous ton login
+	Tu as pas encore confirmé ton inscription ! Pour avoir un nouveau mail redonne nous ton login
 		<div class="champ_signin">
 			Nom d'utilisateur<input type="text" placeholder="Nom d'utilisateur" oninvalid="this.setCustomValidity('Merci de remplir ce champ.')" oninput="setCustomValidity('')" name="login"></div>
    <div class="submit_button"><input type="submit"  name="submit_val" value="confirm_mail"></div>
