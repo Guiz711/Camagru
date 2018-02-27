@@ -173,6 +173,9 @@ function user_modify($newlogin, $newpasswd, $newpasswd2, $newmail, $passwd)
 	if (!password_verify($passwd, $res[0]['passwd'])) {
 		return "Le mot de passe entré est erroné";
 	}
+	if ($user->is_already_in_bdd(array('u_login' => $newlogin, 'mail' => $newmail), "OR", NULL)){
+		return "Ce login ou ce mail existe déjà";
+	}
 	if ($login == $newlogin)
 	{
 		return("Merci de changer de login");
@@ -248,7 +251,7 @@ if (array_key_exists('submit_val', $_POST)) {
 			sanitize_input($_POST['passwd']), sanitize_input($_POST['passwd2']), sanitize_input($_POST['forgot_passwd']));
 		display_result_userform($res, 'reinitialize_passwd');
 	}
-	if ($_POST['submit_val'] == 'modify_user') {
+	if ($_POST['submit_val'] == 'Modifier mon compte') {
 			$res = user_modify(sanitize_input($_POST['newlogin']), 
 			sanitize_input($_POST['newpasswd']), sanitize_input($_POST['newpasswd2']), sanitize_input($_POST['newmail']), 
 			sanitize_input($_POST['passwd']));
