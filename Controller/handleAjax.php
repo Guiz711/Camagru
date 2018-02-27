@@ -50,7 +50,7 @@ function handle_like($img_id, $user_id, $data, $post)
         $action = 'killLike';
         $heart = './resources/002-hearts.png';
         $to_print = "<div class='add_like' id=$where;handleLike$img_id><a id='$where;$action;$img_id;$user_id' href='#' onClick='handleLike(this.id)'>
-        <img src='$heart' class='like'></a></div>";
+        <img src='$heart' class='like'></a></div><script src='./Controller/display.js'></script>";
     }
     else if ($post['action'] == 'killLike') {
         $id_to_delete = $LikesManager->select_all($data, "AND", FALSE);
@@ -58,17 +58,17 @@ function handle_like($img_id, $user_id, $data, $post)
         $heart = "./resources/001-favorite.png";
         $LikesManager->delete($tab);
         $action = 'addLike';
-        $to_print = "<a id='$where;$action;$img_id;$user_id' href='#' onClick='handleLike(this.id)'>
-        <img src='$heart' class='like'></a><script src='./Controller/display.js'></script>";
+        $to_print = "<div class='add_like' id=$where;handleLike$img_id><a id='$where;$action;$img_id;$user_id' href='#' onClick='handleLike(this.id)'>
+        <img src='$heart' class='like'></a></div><script src='./Controller/display.js'></script>";
     }
-
     // Update NbLikes
     $nbLikes = $LikesManager->count_id(TRUE, "img_id", $img_id);
-    if ($nbLikes > 1)
-        $nbLikes .= ' Likes';
-    else
-        $nbLikes .= ' Like';
-    $nbLikes .= "</div><div class='add_like' id=$where;handleLike$img_id>";
+    // if ($nbLikes > 1)
+    //     $nbLikes .= ' Likes';
+    // else
+    //     $nbLikes .= ' Like';
+    if ($nbLikes > 0)
+        $nbLikes = "<div class=\"nb_likes\" id=\"$where;nbLikes$img_id\">$nbLikes</div>";
     $to_print = $nbLikes . $to_print;
     echo $to_print;
 }

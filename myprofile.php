@@ -35,9 +35,9 @@ if ($_SESSION && array_key_exists('display_id', $_SESSION))
         <?php
         $notifications= $res[0]['notifications'];
         if ($notifications == 1)
-            echo "<div class='submit_button'><input type='submit'  name='submit_val' value='Désactiver'</div>";
+            echo "<div class='submit_button_myprofile'><input type='submit'  name='submit_val' value='Désactiver'</div>";
         else
-            echo "<div class='submit_button'><input type='submit'  name='submit_val' value='Activer'></div>";
+            echo "<div class='submit_button_myprofile'><input type='submit'  name='submit_val' value='Activer'></div>";
         ?></form></div>
     </div></div>
     

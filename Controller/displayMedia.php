@@ -23,12 +23,12 @@ function display_Likes($img_id, $user_id, $where) {
     echo "<div class='all_about_like' id=$where;allAboutLike$img_id>";
     
             // Nb Likes
-        echo "<div class='nb_likes' id=$where;nbLikes$img_id>$nb_likes";
-        if ($nb_likes < 2)
-            echo " Like</div>";
-        else 
-            echo " Likes</div>";
-    
+        if ($nb_likes != 0)
+            echo "<div class='nb_likes' id=$where;nbLikes$img_id>$nb_likes</div>";
+        // if ($nb_likes == 1)
+        //     echo " Like</div>";
+        // else if ($nb_likes > 1)
+        //     echo " Likes</div>";
             // Display Heart (IF)
         if ($_SESSION['user_id'] !== 'unknown') {
             echo "<div class='add_like' id=$where;handleLike$img_id>
@@ -179,26 +179,26 @@ function display_photomontage()
         $img_id = $value['img_id'];
         $media = $value;
 	//    display_one_media($img_id, $user_id, $media;
-		// $findAuthorId = $UsersManager->find_login($media['user_id']);
-    	// $ImgAuthorLogin = $findAuthorId[0]['u_login'];
-    	// $description = $media['img_description'];
+		$findAuthorId = $UsersManager->find_login($media['user_id']);
+    	$ImgAuthorLogin = $findAuthorId[0]['u_login'];
+    	$description = $media['img_description'];
         // Display IMG
-        display_one_media($img_id, $user_id, $media);
-			// echo "<div class=media id=media$img_id>";
-			// echo "<div class='on_picture' id='on_picture;$img_id' onMouseOver='showElem(this.id)' onMouseOut='hideElem(this.id)'>
-			// 	<div class='picture' id='picture;$img_id'>
-			// 		<img src='$media[path_img]' height=1000px >
-			// 		<div class='hover_bottom hidden' id='hover_bottom$img_id' hidden'>
-			// 			<div class='created_by' id='author$img_id'>Posté par $ImgAuthorLogin </div>";
-			// 		if ($user_id == $media['user_id']) {
-			// 			echo "
-			// 					<div class='trash' id=deleteImg$img_id>
-			// 						<a id='deleteImg;$img_id;$user_id' href='#' onClick='deleteImg(this.id)'>
-			// 						<img src='./resources/trash.png'></a>
-			// 					</div>
-			// 					<script language='JavaScript' type='text/javascript' src='./Controller/display.js'></script>";
-			// 		};
-			// 		echo "</div></div></div></div>";
+        // display_one_media($img_id, $user_id, $media);
+			echo "<div class=media id=media$img_id>";
+			echo "<div class='on_picture' id='on_picture;$img_id' onMouseOver='showElem(this.id)' onMouseOut='hideElem(this.id)'>
+				<div class='picture' id='picture;$img_id'>
+					<img src='$media[path_img]' height=1000px >
+					<div class='hover_bottom hidden' id='hover_bottom$img_id' hidden'>
+						<div class='created_by' id='author$img_id'>Posté par $ImgAuthorLogin </div>";
+					if ($user_id == $media['user_id']) {
+						echo "
+								<div class='trash' id=deleteImg$img_id>
+									<a id='deleteImg;$img_id;$user_id' href='#' onClick='deleteImg(this.id)'>
+									<img src='./resources/trash.png'></a>
+								</div>
+								<script language='JavaScript' type='text/javascript' src='./Controller/display.js'></script>";
+					};
+					echo "</div></div></div></div>";
     }
 }
 function display_filters()
