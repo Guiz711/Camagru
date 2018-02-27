@@ -12,7 +12,7 @@ if (!isset($vault) || $vault !== true)
 	Tu as pas encore confirmé ton inscription ! Pour avoir un nouveau mail, indique ton login. <br>
 		<div class="champ_signin">
 			Nom d'utilisateur<input type="text" placeholder="Nom d'utilisateur" oninvalid="this.setCustomValidity('Merci de remplir ce champ.')" oninput="setCustomValidity('')" name="login"></div>
-   <div ><input class="submit_button" type="submit"  name="submit_val" value="confirm_mail">
+   <div ><input class="submit_button" type="submit"  name="submit_val" value="Confirmer">
 	 <button class="cancel_button" type="button" onclick="document.getElementById('popup_login_confirm').style.display='none'">Annuler</button></div>
   </form>  
 	 </div>
@@ -26,7 +26,7 @@ if (!isset($vault) || $vault !== true)
   Peux-tu indiquer ton login et/ou ton mail, s'il-te-plaît ? 
 		  <div class="champ_signin"><br>Login <input type="text" placeholder="Login" oninvalid="this.setCustomValidity('Merci de remplir ce champ.')" oninput="setCustomValidity('')" name="login"></div>
 		  <div class="champ_signin">Adresse e-mail <input type="email" placeholder="Mail" oninvalid="this.setCustomValidity('Merci de remplir ce champ.')" oninput="setCustomValidity('')" name="mail"></div>
-		<div ><input class="submit_button" type="submit"  name="submit_val" value="password_forgotten" >Envoyez</input>
+		<div ><input class="submit_button" type="submit"  name="submit_val" value="Mot de passe oublié" >
 		<button class="cancel_button"type="button" onclick="document.getElementById('popup_login_password_forgotten').style.display='none'">Annuler</button></div>
   </form>    </div>
 </div>
@@ -39,7 +39,7 @@ if (!isset($vault) || $vault !== true)
 	<div class='champ_signin'>Mot de passe <input type='password' name='passwd'></div>
 	<div class='champ_signin'>Mot de passe <input type='password' name='passwd2'></div>
 	<div class='hidden'>Cle <input id='cle' type='text' name='forgot_passwd'></div>
-	<div ><input class='submit_button'type='submit'  name='submit_val' value='reinitialize_passwd'>
+	<div ><input class='submit_button'type='submit'  name='submit_val' value='Réinitialiser mon mot de passe'>
 	<button class="cancel_button"type="button" onclick="document.getElementById('popup_reinitialize_password').style.display='none'">Annuler</button></div>
 	</form>  </div>
   </div>

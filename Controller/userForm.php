@@ -139,7 +139,7 @@ function user_password_forgotten($login, $mail)
 	http://localhost:8080//'.$folder.'/index.php?login='.urlencode($login).'&forgot_passwd='.urlencode($forgot_passwd).'
 	------------- With <3';
 	mail($mail, $subject, $message, $from_who);
-	return ("mail_sent");
+	return ("Mail envoyé");
 }
 
 function user_reinitialize_passwd($login, $passwd, $passwd2, $forgot_passwd)
@@ -189,8 +189,6 @@ function user_modify($newlogin, $newpasswd, $newpasswd2, $newmail, $passwd)
 	if ($newpasswd != "" && strlen($newpasswd) < PASSWD_LEN) {
 		return "Merci d'entrer un mot de passe plus long";
 	}
-	if (!is_valid_passwd($newpasswd))
-		return ("Votre mot de passe doit contenir au moins une majuscule et un chiffre");
 	if ($newmail != "" && $newmail == $res[0]['mail']) {
 		echo "tu as deja ce mail";
 		return "pas le bon mail";
@@ -199,6 +197,8 @@ function user_modify($newlogin, $newpasswd, $newpasswd2, $newmail, $passwd)
 		$user->user_modify($id, "u_login", $newlogin);
 		$login = $newlogin;
 	}
+	if ($newpasswd != "" && !is_valid_passwd($newpasswd))
+		return ("Votre mot de passe doit contenir au moins une majuscule et un chiffre");
 	if ($newpasswd != "")
 		$user->user_modify($id, "passwd", password_hash($newpasswd, PASSWORD_DEFAULT));
 	if ($newmail != "")
@@ -239,16 +239,16 @@ if (array_key_exists('submit_val', $_POST)) {
 	if ($_POST['submit_val'] == 'disconnect') {
 		$_SESSION['user_id'] = 'unknown';
 	}
-	if ($_POST['submit_val'] == 'confirm_mail') {
+	if ($_POST['submit_val'] == 'Confirmer') {
 		$res = user_confirm_mail(sanitize_input($_POST['login']));
 		display_result_userform($res, 'confirm_mail');
 	}
-	if ($_POST['submit_val'] == 'password_forgotten') {
+	if ($_POST['submit_val'] == "Mot de passe oublié") {
 		$res = user_password_forgotten(sanitize_input($_POST['login']), 
 			sanitize_input($_POST['mail']));
 		display_result_userform($res, 'password_forgotten');
 	}
-	if ($_POST['submit_val'] == 'reinitialize_passwd') {
+	if ($_POST['submit_val'] == 'Réinitialiser mon mot de passe') {
 		$res = user_reinitialize_passwd(sanitize_input($_POST['login']), 
 			sanitize_input($_POST['passwd']), sanitize_input($_POST['passwd2']), sanitize_input($_POST['forgot_passwd']));
 		display_result_userform($res, 'reinitialize_passwd');
