@@ -1,9 +1,10 @@
 <?php
-// if (!isset($_SESSION))
-	// session_start();
+// if (!isset($vault) || $vault !== true)
+// {
+// 	header('HTTP/1.0 403 Forbidden');
+// 	die();
+// }
 
-	
-    
 function display_Likes($img_id, $user_id) {
      
     // Gestion des LIKES
@@ -224,6 +225,9 @@ function display_myprofile()
 
 function deleteImg($img_id, $where) {
  
+	if (!isset($_SESSION))
+		session_start();
+	$vault = true;
     include("./allIncludes.php");
 
     $ImagesManager = new ImagesManager();
@@ -241,6 +245,9 @@ function deleteImg($img_id, $where) {
 
 function display_more($id) {
     
+	if (!isset($_SESSION))
+		session_start();
+	$vault = true;
     include("./allIncludes.php");
     
     $start = $id * 10;
@@ -263,6 +270,9 @@ function display_more($id) {
 
 function is_moretoDisplay($nb) {
 
+	if (!isset($_SESSION))
+		session_start();
+	$vault = true;
     include("./allIncludes.php");
 
     $ImagesManager = new ImagesManager();

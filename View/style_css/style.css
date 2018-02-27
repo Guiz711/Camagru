@@ -114,7 +114,7 @@ div[id^='applied_filter'] {
 .photo_media {
     margin-bottom : 5px;
     margin-top : 5px;
-    background-color: pink;
+    background-color: #FFF5EF;
     width : 35%; 
     height: 100%;
     overflow:scroll;
@@ -133,7 +133,7 @@ div[id^='applied_filter'] {
     margin-top : 5px;
     margin-right : 5px;
     margin-bottom : 5px;
-    background-color: grey;
+
 }
 
 .filters {
@@ -143,7 +143,7 @@ div[id^='applied_filter'] {
 
 .title_photo_media {
 	width: 100%;
-	background-color: grey;
+	background-color: #B83A1B;
 	text-align : center;
 	padding: 10px;
 	color: white;

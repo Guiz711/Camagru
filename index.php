@@ -1,5 +1,6 @@
-<?php	
-	session_start();
+<?php
+	// if (!isset($_SESSION))
+		session_start();
 	$vault = true;
 	//print_r($_SESSION);
 	if (!array_key_exists('user_id', $_SESSION))

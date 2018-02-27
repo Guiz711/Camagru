@@ -123,7 +123,7 @@ function uploadpicture()
             let ret = xhr.responseText;
             let div_media = document.querySelector('.photo_media');
             div_media.innerHTML = ret;
-            console.log(ret);
+            // console.log(ret);
         }
     }
     xhr.send('image=' + data + '&description=' + data_description + '&ids=' + id_list);
@@ -169,13 +169,13 @@ function	display_popup_result(type)
 
 function delete_popup(type)
 {
-console.log(type);
+// console.log(type);
 	let popup = document.getElementById(type);
-	console.log('je veux savoir');
-	console.log(popup);
+	// console.log('je veux savoir');
+	// console.log(popup);
 		window.onclick = function(event) 
 		{
-			console.log('je veux savoir2');
+			// console.log('je veux savoir2');
 		if (event.target == popup) {
 			popup.style.display = 'none';
 		}
@@ -215,11 +215,11 @@ while (i < filters.length)
         // console.log("filterexist");
         savebutton.disabled = false;
         if (filterexists != null){
-            console.log("hey you");
+            // console.log("hey you");
             savebutton.disabled = true;
             filterexists.remove();
             let iffilter = document.querySelectorAll("div[id^='applied_']");
-            console.log(iffilter);
+            // console.log(iffilter);
             if (iffilter.length == 0)
                 startbutton.disabled = true;
            
@@ -244,4 +244,4 @@ while (i < filters.length)
 }
 
 })();
-console.log("Script");
+// console.log("Script");

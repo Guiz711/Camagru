@@ -1,4 +1,9 @@
 <?php 
+if (!isset($vault) || $vault !== true)
+{
+	header('HTTP/1.0 403 Forbidden');
+	die();
+}
 // INCLUDES
 // CONFIG
 include("../Config/database.php");
@@ -17,7 +22,7 @@ include("../Model/CommentsManager.class.php");
 include("../Model/LikesManager.class.php");
 include("../Model/UsersManager.class.php");
 // CONTROLLER
- include("./utility.php");
+ include("../Controller/utility.php");
 // include("../Controller/userForm.php");
 // DEBUG
 include("../DEBUG_print.php");
