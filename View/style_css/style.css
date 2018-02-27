@@ -45,6 +45,7 @@ body {
 
 .modify_myprofile:hover {
     opacity: 1;
+    color : #B83A1B;
 }
 
 .hello {
@@ -83,7 +84,7 @@ div[id^='applied_filter'] {
     position: relative;
     max-width: 700px;
     max-height: 525px;
-    width:10vw;
+    width:15vw;
 }
 
 
@@ -143,10 +144,17 @@ div[id^='applied_filter'] {
 }
 
 .title_photo_media {
-	width: 100%;
+    position: relative;
+    /* font-size: 3vw; */
+    /* margin-bottom : 5px;
+    margin-top : 5px; */
+    left:0%;
+    width: 100%;
+    /* max-width: 300px; */
 	background-color: #B83A1B;
 	text-align : center;
-	padding: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 	color: white;
 }
 
