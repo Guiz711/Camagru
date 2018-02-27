@@ -142,18 +142,23 @@ function user_password_forgotten($login, $mail)
 	return ("mail_sent");
 }
 
-function user_reinitialize_passwd($login, $passwd, $passwd2)
+function user_reinitialize_passwd($login, $passwd, $passwd2, $forgot_passwd)
 {
 	$user = new UsersManager();
-	if ($passwd != $passwd2 || strlen($passwd) < PASSWD_LEN)
-		return ("Les mots de passe sont trop courts et/ou ne sont pas identiques");
-	else
-	{
-		$passwd = password_hash($passwd, PASSWORD_DEFAULT);
-		$user->change_passwd($passwd, $login);
-		$forgot_passwd = md5(microtime(TRUE)*100000);
-		$user->forgot_passwd($login, $forgot_passwd, FALSE);
-		return ("Ton mot de passe a bien été modifié");
+	if ($user->is_already_in_bdd(array('u_login' => $login, 'forgot_passwd' => $forgot_passwd), "AND", NULL)){ 
+		if ($passwd != $passwd2 || strlen($passwd) < PASSWD_LEN)
+			return ("Les mots de passe sont trop courts et/ou ne sont pas identiques");
+		else
+		{
+			$passwd = password_hash($passwd, PASSWORD_DEFAULT);
+			$user->change_passwd($passwd, $login);
+			$forgot_passwd = md5(microtime(TRUE)*100000);
+			$user->forgot_passwd($login, $forgot_passwd, FALSE);
+			return ("Ton mot de passe a bien été modifié");
+		}
+	}
+	else {
+		return("Erreur");
 	}
 }
 
@@ -240,7 +245,7 @@ if (array_key_exists('submit_val', $_POST)) {
 	}
 	if ($_POST['submit_val'] == 'reinitialize_passwd') {
 		$res = user_reinitialize_passwd(sanitize_input($_POST['login']), 
-			sanitize_input($_POST['passwd']), sanitize_input($_POST['passwd2']));
+			sanitize_input($_POST['passwd']), sanitize_input($_POST['passwd2']), sanitize_input($_POST['forgot_passwd']));
 		display_result_userform($res, 'reinitialize_passwd');
 	}
 	if ($_POST['submit_val'] == 'modify_user') {
@@ -268,6 +273,6 @@ else if (isset($_GET['login']) && isset($_GET['forgot_passwd']))
 		$res = "script";		
 	else
 		$res = "Lien erroné";
-	display_result_userform($res, 'get_reinitialize_passwd');
+		display_reinitialize_passwd($res, 'get_reinitialize_passwd', $forgot_passwd);
 }
 ?>

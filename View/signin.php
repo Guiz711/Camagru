@@ -37,10 +37,12 @@ if (!isset($vault) || $vault !== true)
 	<div class='champ_signin'>Nom d'utilisateur <input type='text' name='login'></div>
 	<div class='champ_signin'>Mot de passe <input type='password' name='passwd'></div>
 	<div class='champ_signin'>Mot de passe <input type='password' name='passwd2'></div>
+	<div class='hidden'>Cle <input id='cle' type='text' name='forgot_passwd'></div>
 	<div class='submit_button'><input type='submit'  name='submit_val' value='reinitialize_passwd'></div>
 	  </div>
 	</form>
   </div>
+	
 
 
 <div id="popup_login" class="popup_login">
@@ -65,10 +67,12 @@ button_password_forgotten.addEventListener('click', () => {
 </script>
 
 <script>
-	function	display_popup_reinitialize_password()
+function	display_popup_reinitialize_password(forgot_passwd)
 {
 	let popup_reinitialize_password = document.getElementById('popup_reinitialize_password');
-		popup_reinitialize_password.style.display = 'block';
+	let cle = document.getElementById('cle');
+	cle.setAttribute("value", forgot_passwd);
+	popup_reinitialize_password.style.display = 'block';
 }		
 </script>
 
