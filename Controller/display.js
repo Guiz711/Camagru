@@ -108,7 +108,6 @@ function addComment(load_id)
     var tab = load_id.split(';');
     // console.log('add comment');
     // console.log(tab);
-
     var where = tab[0];
     var img_id = tab[2];
     var user_id = tab[3];
@@ -132,6 +131,7 @@ function addComment(load_id)
     console.log(toSend);
 
     preparetoHandle(toSend, path, img_id, url);
+
 }
 
 

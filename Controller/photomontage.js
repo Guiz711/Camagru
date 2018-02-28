@@ -147,24 +147,67 @@ cancel_photomontage.addEventListener('click', function(){
     filterexists.classList.remove('hidden');
 })
 
+// Image uploadee par le user
+
+function size_image (photo, img_width, img_height) {
+    // console.log(photo.width);
+    // console.log(photo.height);
+    let ratio = img_height / img_width;
+    console.log('ratio' + ratio);
+
+    if (img_width > img_height){
+        //qqch avec height
+        var new_width = img_height * 1.0 / ratio;
+        var new_height = height;
+        console.log('new width' + new_width);
+        console.log('new width' + new_width);
+        // photo.style.clip = "rect(0px 75px 75px 0px)";
+        photo.setAttribute('width', new_width);
+        photo.setAttribute('height', height);
+        var pos_y = 0;
+        var pos_x = (new_width - width) / 2;
+    }
+    else {
+        //contraire
+        var new_height = ratio * 1.0 * width;
+        var new_width = width;
+        photo.setAttribute('height', new_height);
+        photo.setAttribute('width', width);
+        var pos_y = (new_height - height) / 2;
+        var pos_x = 0;
+        }
+    photo.style.clip = "rect(" + pos_y + "px " + (new_width - pos_x) + "px " + (new_height - pos_y) + "px " + pos_x + "px)";
+    photo.style.top =  "-" + pos_y + "px";
+    photo.style.left =  "-" + pos_x + "px";
+}
+
 let reader = new FileReader();
 choose_img.addEventListener('change', function(){
     let file = choose_img.files[0];
     // console.log(file);
     reader.addEventListener('load', function(){
-        photo.setAttribute('src', reader.result);
-        photo.setAttribute('width', width);
-        photo.setAttribute('height', height);
-        photo.classList.remove('hidden');
-        startbutton.classList.add('hidden');
-        choose_img.classList.add('hidden');
-        savebutton.classList.remove('hidden');
-        savebutton.disabled = true;
-        cancel_photomontage.classList.remove('hidden');
+        let img = new Image;
+
+        img.onload = function() {
+            let img_width = img.width
+            let img_height = img.height;
+
+            photo.setAttribute('src', reader.result);
+            size_image(photo, img_width, img_height);
+            photo.classList.remove('hidden');
+            startbutton.classList.add('hidden');
+            choose_img.classList.add('hidden');
+            savebutton.classList.remove('hidden');
+            savebutton.disabled = true;
+            cancel_photomontage.classList.remove('hidden');
+        };
+        img.setAttribute('src', reader.result);
         // console.log(reader.result);
     });
     reader.readAsDataURL(file);
 })
+
+// Image uploadee par le user - fin
 
 function	display_popup_result(type)
 {
