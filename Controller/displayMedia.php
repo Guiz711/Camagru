@@ -65,8 +65,8 @@ function display_Comments($img_id, $user_id, $where) {
         // Add New Comment (IF)
     if ($_SESSION['user_id'] !== 'unknown') {
         echo "<div class='add_comment' id=$where;addComment$img_id>
-        <input type=text id='$where;textComment;$img_id;$user_id'>
-        <div><a href='#' id='$where;addComment;$img_id;$user_id' onClick='addComment(this.id)'>POST</a></div></div>";
+        <input class='input_comment' type=text id='$where;textComment;$img_id;$user_id'>
+        <div class='input_add' ><a href='#' id='$where;addComment;$img_id;$user_id' onClick='addComment(this.id)'> Ajouter</a></div></div>";
     }
     echo "<script src='./Controller/display.js'></script>";
     echo "</div>";

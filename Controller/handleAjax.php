@@ -153,7 +153,6 @@ function handle_comments($img_id, $user_id, $data, $post)
 
 $img_id = sanitize_input($_POST['img_id']);
 $user_id = sanitize_input($_POST['user_id']);
-
 $post = $_POST;
 
 if ($_POST['action'] == 'addLike' || $_POST['action'] == 'killLike') {
