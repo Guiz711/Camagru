@@ -200,8 +200,7 @@ function displayImage(load_id) {
 
         // console.log('DisplayImage to send =');
         // console.log(img_id);
-
-        document.getElementById('popup_media'+img_id).style.display = 'block';
+    document.getElementById('popup_media'+img_id).style.display = 'block';
 }
 
 function undisplayImage(load_id) {
@@ -212,5 +211,22 @@ function undisplayImage(load_id) {
     // console.log(img_id);
 
     document.getElementById('popup_media'+img_id).style.display = 'none';
+
+}
+
+function undisplayPopup(type) {
+  
+
+   console.log(type);
+	let popup = document.getElementById(type);
+	// console.log('je veux savoir');
+	// console.log(popup);
+		window.onclick = function(event) 
+		{
+			// console.log('je veux savoir2');
+		if (event.target == popup) {
+			popup.style.display = 'none';
+		}
+	}
 
 }

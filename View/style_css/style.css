@@ -9,24 +9,59 @@
     margin-bottom: 5px;
 }
 
+.author {
+/* float:left; */
+    font-weight: bold;
+}
+.created {
+    float:left;
+    font-weight: bold;
+}
+
 .input_comment {
     float:left;
-    width:61%;
+    width:56%;
+    /* border:black; */
+}
+
+input[type=text] {
+    border: 2px solid #dadada;
+    border-radius: 7px;
+    /* padding:3px;  */
+}
+
+input[type=text]:focus {
+
+    outline: none;
+    border-color: rgba(184, 56, 27, 0.301);
+    box-shadow: 0 0 10px rgba(184, 56, 27, 0.11);
 }
 
 .input_add {
-    align-self: right;
-    margin-right:0%; 
-    margin-left : 65%;  
-    color:black;
+    /* align-self: right; */
+    margin-right:0; 
+    margin-left : 59%;  
+    /* color:black; */
 }
 
 .input_add a {
     /* text-decoration: none; */
-    /* font-size:1vh; */
+    /* right: 0; */
+    font-size:1,2vw;
     color:black;
 }
 
+.info_picture {
+    width: 75%;
+    border-radius: 10px;
+    /* padding: 15px; */
+    margin:auto;
+    align-content: center;
+    justify-content: center;
+    margin-top : 20px;
+    border: 2px rgba(255, 255, 255, 0.377) solid;
+    background-color : rgba(0, 0, 0, 0.356)
+}
 
 
 
@@ -168,11 +203,11 @@ div[id^='applied_filter'] {
 } 
 
 .photo_media {
-    flex:1;
+    flex:2;
     margin-bottom : 5px;
     margin-top : 5px;
     background-color: #FFF5EF;
-    width : 35%; 
+    width : 40%; 
     height: 100%;
     /* min-width: 150px; */
     /* overflow:scroll; */
@@ -187,7 +222,7 @@ div[id^='applied_filter'] {
 .webcam {
      position: relative;
     flex: 2;
-    /* width: 65%; */
+    /* width: 35%; */
     margin-left : 2px;
     margin-top : 5px;
     margin-right : 5px;
@@ -371,6 +406,9 @@ div[id^='applied_filter'] {
     overflow: auto;
     background-color: rgba(0,0,0,0.7); 
     color : white;
+    align-content: center;
+    align-items: center;
+    /* position: relative; */
 }
 
  div[id^='popup;onpicture'] {
@@ -426,7 +464,9 @@ div[id^='applied_filter'] {
 
 span
 {
-	margin: 5px;
+    /* margin: 5px; */
+    margin-right:5px;
+    margin-bottom:5px;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;

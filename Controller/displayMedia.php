@@ -59,8 +59,11 @@ function display_Comments($img_id, $user_id, $where) {
         $author = $findAuthorComment[0]['u_login'];
         $created = $lastComment[0]['date_creation'];
         $text = $lastComment[0]['text_comment'];
-        echo "<div class='one_comment' id=$where;lastComment$img_id><span class='author'>$author</span>";
-        echo "<span class='created'>$created</span><span>$text</span></div>";
+        echo "<div class='one_comment' id=$where;lastComment$img_id>";
+        echo "<span class='created'>$created</span>
+        <span class='author'>$author</span>
+        <span class='commentText'>$text</span>
+        </div>";
     }
         // Add New Comment (IF)
     if ($_SESSION['user_id'] !== 'unknown') {
@@ -110,12 +113,12 @@ function display_one_media($img_id, $user_id, $media)
 
     // Display POPUP
     echo "
-    <div class=popup_media id=popup_media$img_id>";
+    <div class=popup_media id=popup_media$img_id onClick='undisplayPopup(this.id)'> ";
         echo "<div class='on_picture' id='popup;on_picture;$img_id'>
             <div class='picture' id='popup;picture;$img_id' onClick='undisplayImage(this.id)'>
                 <img src='$media[path_img]' height=1000px >
                 <div class='hover_bottom hidden' id='hover_bottom$img_id' hidden'>
-                    <div class='created_by' id='popup;author$img_id'>Posté par $ImgAuthorLogin </div>";
+                    ";
                 if ($user_id == $media['user_id']) {
                     echo "
                             <div class='trash' id=popup;deleteImg$img_id>
@@ -128,6 +131,7 @@ function display_one_media($img_id, $user_id, $media)
                 </div></div>
             </div>
             <div class='info_picture'>";
+            echo "<div class='created_by' id='popup;author$img_id'>Posté par $ImgAuthorLogin </div>";
             echo "<div class ='description' id='description$img_id'>Description : $description</div>";
 
             // Display LIKES
