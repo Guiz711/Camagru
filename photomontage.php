@@ -46,8 +46,8 @@ if ($_SESSION['user_id'] === "unknown")
         </div>
 
         <div class="photo_media">
-			<div class="title_photo_media">Tes trois derniers photomontages</div>
-			<?php   display_photomontage(); ?>
+        <div class="title_photo_media">Tes derniers photomontages</div>
+		<div>	<?php   display_photomontage(); ?></div>
 		</div>
 
     </div>

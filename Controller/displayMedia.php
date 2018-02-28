@@ -49,8 +49,7 @@ function display_Comments($img_id, $user_id, $where) {
     echo "<div class=comment_part id=$where;commentPart$img_id>";
     // Nb Comments (IF)
     if ($nb_comments_todisplay > 0) {
-        echo "<div class='show_comment' id='$where;showComment$img_id'><a href='#'id='$where;displayComment;$img_id;$user_id' onClick='displayComment(this.id)'>Afficher 
-        <span class='nb_comments' id=$where;nbComments$img_id>$nb_comments_todisplay Comment(s)</a></span></div>";
+        echo "<div class='show_comment' id='$where;showComment$img_id'><a href='#'id='$where;displayComment;$img_id;$user_id' onClick='displayComment(this.id)'>Afficher $nb_comments_todisplay commentaire(s)</a></div>";
     }
         // Display All Comments (IF)
     if ($nb_comments_todisplay > -1) {
@@ -137,7 +136,10 @@ function display_one_media($img_id, $user_id, $media)
             // Display LIKES
         display_Likes($img_id, $user_id, "popup");
             // Display COMMENTS
+        
         display_Comments($img_id, $user_id, "popup");
+
+     
 
 
     

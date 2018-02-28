@@ -1,5 +1,5 @@
 <?php
-if (!isset($_SESSION))
+// if (!isset($_SESSION))
 	session_start();
 $vault = true;
 // INCLUDES
@@ -23,7 +23,7 @@ require_once("../Model/LikesManager.class.php");
 require_once("../Model/UsersManager.class.php");
 // CONTROLLER
 require_once("../Controller/utility.php");
-// require_once("../Controller/userForm.php");
+require_once("../Controller/userForm.php");
 // DEBUG
 require_once("../DEBUG_print.php");
 require_once("../Controller/displayMedia.php");
@@ -87,8 +87,7 @@ function handle_comments($img_id, $user_id, $data, $post)
         $nbComments = $CommentsManager->count_id(TRUE, "img_id", $img_id) - 1;
         // Display 'Afficher Comments' + Update Nb Comment
         if ($nbComments > 0) {
-            $to_print = "<div class='show_comment' id='$where;showComment$img_id'><a href='#'id='$where;displayComment;$img_id;$user_id' onClick='displayComment(this.id)'>Afficher 
-        <span class='nb_comments' id=$where;nbComments$img_id>$nbComments Comment(s)</a></span></div>";
+            $to_print = "<div class='show_comment' id='$where;showComment$img_id'><a href='#'id='$where;displayComment;$img_id;$user_id' onClick='displayComment(this.id)'>Afficher $nbComments commentaire(s)</a></div>";
         }
         // Display Last Comment
         $lastComment = $CommentsManager->find_last($img_id);
@@ -96,8 +95,10 @@ function handle_comments($img_id, $user_id, $data, $post)
         $author = $findAuthorComment[0]['u_login'];
         $created = $lastComment[0]['date_creation'];
         $text = $lastComment[0]['text_comment'];
-        $to_print .= "<div class='one_comment' id=$where;lastComment$img_id><span class='author'>$author</span>";
-        $to_print .= "<span class='created'>$created</span><span>$text</span></div>
+        $to_print .= "<div class='one_comment' id=$where;lastComment$img_id>";
+        $to_print .= "<span class='created'>$created</span>
+        <span class='author'>$author</span>
+        <span class='commentText'>$text</span></div>
         <div class='add_comment'></div>";
     }
     else {
@@ -110,14 +111,16 @@ function handle_comments($img_id, $user_id, $data, $post)
             $author = $findAuthorComment[0]['u_login'];
             $created = $value['date_creation'];
             $text = $value['text_comment'];
-            $to_print .= "<div class='one_comment'><span class='author'>$author</span>";
-            $to_print .= "<span class='created'>$created</span><span>$text</span></div>";
+            $to_print .= "<div class='one_comment'>";
+            $to_print .= "<span class='created'>$created</span>
+            <span class='author'>$author</span>
+            <span>$text</span></div>";
         }
 	}
 	if ($user_id != "unknown") {
 		$to_print .= "<div class='add_comment' id=$where;addComment$img_id>
-							<input type=text id='$where;textComment;$img_id;$user_id'>
-							<div><a href='#' id='$where;addComment;$img_id;$user_id' onClick='addComment(this.id)'>POST</a></div></div>
+							<input class='input_comment' type=text id='$where;textComment;$img_id;$user_id'>
+							<div class='input_add'><a href='#' id='$where;addComment;$img_id;$user_id' onClick='addComment(this.id)'>Ajouter</a></div></div>
 							<script src='./Controller/display.js'></script>";
     }
     echo $to_print;
