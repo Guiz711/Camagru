@@ -9,6 +9,7 @@ if ($_SESSION['user_id'] === "unknown")
 	die();
 }
 ?>
+
 <html lang="fr">
 <head>
 	<meta charset="UTF-8">
@@ -19,16 +20,17 @@ if ($_SESSION['user_id'] === "unknown")
 </head>
 <body>
 	<header>
-
-	<?php
-	require("./requirements.php");
-    include("./View/header_user.html");
-    include("./Controller/displayMedia.php");
-    ?>
+    	<?php
+	    require("./requirements.php");
+        include("./View/header_user.html");
+        include("./Controller/displayMedia.php");
+        ?>
 	</header>
     
     <div class="corpus">
+        
         <div class="webcam">
+        
             <div id="webcam_content">
                 <video id='video'></video>
                 <canvas id='canvas'></canvas>
@@ -46,13 +48,11 @@ if ($_SESSION['user_id'] === "unknown")
         </div>
 
         <div class="photo_media">
-        <div class="title_photo_media">Tes derniers photomontages</div>
+        <div class="title_photo_media">Derniers photomontages</div>
 		<div class="photomontages_last" id="photomontages_last">	<?php   display_photomontage(); ?></div>
 		</div>
 
     </div>
-    
-    
     
     <?php include("./View/footer.html"); ?>
 
