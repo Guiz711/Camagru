@@ -188,6 +188,7 @@ function displayComment(load_id) {
 
 function deleteImg(load_id) {
     var tab = load_id.split(';');
+    console.log(tab);
     
     var where = tab[0];
     var img_id = tab[2];
@@ -200,6 +201,8 @@ function deleteImg(load_id) {
     var path = 'content_index';
     if (document.getElementById('content_profile') !== null)
         path = 'content_profile';
+    if (document.getElementById('photomontages_last') !== null)
+        path = 'photomontages_last';
 
     var toSend = 'action='+action+'&img_id='+img_id+'&user_id='+user_id+'&display_id='+display_id+'&where='+path;
     

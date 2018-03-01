@@ -135,15 +135,10 @@ function display_one_media($img_id, $user_id, $media)
 
             // Display LIKES
         display_Likes($img_id, $user_id, "popup");
-            // Display COMMENTS
-        
-        display_Comments($img_id, $user_id, "popup");
-
-     
-
-
-    
+            // Display COMMENTS        
+        display_Comments($img_id, $user_id, "popup");    
 }
+
 function display_index()
 {
     if (!$_SESSION || !array_key_exists('display_id', $_SESSION))
@@ -167,7 +162,7 @@ function display_index()
     if ($nb_total_imgs > $limit) {
         echo "</div><div class='button-displayMore' id=displayMore1>
         <a id='displayMore;$display_id' href='#' onClick='displayMore(this.id)'>
-        Affichez +</a>
+        Afficher +</a>
         </div>
         <script src='./Controller/display.js'></script>";
     }
@@ -178,7 +173,7 @@ function display_photomontage()
     $CommentsManager = new CommentsManager();
     $UsersManager = new UsersManager();
     $ImagesManager = new ImagesManager();
-    $all_imgs = $ImagesManager->select_all(array('user_id' => $_SESSION['user_id']), FALSE, "date_creation DESC LIMIT 3"); 
+    $all_imgs = $ImagesManager->select_all(array('user_id' => $_SESSION['user_id']), FALSE, "date_creation DESC LIMIT 5"); 
     $user_id = $_SESSION['user_id'];
     $all_imgs = add_path_img($all_imgs);
     foreach ($all_imgs as $key => $value) {
@@ -187,21 +182,21 @@ function display_photomontage()
 		$findAuthorId = $UsersManager->find_login($media['user_id']);
     	$ImgAuthorLogin = $findAuthorId[0]['u_login'];
     	$description = $media['img_description'];
-            echo "<div class=media id=media$img_id>";
+            echo "<div class=media id=photo$img_id>";
             
-            echo "<div class='on_picture' id='on_picture;$img_id'>
-                    <div class='picture' id='picture;$img_id'>
+            echo "<div class='on_picture' id='photo;on_picture;$img_id'>
+                    <div class='picture' id='photo;picture;$img_id'>
                         <img src='$media[path_img]' height=1000px >
 					    <div class='hover_bottom hidden' id='hover_bottom$img_id' hidden'>
-						<div class='created_by' id='author$img_id'>Posté par $ImgAuthorLogin </div>";
+						<div class='created_by' id='photo;author$img_id'>Posté par $ImgAuthorLogin </div>";
 					    if ($user_id == $media['user_id']) {
-						    echo "<div class='trash' id=deleteImg$img_id>
-									<a id='deleteImg;$img_id;$user_id' href='#' onClick='deleteImg(this.id)'>
+						    echo "<div class='trash' id=photo;deleteImg$img_id>
+									<a id='photomontages_last;deleteImg;$img_id;$user_id' href='#' onClick='deleteImg(this.id)'>
                                     <img src='./resources/trash.png'></a>
                                     </div>
-								<script language='JavaScript' type='text/javascript' src='./Controller/display.js'></script>";
+								";
 					};
-			echo "</div></div></div></div>";
+			echo "<script language='JavaScript' type='text/javascript' src='./Controller/display.js'></script></div></div></div></div>";
     }
 }
 function display_filters()
@@ -283,12 +278,10 @@ function is_moretoDisplay($nb) {
 	if (!isset($_SESSION))
 		session_start();
 	$vault = true;
-
     include("./allIncludes.php");
     $ImagesManager = new ImagesManager();
     $nb_img = $ImagesManager->count_id(FALSE, NULL, NULL);
     $ret = 0;
-    //  echo "nb Imgaes = $nb_img <-- DANS PHP IsMoreDIsplay";
     if ($nb_img > ($nb + 1) * 10)
         $ret = 1;
     echo $ret;
