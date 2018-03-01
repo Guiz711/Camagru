@@ -45,8 +45,14 @@ video.addEventListener('canplay', function(ev){
 	}}, false);
 	
 window.addEventListener('resize', function(ev){
+        let photo_view = document.querySelector('#photo_view');
+
         width = window.innerWidth * 0.80;
         height = video.videoHeight / (video.videoWidth/width);
+        if (photo_view) {
+            photo_view.setAttribute('height', height);
+            photo_view.setAttribute('width', width);
+        }
         video.setAttribute('width', width);
         video.setAttribute('height', height);
         // canvas.setAttribute('width', width);
@@ -160,12 +166,12 @@ function size_image (tmp, img_canvas, img_width, img_height) {
         var new_width = img_height / ratio;
         var new_height = img_height;
         var pos_y = 0;
-        var pos_x = (new_width - width) / 2.0;
+        var pos_x = (img_width - new_width) / 2.0;
     }
     else {
         var new_height = ratio * img_width;
         var new_width = img_width;
-        var pos_y = (new_height - height) / 2.0;
+        var pos_y = (img_height - new_height) / 2.0;
         var pos_x = 0;
     }
     img_canvas.setAttribute('width', width);
