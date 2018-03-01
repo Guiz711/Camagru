@@ -305,5 +305,5 @@ if ($_POST && array_key_exists('action', $_POST) && $_POST['action'] == 'display
 else if ($_POST && array_key_exists('action', $_POST) && $_POST['action'] == 'IsMoreDisplay')
     is_moretoDisplay(sanitize_input2($_POST['nb']));
 else if ($_POST && array_key_exists('action', $_POST) && $_POST['action'] == 'deleteImg')
-    deleteImg(sanitize_input2($_POST['img_id']), sanitize_input2($_POST['img_id']));
+    deleteImg(sanitize_input2($_POST['img_id']), sanitize_input2($_POST['where']));
 ?>
