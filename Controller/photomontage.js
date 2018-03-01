@@ -126,7 +126,7 @@ function uploadpicture()
 				delete_popup('popup_photomontage_not_uploaded');
 			}
 			else { 
-            	let div_media = document.querySelector('.photo_media');
+            	let div_media = document.querySelector('.photomontages_last');
            		div_media.innerHTML = ret;
     			display_popup_result('popup_photomontage_uploaded');
     			delete_popup('popup_photomontage_uploaded');
