@@ -18,23 +18,14 @@ function signin_result($res)
 {
 	if (is_array($res))
 	{
-		// $test = "document.getElementById('popup_login_confirm').style.display='block'; delete_popup(popup_result_not_confirm)";
-		// $send = "<a href='#' onclick=$test style='width:auto;'> Renvoyer autre mail</a>";
 		$type = 'popup_login_confirm';
-		// echo "<div id='$type' class='popup_result' onclick='delete_popup(popup_login_confirm)' > <span>".$res['msg'].$send."</span></div>
-		echo "<script> display_popup_result('$type'); 
-		</script> ";
-		// echo $res['msg'];
-		// $test = "document.getElementById('popup_login_confirm').style.display='block'";
-		// echo "<div><a href='#' onclick=$test style='width:auto;'>Renvoyer autre mail</a></div>";
+		echo "<script> display_popup_result('$type'); </script> ";
 	}
 	else
 	{
 		$type = 'popup_result';
 		echo "<div id='$type' class='popup_result' onclick='delete_popup(this.id)' > <span>".$res."</span></div>
-		<script> display_popup_result('$type'); 
-		</script>
-		";
+		<script> display_popup_result('$type'); </script>";
 	}
 }
 

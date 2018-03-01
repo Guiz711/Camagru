@@ -215,8 +215,8 @@ div[id^='applied_filter'] {
 	color : white; 
 }
 
-.popup_result span {
-    justify-content: center;
+.popup_result > span {
+    text-align: center;
     margin-top: 12vh;
 }
 
