@@ -23,7 +23,7 @@ require_once("../Model/LikesManager.class.php");
 require_once("../Model/UsersManager.class.php");
 // CONTROLLER
 require_once("../Controller/utility.php");
-// require_once("../Controller/userForm.php");
+require_once("../Controller/userForm.php");
 // DEBUG
 require_once("../DEBUG_print.php");
 require_once("../Controller/displayMedia.php");
