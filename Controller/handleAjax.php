@@ -36,26 +36,25 @@ function handle_like($img_id, $user_id, $data, $post)
      // Handle New Likes
     if ($post['action'] == 'addLike') {
         $LikesManager->insert($data);
-        $action = 'killLike';
-        $heart = './resources/002-hearts.png';
-        $to_print = "<div class='add_like' id=$where;handleLike$img_id><a id='$where;$action;$img_id;$user_id' href='#' onClick='handleLike(this.id)'>
-        <img src='$heart' class='like'></a></div><script src='./Controller/display.js'></script>";
     }
     else if ($post['action'] == 'killLike') {
         $id_to_delete = $LikesManager->select_all($data, "AND", FALSE);
         $tab = array('like_id' => $id_to_delete[0]['like_id']);
-        $heart = "./resources/001-favorite.png";
         $LikesManager->delete($tab);
-        $action = 'addLike';
-        $to_print = "<div class='add_like' id=$where;handleLike$img_id><a id='$where;$action;$img_id;$user_id' href='#' onClick='handleLike(this.id)'>
-        <img src='$heart' class='like'></a></div><script src='./Controller/display.js'></script>";
     }
-    // Update NbLikes
+    // Update Like && NbLikes
+    $is_liked = $LikesManager->is_already_in_bdd(array('img_id' => $img_id, 'user_id' => $user_id), "AND", FALSE);
+    if ($is_liked == true) {
+        $action = 'killLike';
+        $heart = './resources/002-hearts.png';
+    }
+    else {
+        $action = 'addLike';
+        $heart = "./resources/001-favorite.png";
+    }
+    $to_print = "<div class='add_like' id=$where;handleLike$img_id><a id='$where;$action;$img_id;$user_id' href='#' onClick='handleLike(this.id)'>
+    <img src='$heart' class='like'></a></div><script src='./Controller/display.js'></script>";
     $nbLikes = $LikesManager->count_id(TRUE, "img_id", $img_id);
-    // if ($nbLikes > 1)
-    //     $nbLikes .= ' Likes';
-    // else
-    //     $nbLikes .= ' Like';
     if ($nbLikes > 0) {
         $nbLikes = "<div class=\"nb_likes\" id=\"$where;nbLikes$img_id\">$nbLikes</div>";
 		$to_print = $nbLikes . $to_print;
@@ -71,6 +70,8 @@ function handle_comments($img_id, $user_id, $data, $post)
     $action = sanitize_input($post['action']);
     $to_print = "";
     $where = $post['where'];
+
+    // INSERT Comment
     if ($post['action'] == 'addComment') {
         // Insert New Comment
         if ($post['text_comment'] != "") {
@@ -78,13 +79,15 @@ function handle_comments($img_id, $user_id, $data, $post)
             $CommentsManager->insert($data);
         }
     }
+
     // Has to Be Displayed ?
     if ($post['action'] == 'displayComment')
         $post['is_displayed'] = 'true';
     else if ($post['action'] == 'undisplayComment')
         $post['is_displayed'] = 'false';
-    if ($post['is_displayed'] == 'false') {
+    
         
+    if ($post['is_displayed'] == 'false') {
         $nbComments = $CommentsManager->count_id(TRUE, "img_id", $img_id) - 1;
         // Display 'Afficher Comments' + Update Nb Comment
         if ($nbComments > 0) {
@@ -129,7 +132,7 @@ function handle_comments($img_id, $user_id, $data, $post)
 $img_id = sanitize_input($_POST['img_id']);
 $user_id = sanitize_input($_POST['user_id']);
 $post = $_POST;
-if ($_POST['action'] == 'addLike' || $_POST['action'] == 'killLike') {
+if ($_POST['action'] == 'addLike' || $_POST['action'] == 'killLike' || $_POST['action'] == 'updateLike') {
     $data = array('user_id' => $user_id, 'img_id' => $img_id);
     handle_like($img_id, $user_id, $data, $post);
 }
