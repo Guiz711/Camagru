@@ -247,8 +247,10 @@ function deleteImg($img_id, $where) {
     $CommentsManager->delete(array('img_id' => $img_id));
     if ($where == "content_index")
         display_index();
-    else
+    else if ($where == 'content_profile')
         display_myprofile();
+    else if ($where == 'photomontages_last')
+        display_photomontage();
 }
 function display_more($id) {
     

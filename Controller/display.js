@@ -203,12 +203,9 @@ function deleteImg(load_id) {
         path = 'content_profile';
     if (document.getElementById('photomontages_last') !== null)
         path = 'photomontages_last';
-
     var toSend = 'action='+action+'&img_id='+img_id+'&user_id='+user_id+'&display_id='+display_id+'&where='+path;
-    
-    console.log('deleteImg to send =');
-    console.log(toSend);
-
+    // console.log('deleteImg to send =');
+    // console.log(toSend);
     preparetoHandleDelete(toSend, path, img_id, url);
 
 
