@@ -86,7 +86,7 @@ function handle_comments($img_id, $user_id, $data, $post)
     else if ($post['action'] == 'undisplayComment')
         $post['is_displayed'] = 'false';
     
-        
+
     if ($post['is_displayed'] == 'false') {
         $nbComments = $CommentsManager->count_id(TRUE, "img_id", $img_id) - 1;
         // Display 'Afficher Comments' + Update Nb Comment
