@@ -160,6 +160,7 @@ cancel_photomontage.addEventListener('click', function(){
     savebutton.classList.add('hidden');
     let filterexists = document.querySelector('.filters');
     filterexists.classList.remove('hidden');
+    description.classList.add('hidden');
 })
 
 // Image uploadee par le user
@@ -191,6 +192,7 @@ choose_img.addEventListener('change', function(){
         photo.setAttribute('src', reader.result);
         tmp.onload = function() {
             size_image(tmp, img_canvas, tmp.width, tmp.height);
+            description.classList.remove('hidden');
             photo_view.setAttribute('src', img_canvas.toDataURL('image/png'));
             photo_view.setAttribute('height', height);
             photo_view.setAttribute('width', width);
@@ -199,7 +201,11 @@ choose_img.addEventListener('change', function(){
             startbutton.classList.add('hidden');
             choose_img.classList.add('hidden');
             savebutton.classList.remove('hidden');
-            savebutton.disabled = true;
+            let iffilter = document.querySelectorAll("div[id^='applied_']");
+            if (iffilter.length == 0)
+                savebutton.disabled = true;
+            else
+                savebutton.disabled = false;
             cancel_photomontage.classList.remove('hidden');
         };
         tmp.setAttribute('src', reader.result);
@@ -236,8 +242,7 @@ savebutton.addEventListener('click', function(ev){
 	uploadpicture();
     photo.classList.add('hidden');
     choose_img.classList.remove('hidden'); 
-    savebutton.classList.add('hidden'); 
-    savebutton.disabled = true;
+    savebutton.classList.add('hidden');
     startbutton.classList.remove('hidden'); 
     startbutton.disabled = true;
     let filterexists = document.querySelector('.filters');
@@ -258,13 +263,14 @@ while (i < filters.length)
     filters[i].addEventListener('click', function(){
         let filterexists = document.querySelector('#applied_' + this.id);
         let iffilter = document.querySelectorAll("div[id^='applied_']");
-        savebutton.disabled = true;
+        // savebutton.disabled = true;
         if (filterexists != null){
-            // savebutton.disabled = true;
             filterexists.remove();
             let iffilter = document.querySelectorAll("div[id^='applied_']");
-            if (iffilter.length == 0)
-                startbutton.disabled = true;   
+            if (iffilter.length == 0) {
+                startbutton.disabled = true;
+                savebutton.disabled = true;
+            }   
         }
         else {
             let filterscpy = this.cloneNode(true);
@@ -277,6 +283,7 @@ while (i < filters.length)
             filterscpy.children[0].style.width = width;
             webcam_content.appendChild(filterscpy);
             startbutton.disabled = false;
+            savebutton.disabled = false;
         }
     });
     i++;
