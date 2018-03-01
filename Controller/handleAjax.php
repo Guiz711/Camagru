@@ -62,6 +62,7 @@ function handle_like($img_id, $user_id, $data, $post)
 	}
     echo $to_print;
 }
+
 function handle_comments($img_id, $user_id, $data, $post) 
 {
     $CommentsManager = new CommentsManager();
