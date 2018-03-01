@@ -8,16 +8,16 @@
     margin-top:5px;
     margin-bottom: 5px;
 }
-
+/* 
 .index_info_picture{
   margin: 5px;
-}
-
+} */
+/* 
 .one_comment {
-    /* display: flex;
+    display: flex;
     flex-direction: row;
-    overflow:scroll; */
-}
+    overflow:scroll;
+} */
 
 .author {
 /* float:center; */
@@ -28,16 +28,16 @@
     font-weight: bold;
 }
 
-.commentText {
-    /* flex: 1;
-    overflow:scroll; */
-}
+/* .commentText {
+    flex: 1;
+    overflow:scroll;
+} */
 
 
-.show_comment {
+/* .show_comment {
     margin-top : 5px;
     margin-bottom : 5px;
-}
+} */
 
 .media .show_comment a {
     color:black;
@@ -667,10 +667,14 @@ span
 
 .picture
 {
-    top : 5vh;
+  
     margin-bottom: 5px;
     position: relative;
     z-index:0;
+}
+
+.popup_media .onpicture .picture {
+      background-color: red;
 }
 
 .hover_bottom
