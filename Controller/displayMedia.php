@@ -184,27 +184,24 @@ function display_photomontage()
     foreach ($all_imgs as $key => $value) {
         $img_id = $value['img_id'];
         $media = $value;
-	//    display_one_media($img_id, $user_id, $media;
 		$findAuthorId = $UsersManager->find_login($media['user_id']);
     	$ImgAuthorLogin = $findAuthorId[0]['u_login'];
     	$description = $media['img_description'];
-        // Display IMG
-        // display_one_media($img_id, $user_id, $media);
-			echo "<div class=media id=media$img_id>";
-			echo "<div class='on_picture' id='on_picture;$img_id'>
-				<div class='picture' id='picture;$img_id'>
-					<img src='$media[path_img]' height=1000px >
-					<div class='hover_bottom hidden' id='hover_bottom$img_id' hidden'>
+            echo "<div class=media id=media$img_id>";
+            
+            echo "<div class='on_picture' id='on_picture;$img_id'>
+                    <div class='picture' id='picture;$img_id'>
+                        <img src='$media[path_img]' height=1000px >
+					    <div class='hover_bottom hidden' id='hover_bottom$img_id' hidden'>
 						<div class='created_by' id='author$img_id'>Posté par $ImgAuthorLogin </div>";
-					if ($user_id == $media['user_id']) {
-						echo "
-								<div class='trash' id=deleteImg$img_id>
+					    if ($user_id == $media['user_id']) {
+						    echo "<div class='trash' id=deleteImg$img_id>
 									<a id='deleteImg;$img_id;$user_id' href='#' onClick='deleteImg(this.id)'>
-									<img src='./resources/trash.png'></a>
-								</div>
+                                    <img src='./resources/trash.png'></a>
+                                    </div>
 								<script language='JavaScript' type='text/javascript' src='./Controller/display.js'></script>";
 					};
-					echo "</div></div></div></div>";
+			echo "</div></div></div></div>";
     }
 }
 function display_filters()
