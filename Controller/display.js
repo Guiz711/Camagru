@@ -99,7 +99,22 @@ function handleLike(load_id)
     var toSend = 'action='+action+'&img_id='+img_id+'&user_id='+user_id+'&where='+where;
     var path = where+';allAboutLike';
 
+    // Handle Like Here (eg : Index)
     preparetoHandle(toSend, path, img_id, url);
+
+    // Handle Like There (eg : Popup)
+    if (where == "index")
+        where = "popup";
+    else
+        where = "index";
+    path = where+';allAboutLike';
+    toSend = 'action=updateLike&img_id='+img_id+'&user_id='+user_id+'&where='+where;
+    
+    console.log('UpdateLike :');
+    console.log(where);
+
+    preparetoHandle(toSend, path, img_id, url);
+
 }
 
 
@@ -132,6 +147,24 @@ function addComment(load_id)
 
     preparetoHandle(toSend, path, img_id, url);
 
+       // Handle Comment There (eg : Popup)
+    if (where == "index")
+       where = "popup";
+    else
+       where = "index";
+
+    is_displayed = document.getElementById(where+';undisplayComment;'+img_id+';'+user_id);
+    if (is_displayed)
+        is_displayed = true;
+    else
+        is_displayed = false;
+
+    toSend = 'action=updateComment&img_id='+img_id+'&user_id='+user_id+'&text_comment='+textcomment+'&is_displayed='+is_displayed+'&where='+where;
+    path = where+';commentPart';
+    console.log('UpdateComment :');
+    console.log(where);
+
+    preparetoHandle(toSend, path, img_id, url);
 }
 
 
