@@ -27,10 +27,9 @@ body {
 }
 
 .modify_myprofile {
-    margin: auto;
     border: none;
     font-size: 16px;
-    /* margin: 2px 2px; */
+    margin: 2px 2px;
     opacity: 0.8;
     display: inline-block;
     text-decoration: none;
@@ -42,7 +41,6 @@ body {
 
 
 .modify_myprofile > #login, .modify_myprofile > form > input  {
-
     flex:1;
     margin-top : 15px;
     border:none;
