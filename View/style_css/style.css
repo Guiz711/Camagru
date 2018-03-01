@@ -20,8 +20,8 @@ body {
 .me {
     display: flex;
     flex : column;
-    /* justify-content:center;
-        align-items: center; */
+    justify-content:center;
+    /* align-items: center; */
     padding : 5px;
     margin-top : 2vh;
 }
@@ -35,8 +35,9 @@ body {
     text-decoration: none;
     cursor: pointer;
     justify-content: center;
-    width : 100%;
+    /* width : 100%; */
     text-align: center;
+    /* display: flex; */
 }
 
 
