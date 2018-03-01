@@ -92,11 +92,15 @@ div[id^='applied_filter'] {
 }
 
 
-#photo {
+#photo, #photo_view{
     position:absolute;
     top: 0%;
     left: 0%;
     z-index:1;
+}
+
+#photo_view {
+    z-index: 0;
 }
 
 #canvas {

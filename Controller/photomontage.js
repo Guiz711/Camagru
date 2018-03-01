@@ -126,8 +126,12 @@ function uploadpicture()
 				delete_popup('popup_photomontage_not_uploaded');
 			}
 			else { 
-            	let div_media = document.querySelector('.photomontages_last');
-           		div_media.innerHTML = ret;
+                let div_media = document.querySelector('.photomontages_last');
+                let photo_view = document.querySelector('#photo_view');
+
+                div_media.innerHTML = ret;
+                if (photo_view)
+                    photo_view.parentNode.removeChild(photo_view);
     			display_popup_result('popup_photomontage_uploaded');
     			delete_popup('popup_photomontage_uploaded');
          	}		
@@ -149,63 +153,53 @@ cancel_photomontage.addEventListener('click', function(){
 
 // Image uploadee par le user
 
-function size_image (photo, img_width, img_height) {
-    // console.log(photo.width);
-    // console.log(photo.height);
-    let ratio = img_height / img_width;
-    console.log('ratio' + ratio);
+function size_image (tmp, img_canvas, img_width, img_height) {
+    let ratio = height / width;
 
     if (img_width > img_height){
-        //qqch avec height
-        var new_width = img_height * 1.0 / ratio;
-        var new_height = height;
-        console.log('new width' + new_width);
-        console.log('new width' + new_width);
-        // photo.style.clip = "rect(0px 75px 75px 0px)";
-        photo.setAttribute('width', new_width);
-        photo.setAttribute('height', height);
+        var new_width = img_height / ratio;
+        var new_height = img_height;
         var pos_y = 0;
-        var pos_x = (new_width - width) / 2;
+        var pos_x = (new_width - width) / 2.0;
     }
     else {
-        //contraire
-        var new_height = ratio * 1.0 * width;
-        var new_width = width;
-        photo.setAttribute('height', new_height);
-        photo.setAttribute('width', width);
-        var pos_y = (new_height - height) / 2;
+        var new_height = ratio * img_width;
+        var new_width = img_width;
+        var pos_y = (new_height - height) / 2.0;
         var pos_x = 0;
-        }
-    photo.style.clip = "rect(" + pos_y + "px " + (new_width - pos_x) + "px " + (new_height - pos_y) + "px " + pos_x + "px)";
-    photo.style.top =  "-" + pos_y + "px";
-    photo.style.left =  "-" + pos_x + "px";
+    }
+    img_canvas.setAttribute('width', width);
+    img_canvas.setAttribute('height', height);
+    img_canvas.getContext('2d').drawImage(tmp, pos_x, pos_y, new_width, new_height, 0, 0, width, height);
 }
 
 let reader = new FileReader();
 choose_img.addEventListener('change', function(){
     let file = choose_img.files[0];
-    // console.log(file);
     reader.addEventListener('load', function(){
-        let img = new Image;
+        let tmp = new Image;
 
-        img.onload = function() {
-            let img_width = img.width
-            let img_height = img.height;
+        photo.setAttribute('src', reader.result);
+        tmp.onload = function() {
+            let photo_view = new Image;
+            let img_canvas = document.createElement('canvas'); 
 
-            photo.setAttribute('src', reader.result);
-            size_image(photo, img_width, img_height);
-            photo.classList.remove('hidden');
+            size_image(tmp, img_canvas, tmp.width, tmp.height);
+            photo_view.setAttribute('src', img_canvas.toDataURL('image/png'));
+            photo_view.setAttribute('height', height);
+            photo_view.setAttribute('width', width);
+            photo_view.setAttribute('id', 'photo_view');
+            webcam_content.appendChild(photo_view);
             startbutton.classList.add('hidden');
             choose_img.classList.add('hidden');
             savebutton.classList.remove('hidden');
             savebutton.disabled = true;
             cancel_photomontage.classList.remove('hidden');
         };
-        img.setAttribute('src', reader.result);
-        // console.log(reader.result);
+        tmp.setAttribute('src', reader.result);
     });
     reader.readAsDataURL(file);
-})
+});
 
 // Image uploadee par le user - fin
 
