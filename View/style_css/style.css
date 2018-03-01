@@ -20,16 +20,19 @@ body {
 .me {
     display: flex;
     flex : column;
+    /* justify-content:center;
+        align-items: center; */
     padding : 5px;
     margin-top : 2vh;
 }
 
 .modify_myprofile {
+    margin: auto;
     border: none;
     font-size: 16px;
-    margin: 2px 2px;
+    /* margin: 2px 2px; */
     opacity: 0.8;
-    /* display: inline-block; */
+    display: inline-block;
     text-decoration: none;
     cursor: pointer;
     justify-content: center;
@@ -38,15 +41,15 @@ body {
 }
 
 
-.modify_myprofile > #login, .submit_button_myprofile > input  {
+.modify_myprofile > #login, .modify_myprofile > form > input  {
+
     flex:1;
     margin-top : 15px;
     border:none;
     color: white;
     border-radius: 0.2rem;
     font-size: 0.9rem;
-    padding: 20px 20px;
-    /* width: 10vw;  */
+    padding: 15px 15px;
     cursor:pointer;
     background:linear-gradient(135deg, #F5515F 0%,#A1051D 100%);
 }
