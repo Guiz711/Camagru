@@ -104,6 +104,8 @@ input[type=text]:focus {
     margin:auto;
     align-content: center;
     justify-content: center;
+    position: relative;
+    top: 5vh;
     margin-top : 20px;
     border: 2px rgba(255, 255, 255, 0.377) solid;
     background-color : rgba(0, 0, 0, 0.575)
@@ -457,6 +459,11 @@ div[id^='applied_filter'] {
     /* position: relative; */
 
 
+}
+
+div[id^='popup;picture'] {
+    top : 10vh;
+    /* margin-bottom: 7vh; */
 }
 
  div[id^='popup;on_picture'] {
