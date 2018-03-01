@@ -259,7 +259,7 @@ if (array_key_exists('submit_val', $_POST)) {
 			sanitize_input($_POST['passwd']));
 		display_result_userform($res, 'modify');
 	}
-	if ($_POST['submit_val'] == 'Désactiver' || $_POST['submit_val'] == 'Activer') {
+	if ($_POST['submit_val'] == 'Désactiver les notifications par mail' || $_POST['submit_val'] == 'Activer les notifications par mail') {
 		$res = user_modify_preferences();
 		display_result_userform($res, 'modify_preferences');
 }
