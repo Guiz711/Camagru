@@ -15,6 +15,9 @@ let choose_img = document.querySelector('#choose_img');
 startbutton.disabled = true;
 let width = webcam.offsetWidth;
 let height = 0;
+let tmp = new Image;
+let photo_view = new Image;
+let img_canvas = document.createElement('canvas'); 
 navigator.getMedia = ( navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
 
 navigator.getMedia(
@@ -151,8 +154,10 @@ cancel_photomontage.addEventListener('click', function(){
     startbutton.classList.remove('hidden');
     choose_img.classList.remove('hidden');
     choose_img.value = "";
-     savebutton.classList.add('hidden');
-
+    let photo_view = document.querySelector('#photo_view');
+    if (photo_view)
+        photo_view.parentNode.removeChild(photo_view);
+    savebutton.classList.add('hidden');
     let filterexists = document.querySelector('.filters');
     filterexists.classList.remove('hidden');
 })
@@ -183,13 +188,8 @@ let reader = new FileReader();
 choose_img.addEventListener('change', function(){
     let file = choose_img.files[0];
     reader.addEventListener('load', function(){
-        let tmp = new Image;
-
         photo.setAttribute('src', reader.result);
         tmp.onload = function() {
-            let photo_view = new Image;
-            let img_canvas = document.createElement('canvas'); 
-
             size_image(tmp, img_canvas, tmp.width, tmp.height);
             photo_view.setAttribute('src', img_canvas.toDataURL('image/png'));
             photo_view.setAttribute('height', height);
@@ -258,7 +258,7 @@ while (i < filters.length)
     filters[i].addEventListener('click', function(){
         let filterexists = document.querySelector('#applied_' + this.id);
         let iffilter = document.querySelectorAll("div[id^='applied_']");
-        savebutton.disabled = false;
+        savebutton.disabled = true;
         if (filterexists != null){
             // savebutton.disabled = true;
             filterexists.remove();

@@ -126,7 +126,6 @@ function addComment(load_id)
     var where = tab[0];
     var img_id = tab[2];
     var user_id = tab[3];
-
     var url = './Controller/handleAjax.php';
 
     var is_displayed = document.getElementById(where+';undisplayComment;'+img_id+';'+user_id);
@@ -134,7 +133,6 @@ function addComment(load_id)
         is_displayed = true;
     else
         is_displayed = false;
-
     // Prepare AddComment
     var action = tab[1];
     var textcomment = document.getElementById(where+';textComment;'+img_id+';'+user_id).value;
