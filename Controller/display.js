@@ -163,6 +163,8 @@ function addComment(load_id)
     path = where+';commentPart';
     console.log('UpdateComment :');
     console.log(where);
+    console.log('to send =');
+    console.log(toSend);
 
     preparetoHandle(toSend, path, img_id, url);
 }
