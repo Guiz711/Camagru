@@ -61,7 +61,7 @@ function user_signup($login, $passwd1, $passwd2, $mail)
 	$subject = "Activez votre compte" ;
 	$from_who = "From: inscription@camagru.com" ;
 	$message = 'Bienvenue sur le meilleur site dédié aux cookies (les seules autres photos autorisées sont celles de Norminet). Si tu veux toujours participer, active ton compte en cliquant là :
-	http://localhost:8080//'.$folder.'/index.php?login='.urlencode($login).'&cle='.urlencode($cle).'
+	http://localhost:8081//'.$folder.'/index.php?login='.urlencode($login).'&cle='.urlencode($cle).'
 	------------- With <3';
 	mail($mail, $subject, $message, $from_who) ;
 	$res = 'Inscription à confirmer, tu dois aller voir tes mails et valider';
@@ -97,7 +97,7 @@ function user_confirm_mail($login)
 	$folder = explode('/', $folder);
 	$folder = $folder[count($folder) - 1];
 	$message = 'Bienvenue sur le meilleur site dédié aux cookies (les seules autres photos autorisées sont celles de Norminet). Si tu veux toujours participer, active ton compte en cliquant là :
-	http://localhost:8080//'.$folder.'/index.php?login='.urlencode($login).'&cle='.urlencode($cle).'
+	http://localhost:8081//'.$folder.'/index.php?login='.urlencode($login).'&cle='.urlencode($cle).'
 	------------- With <3';
 	mail($mail, $subject, $message, $from_who);
 	return ("Le mail de confirmation a bien été envoyé");
@@ -136,7 +136,7 @@ function user_password_forgotten($login, $mail)
 	$folder = explode('/', $folder);
 	$folder = $folder[count($folder) - 1];
 	$message = 'Bonjour '.$login.', clique sur le lien suivant pour réinitialiser ton mot de passe :
-	http://localhost:8080//'.$folder.'/index.php?login='.urlencode($login).'&forgot_passwd='.urlencode($forgot_passwd).'
+	http://localhost:8081//'.$folder.'/index.php?login='.urlencode($login).'&forgot_passwd='.urlencode($forgot_passwd).'
 	------------- With <3';
 	mail($mail, $subject, $message, $from_who);
 	return ("Mail envoyé");
