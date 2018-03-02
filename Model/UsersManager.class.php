@@ -13,7 +13,7 @@ class UsersManager extends DbManager {
     }
     
     public function auth($login) {
-        $req = "SELECT user_id, passwd, mail, cle, actif FROM $this->table WHERE u_login=:u_login";
+        $req = "SELECT user_id, passwd, mail, cle, actif, tmp FROM $this->table WHERE u_login=:u_login";
 		if ($this->verbose)
 			echo "</br >" . $req . "</br >";
         $prep = $this->db->prepare($req);

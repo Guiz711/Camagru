@@ -34,9 +34,4 @@ require_once("./Controller/userForm.php");
 // include("./Controller/displayMedia.php");
 // require_once("./Controller/handleAjax.php");
 
-// DEBUG
-
-require_once("./DEBUG_print.php");
-
-
 ?>

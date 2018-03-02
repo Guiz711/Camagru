@@ -103,6 +103,26 @@ function user_confirm_mail($login)
 	return ("Le mail de confirmation a bien été envoyé");
 }
 
+function user_change_mail($id, $login, $newmail)
+{
+	$user = new UsersManager();
+	$res = $user->auth($login);
+	if (empty($res))
+		return ("Erreur");
+	$cle = md5(microtime(TRUE)*100000);
+	$user->user_modify($id, "cle", $cle);  
+	$subject = "Changez votre mail" ;
+	$from_who = "From: inscription@camagru.com" ;
+	$folder = getcwd();
+	$folder = explode('/', $folder);
+	$folder = $folder[count($folder) - 1];
+	$message = 'Pour que cette nouvelle adresse mail soit bien prise en compte clique là :
+	http://localhost:8081//'.$folder.'/index.php?login='.urlencode($login).'&clemail='.urlencode($cle).'
+	------------- With <3';
+	mail($newmail, $subject, $message, $from_who);
+	return ("Le mail de changement a bien été envoyé");
+}
+
 function user_password_forgotten($login, $mail)
 {
 	$user = new UsersManager();
@@ -170,6 +190,7 @@ function user_modify($newlogin, $newpasswd, $newpasswd2, $newmail, $passwd)
 	$login = $find_login[0]['u_login'];
 	$mail= $find_login[0]['mail'];
 	$res = $user->auth($login);
+	$message = "";
 	if (!password_verify($passwd, $res[0]['passwd'])) {
 		return "Le mot de passe entré est erroné";
 	}
@@ -205,14 +226,16 @@ function user_modify($newlogin, $newpasswd, $newpasswd2, $newmail, $passwd)
 		$user->user_modify($id, "passwd", password_hash($newpasswd, PASSWORD_DEFAULT));
 	if ($newmail != "")
 	{
-		$user->user_modify($id, "mail", $newmail);
-		$mail = $newmail;
+		user_change_mail($id, $login, $newmail);
+		$message = " sauf ta nouvelle adresse mail que tu dois confirmer (va voir ta boîte de réception).";
+		$user->user_modify($id, "tmp", $newmail);
+		// $mail = $newmail;
 	}
-	$subject = "Changement de tes informations personnelles" ;
-	$from_who = "From: mail@camagru.com" ;
-	$message = 'Bonjour '.$login.', une ou plusieurs de tes informations personnelles viennent d\'être modifiées. Si ce n\'est pas toi, alors qqn a ton mot de passe. contacte-nous <3';
-	mail($mail, $subject, $message, $from_who);
-	return ("Tes informations ont bien été modifiées");
+	// $subject = "Changement de tes informations personnelles" ;
+	// $from_who = "From: mail@camagru.com" ;
+	// $message = 'Bonjour '.$login.', une ou plusieurs de tes informations personnelles viennent d\'être modifiées. Si ce n\'est pas toi, alors qqn a ton mot de passe. contacte-nous <3';
+	// mail($mail, $subject, $message, $from_who);
+	return ("Tes informations ont bien été modifiées".$message);
 }
 function user_modify_preferences()
 {
@@ -272,6 +295,18 @@ else if (isset($_GET['login']) && isset($_GET['cle']))
 	$cle = sanitize_input($_GET['cle']);
 	$user->confirm_inscription($login, $cle);
 }
+
+else if (isset($_GET['login']) && isset($_GET['clemail']))
+{
+	$login = sanitize_input($_GET['login']);
+	$cle = sanitize_input($_GET['clemail']);
+	$res = $user->auth($login);
+	$mail = $res[0]['tmp'];
+	$id = $res[0]['user_id'];
+	$user->user_modify($id, "mail", $mail);
+	display_result_userform("Voici ta nouvelle adresse mail : $mail", 'modify');
+}
+
 else if (isset($_GET['login']) && isset($_GET['forgot_passwd']))
 {
 	$login = sanitize_input($_GET['login']);
