@@ -1,4 +1,6 @@
 <?php
+session_start();
+session_destroy();
 require_once("./init_bdd.php");
 
 $pdo = init_bdd();

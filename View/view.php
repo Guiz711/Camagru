@@ -55,6 +55,3 @@ function display_reinitialize_passwd($res, $action, $forgot_passwd)
 }
 
 ?>
-
-
-

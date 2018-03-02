@@ -21,14 +21,16 @@ if ($_SESSION && array_key_exists('display_id', $_SESSION))
 	<meta charset="UTF-8">
 </head>
 <body>
-<header><?php
-	require("./requirements.php");
-    include("./View/header_user.html");
-    $UsersManager = new UsersManager();
-    $res= $UsersManager->find_login_mail_notifications($_SESSION['user_id']);
+
+    <header><?php
+	    require("./requirements.php");
+        include("./View/header_user.html");
+        $UsersManager = new UsersManager();
+        $res= $UsersManager->find_login_mail_notifications($_SESSION['user_id']);
     ?></header>
 
     <div class='hello'>Bonjour <?php echo $res[0]['u_login']; ?> !</div>
+    
     <div class='me'>
         <div class='modify_myprofile'> <button id='login' href="#" onclick="document.getElementById('popup_modify').style.display='block'" style="width:auto;">Modifier mes informations</button></div>
         <div class='modify_myprofile'> <form action=<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?> method='POST'>
@@ -39,7 +41,7 @@ if ($_SESSION && array_key_exists('display_id', $_SESSION))
         else
             echo "<input type='submit'  name='submit_val' value='Activer les notifications par mail'>";
         ?></form></div>
-    </div></div>
+    </div>
     
     <div class="img_gallery">
         <div class="content" id="content_profile">
@@ -50,17 +52,8 @@ if ($_SESSION && array_key_exists('display_id', $_SESSION))
         </div>
     </div>
 	<script src='./Controller/thumbnails.js'></script>
-    
-
-   
-	
 </body>
 <footer>     <?php include("./View/footer.html"); ?></footer>
-
-<script>
-    
-</script>
-
 </html>
 
 

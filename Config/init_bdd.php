@@ -7,14 +7,15 @@
 function init_bdd() 
 {
 	require("./database.php");
-    
     $db = "db_camagru";
     echo "Connection</br ></br >";
 
     try {
-        $pdo = new PDO($DB_DSN, $DB_USER, $DB_PASS);
+        $pdo = new PDO("mysql:host=localhost;charset=utf8", $DB_USER, $DB_PASSWORD);
+        // $pdo = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
-    catch (Exception $error) {
+    catch (PDOException $error) {
         die('Erreur : ' . $error->getMessage());
     }
 
@@ -24,7 +25,9 @@ function init_bdd()
     // return ($pdo);
 
     try {
-        $connection = new PDO("mysql:host=localhost;dbname=$db;charset=utf8", $DB_USER, $DB_PASS);
+        $connection = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+        // $connection = new PDO("mysql:host=localhost;dbname=$db;charset=utf8", $DB_USER, $DB_PASSWORD);
+        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
     catch (PDOException $error) {
         die('Erreur : ' . $error->getMessage());

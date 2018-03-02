@@ -1,5 +1,5 @@
 <?php
+	$DB_DSN = 'mysql:host=localhost;dbname=db_camagru;charset=utf8';
 	$DB_USER = 'root';
-	$DB_PASS = 'vivelescookies';
-	$DB_DSN = 'mysql:host=localhost;charset=utf8';
+	$DB_PASSWORD = 'vivelescookies';
 ?>

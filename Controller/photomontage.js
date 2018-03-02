@@ -182,6 +182,9 @@ function size_image (tmp, img_canvas, img_width, img_height) {
     }
     img_canvas.setAttribute('width', width);
     img_canvas.setAttribute('height', height);
+    var ctx = img_canvas.getContext('2d');
+    ctx.rect(0, 0, width, height);
+    ctx.fill();
     img_canvas.getContext('2d').drawImage(tmp, pos_x, pos_y, new_width, new_height, 0, 0, width, height);
 }
 

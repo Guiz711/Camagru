@@ -61,11 +61,13 @@ body {
 }
 
 .hello {
-    margin-top:20px;
+    margin-top:40px;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+    font:bold 13px Arial;
 }
+
 
 
 /* Page Photomontage */
@@ -116,7 +118,15 @@ div[id^='applied_filter'] {
     padding :10px;
 }
 
-.cancel_button {
+.popup_result > span > .cancel_button  {
+    color:white;
+    background:linear-gradient(135deg, #F5515F 0%,#A1051D 100%);
+    margin-top : 15px;
+    padding: 10px;
+    z-index:1;
+}
+
+.cancel_button > button {
     color:white;
     background:linear-gradient(135deg, #F5515F 0%,#A1051D 100%);
     margin-top : 15px;
@@ -587,7 +597,8 @@ span {
     width:56%;
 }
 
-input[type=text] {
+
+input[type=text], input[type=password], input[type=mail] {
     border: 2px solid #dadada;
     border-radius: 7px;
 }

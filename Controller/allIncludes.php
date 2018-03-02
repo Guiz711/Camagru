@@ -9,7 +9,7 @@ if (!isset($vault) || $vault !== true)
 include("../Config/database.php");
 include('../Config/config.php');
 define('DB_USER', $DB_USER);
-define('DB_PASS', $DB_PASS);
+define('DB_PASSWORD', $DB_PASSWORD);
 define('DB_DSN', $DB_DSN);
 // VIEW
 include("../View/path_img.php");

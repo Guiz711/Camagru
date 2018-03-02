@@ -25,7 +25,7 @@ if (!isset($vault) || $vault !== true)
   <form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?> method="POST">
   Peux-tu indiquer ton login et/ou ton mail, s'il-te-plaît ? 
 		  <div class="champ_signin"><br>Login <input type="text" placeholder="Login" oninvalid="this.setCustomValidity('Merci de remplir ce champ.')" oninput="setCustomValidity('')" name="login"></div>
-		  <div class="champ_signin">Adresse e-mail <input type="email" placeholder="Mail" oninvalid="this.setCustomValidity('Merci de remplir ce champ.')" oninput="setCustomValidity('')" name="mail"></div>
+		  <div class="champ_signin">Adresse e-mail <input type="mail" placeholder="Mail" oninvalid="this.setCustomValidity('Merci de remplir ce champ.')" oninput="setCustomValidity('')" name="mail"></div>
 		<div ><input class="submit_button" type="submit"  name="submit_val" value="Mot de passe oublié" >
 		<button class="cancel_button"type="button" onclick="document.getElementById('popup_login_password_forgotten').style.display='none'">Annuler</button></div>
   </form>    </div>
@@ -97,5 +97,4 @@ function delete_popup(type)
 		}
 	}
 }
-
 </script>
