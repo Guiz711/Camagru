@@ -8,7 +8,8 @@ if (!isset($vault) || $vault !== true)
 function signup_result($res)
 {
 	$type = 'popup_signup_result';
-	echo "<div id='$type' class='popup_result' onclick='delete_popup(this.id)' > <span>".$res."</span></div>
+	echo "<div id='$type' class='popup_result' onclick='delete_popup(this.id)' > <span>".$res."</span>
+	</div>
 	<script> display_popup_result('$type'); 
 	</script>
 	";
@@ -24,7 +25,9 @@ function signin_result($res)
 	else
 	{
 		$type = 'popup_result';
-		echo "<div id='$type' class='popup_result' onclick='delete_popup(this.id)' > <span>".$res."</span></div>
+		echo "<div id='$type' class='popup_result' onclick='delete_popup(this.id)' > <span>".$res."</span>
+
+		</div>
 		<script> display_popup_result('$type'); </script>";
 	}
 }
