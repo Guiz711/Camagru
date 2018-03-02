@@ -16,5 +16,4 @@ if (!isset($vault) || $vault !== true)
 		<div ><input class="submit_button"type="submit"  name="submit_val" id="button_signup" value="Inscription">
 		<button class="cancel_button" type="button" onclick="document.getElementById('popup_signup').style.display='none'">Annuler</button></div>
 	</form>
-	</div>
-</div>
+</div></div>

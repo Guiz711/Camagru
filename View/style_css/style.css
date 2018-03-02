@@ -191,12 +191,12 @@ div[id^='applied_filter'] {
 
 /* Footer */
 
-.footer {
+footer {
     padding: 1.5em 0 1em 0;
     background: #f2f2f2;
 }
 
-.footer .copyright {
+.copyright {
     text-decoration: none;
     color: #bfbfbf;
     font-size: 0.9em;
@@ -204,8 +204,6 @@ div[id^='applied_filter'] {
     padding: 0 1em;
     text-align: center;
 }
-
-
 
 /* Pop-ups */
 

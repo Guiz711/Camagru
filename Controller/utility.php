@@ -12,5 +12,4 @@ function sanitize_input($input)
 	$input = htmlspecialchars($input);
 	return $input;
 }
-
 ?>

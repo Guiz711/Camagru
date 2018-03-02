@@ -77,7 +77,6 @@ abstract class DbManager
         $prep->execute();
     }
 
-
     public function delete($where)
     {
         $id_key = implode(array_keys($where));
@@ -88,7 +87,6 @@ abstract class DbManager
         $prep->bindValue(":" . $id_key, $where[$id_key]);
         $prep->execute();
     }
-
 
     public function is_already_in_bdd($var, $and_or, $order) {
         $req = "SELECT * FROM $this->table WHERE ";
@@ -117,7 +115,6 @@ abstract class DbManager
     }
 
    
-
     public function select_all($where, $and_or, $order) {
         $req = "SELECT * FROM $this->table";
         if ($where) {
@@ -151,7 +148,6 @@ abstract class DbManager
         }
         return ($result);
     }
-
 
     public function select_all_id($where, $and_or, $order) {
         $req = "SELECT $this->id_name FROM $this->table";

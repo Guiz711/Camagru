@@ -31,7 +31,5 @@ require_once("./Model/UsersManager.class.php");
 // CONTROLLER
 require_once("./Controller/utility.php");
 require_once("./Controller/userForm.php");
-// include("./Controller/displayMedia.php");
-// require_once("./Controller/handleAjax.php");
 
 ?>
