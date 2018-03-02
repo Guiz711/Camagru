@@ -88,8 +88,8 @@ function display_one_media($img_id, $user_id, $media)
     echo "
     <div class=media id=index_media$img_id>";
         echo "<div class='on_picture' id='index;on_picture;$img_id'>
-            <div class='picture' id='index;picture;$img_id' onClick='displayImage(this.id)'>
-                <img src='$media[path_img]' height=1000px >
+            <div class='picture' id='index;picture;$img_id'>
+                <img class='img' id='index;img;$img_id' src='$media[path_img]' height=1000px onClick='displayImage(this.id)'>
                 <div class='hover_bottom hidden' id='hover_bottom$img_id' hidden'>
                     <div class='created_by' id='index;author$img_id'>Posté par $ImgAuthorLogin </div>";
                 if ($user_id == $media['user_id']) {
@@ -114,8 +114,8 @@ function display_one_media($img_id, $user_id, $media)
     echo "
     <div class=popup_media id=popup_media$img_id onClick='undisplayPopup(this.id)'> ";
         echo "<div class='on_picture' id='popup;on_picture;$img_id'>
-            <div class='picture' id='popup;picture;$img_id' onClick='undisplayImage(this.id)'>
-                <img src='$media[path_img]' height=1000px >
+            <div class='picture' id='popup;picture;$img_id'>
+                <img class='img' id='popup;img;$img_id' src='$media[path_img]' height=1000px onClick='undisplayImage(this.id)'>
                 <div class='hover_bottom hidden' id='hover_bottom$img_id' hidden'>
                     ";
                 if ($user_id == $media['user_id']) {
