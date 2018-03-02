@@ -31,7 +31,8 @@ function signin_result($res)
 		<button class='cancel_button' type='button' onclick=\"document.getElementById('$type').style.display='none'\">Annuler</button>		
 		</span>
 		</div>
-		<script> display_popup_result('$type'); </script>";
+		<script> display_popup_result('$type');
+		 </script>";
 	}
 }
 
@@ -41,7 +42,7 @@ function display_result_userform($res, $action)
 	echo "<div id='$type' class='popup_result' onclick='delete_popup(this.id)' > <span>".$res."<br>
 	<button class='cancel_button' type='button' onclick=\"document.getElementById('$type').style.display='none'\">Annuler</button>	
 	</span></div>
-	<script> display_popup_result('$type'); 
+	<script> display_popup_result('$type');
 	</script>
 	";
 }
@@ -52,4 +53,8 @@ function display_reinitialize_passwd($res, $action, $forgot_passwd)
 		echo "<script> display_popup_reinitialize_password('$forgot_passwd') </script>";
 	}
 }
+
 ?>
+
+
+

@@ -36,9 +36,8 @@ if ($_SESSION['user_id'] === "unknown")
                 <canvas id='canvas'></canvas>
                 <img src='#' class='hidden' id='photo'> 
             </div>
-            
-            <div><button id='startbutton'>Prendre une photo</button></div>
             <div><input class='hidden' id='Description' type="text" name="description" placeholder="Description"></div>
+            <div><button id='startbutton'>Prendre une photo</button></div>
             <div><button class='hidden' id='savebutton'>Enregistrer la photo</button></div>
             <div><button class='hidden' id='cancel_photomontage'>Annuler</button></div>
             <div><input type="file" id="choose_img" name="choose_img" accept=".jpg, .jpeg, .png"> </div>

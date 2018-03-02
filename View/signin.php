@@ -58,7 +58,10 @@ if (!isset($vault) || $vault !== true)
 	</div>
 </div>
 
+
+
 <script>
+
 let button_password_forgotten = document.getElementById('pwd_forgotten');
 button_password_forgotten.addEventListener('click', () => {
 	let popup = document.getElementById('popup_login');
@@ -94,7 +97,5 @@ function delete_popup(type)
 		}
 	}
 }
+
 </script>
-
-
-

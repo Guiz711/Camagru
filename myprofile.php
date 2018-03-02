@@ -58,6 +58,7 @@ if ($_SESSION && array_key_exists('display_id', $_SESSION))
 <footer>     <?php include("./View/footer.html"); ?></footer>
 
 <script>
+    
 </script>
 
 </html>
