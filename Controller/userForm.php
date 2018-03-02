@@ -173,12 +173,18 @@ function user_modify($newlogin, $newpasswd, $newpasswd2, $newmail, $passwd)
 	if (!password_verify($passwd, $res[0]['passwd'])) {
 		return "Le mot de passe entré est erroné";
 	}
-	if ($user->is_already_in_bdd(array('u_login' => $newlogin, 'mail' => $newmail), "OR", NULL)){
-		return "Ce login ou ce mail existe déjà";
+	if ($newmail == "" && $newpasswd == "" && $newlogin == ""){
+		return "Tu dois modifier au moins ton login, ton mail ou ton mot de passe";
+	}
+	if ($newmail != "" && $newmail == $res[0]['mail']) {
+		return "Tu as déjà ce mail";	
 	}
 	if ($login == $newlogin)
 	{
 		return("Merci de changer de login");
+	}
+	if ($user->is_already_in_bdd(array('u_login' => $newlogin, 'mail' => $newmail), "OR", NULL)){
+		return "Ce login ou ce mail existe déjà";
 	}
 	if ($newpasswd == $passwd) {
 		return "Merci d'entrer un nouveau mot de passe";
@@ -188,10 +194,6 @@ function user_modify($newlogin, $newpasswd, $newpasswd2, $newmail, $passwd)
 	}
 	if ($newpasswd != "" && strlen($newpasswd) < PASSWD_LEN) {
 		return "Merci d'entrer un mot de passe plus long";
-	}
-	if ($newmail != "" && $newmail == $res[0]['mail']) {
-		echo "tu as deja ce mail";
-		return "pas le bon mail";
 	}
 	if ($newlogin != ""){
 		$user->user_modify($id, "u_login", $newlogin);
