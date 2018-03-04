@@ -45,8 +45,7 @@ function user_signup($login, $passwd1, $passwd2, $mail)
 		return ("Attention, les deux mots de passe ne sont pas pareils");
 	$passwd = password_hash($passwd1, PASSWORD_DEFAULT);
 	if ($user->is_already_in_bdd(array('u_login' => $login, 'mail' => $mail), "OR", NULL)) {
-		echo "SignUP FAILED : Login or mail already exists </br >";
-		return (FALSE);
+		return ("Le login ou l'adresse mail que vous tentez d'utiliser existent déjà.");
 	}
 	$cle = md5(microtime(TRUE)*100000);       // cle aleatoire
 	$user->insert(array(
