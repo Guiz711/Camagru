@@ -1,8 +1,11 @@
 let hover_on_image = function() {
+
 	let thumbnail = document.querySelectorAll(".picture");
 	
 		for (var i = 0; i < thumbnail.length; i++) {
+
 			thumbnail[i].addEventListener("mouseover", function(){
+
 				let test = this.id.slice(14);
 				let hover_bottom = document.querySelector("#hover_bottom" + test);
 	
@@ -11,6 +14,7 @@ let hover_on_image = function() {
 			});
 	
 			thumbnail[i].addEventListener("mouseout", function(){
+				
 				let test = this.id.slice(14);
 				let hover_bottom = document.querySelector("#hover_bottom" + test);
 	
@@ -21,6 +25,7 @@ let hover_on_image = function() {
 };
 
 hover_on_image();
+
 let observer = new MutationObserver(hover_on_image);
 let photomontages_last = document.querySelector('#photomontages_last');
 let content = document.querySelector('.content');

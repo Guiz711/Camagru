@@ -77,7 +77,6 @@ abstract class DbManager
         $prep->execute();
     }
 
-
     public function delete($where)
     {
         $id_key = implode(array_keys($where));
@@ -88,7 +87,6 @@ abstract class DbManager
         $prep->bindValue(":" . $id_key, $where[$id_key]);
         $prep->execute();
     }
-
 
     public function is_already_in_bdd($var, $and_or, $order) {
         $req = "SELECT * FROM $this->table WHERE ";
@@ -117,7 +115,6 @@ abstract class DbManager
     }
 
    
-
     public function select_all($where, $and_or, $order) {
         $req = "SELECT * FROM $this->table";
         if ($where) {
@@ -151,7 +148,6 @@ abstract class DbManager
         }
         return ($result);
     }
-
 
     public function select_all_id($where, $and_or, $order) {
         $req = "SELECT $this->id_name FROM $this->table";
@@ -191,7 +187,6 @@ abstract class DbManager
     }
 
     public function count_id($is_where, $id_name, $id_tocheck) {
-        // echo "</br >--> Entree COUNT_ID </br >id_name = $id_name  -  id_tocheck = $id_tocheck</br >";
         $req = "SELECT COUNT(*) AS 'nb' FROM $this->table";
         if ($is_where)
             $req .= " WHERE $id_name = :$id_name";
@@ -211,10 +206,11 @@ abstract class DbManager
     public function connection()
     {
         try {
-            $pdo = new PDO(DB_DSN, DB_USER, DB_PASS);
+            $pdo = new PDO(DB_DSN, DB_USER, DB_PASSWORD);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return ($pdo);
         }
-        catch (Exception $error) {
+        catch (PDOException $error) {
             die('Erreur : ' . $error->getMessage());
         }
     }

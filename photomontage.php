@@ -53,7 +53,7 @@ if ($_SESSION['user_id'] === "unknown")
 
     </div>
     
-    <?php include("./View/footer.html"); ?>
+    <footer><?php include("./View/footer.html"); ?></footer>
 
     <script src='./Controller/thumbnails.js'></script>
     <script src='./Controller/photomontage.js'></script>

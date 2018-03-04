@@ -19,7 +19,8 @@ $req = "CREATE TABLE IF NOT EXISTS $table
     cle VARCHAR(32),
     actif INT DEFAULT 0,
 	forgot_passwd VARCHAR(32),
-    notifications INT DEFAULT 1
+    notifications INT DEFAULT 1,
+    tmp VARCHAR(50) 
 )";
 
 $pdo->query($req);
@@ -170,7 +171,7 @@ $pdo->query($req);
 
 $table = "$db.images";
 $user_id = "2";
-$img_description = "test A table";
+$img_description = "A table";
 $req = "INSERT INTO $table (user_id, img_description) VALUES ('$user_id', '$img_description')";
 echo "--> Insertion IMAGE : 10 </br >";
 
