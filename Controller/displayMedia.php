@@ -125,8 +125,37 @@ function display_index()
     $nb_total_imgs = $ImagesManager->count_id(False, null, null);
     if ($nb_total_imgs > $limit) {
         echo "</div><div class='button-displayMore' id=displayMore1>
-        <a id='displayMore;$display_id' href='#' onClick='displayMore(this.id)'>
-        Afficher +</a></div>
+        <a id='index;displayMore;$display_id' href='#' onClick='displayMore(this.id)'>
+        Afficher +</a>
+        </div>
+        <script src='./Controller/display.js'></script>";
+    }
+}
+
+function display_myprofile()
+{
+    if (!$_SESSION || !array_key_exists('display_id', $_SESSION))
+        $_SESSION['display_id'] = 1;
+    $display_id = $_SESSION['display_id'];
+    $ImagesManager = new ImagesManager();
+    $all_imgs = $ImagesManager->select_all(array('user_id' => $_SESSION['user_id']), FALSE, "date_creation desc LIMIT 10");
+    $user_id = $_SESSION['user_id'];
+    $all_imgs = add_path_img($all_imgs);
+    $limit = $display_id * 10;
+    foreach ($all_imgs as $key => $value) {
+        if ($key < $limit) {
+            $img_id = $value['img_id'];
+            $media = $value;
+            display_one_media($img_id, $user_id, $media);
+        }
+    }
+    // Display Button Display MORE
+    $nb_total_imgs = $ImagesManager->count_id(True, 'user_id', $_SESSION['user_id']);
+    if ($nb_total_imgs > $limit) {
+        echo "</div><div class='button-displayMore' id=displayMore1>
+        <a id='profile;displayMore;$display_id' href='#' onClick='displayMore(this.id)'>
+        Affichez +</a>
+        </div>
         <script src='./Controller/display.js'></script>";
     }
 }
@@ -169,34 +198,9 @@ function display_filters()
     echo "<div id='filter4'><img class='filterimg' src='./resources/filters/4.png' ></div>";
 }
 
-function display_myprofile()
-{
-    if (!$_SESSION || !array_key_exists('display_id', $_SESSION))
-        $_SESSION['display_id'] = 1;
-    $display_id = $_SESSION['display_id'];
-    $ImagesManager = new ImagesManager();
-    $all_imgs = $ImagesManager->select_all(array('user_id' => $_SESSION['user_id']), FALSE, "date_creation desc LIMIT 10");
-    $user_id = $_SESSION['user_id'];
-    $all_imgs = add_path_img($all_imgs);
-    $limit = $display_id * 10;
-    foreach ($all_imgs as $key => $value) {
-        if ($key < $limit) {
-            $img_id = $value['img_id'];
-            $media = $value;
-            display_one_media($img_id, $user_id, $media);
-        }
-    }
-    // Display Button Display MORE
-    $nb_total_imgs = $ImagesManager->count_id(True, 'user_id', $_SESSION['user_id']);
-    if ($nb_total_imgs > $limit) {
-        echo "</div><div class='button-displayMore' id=displayMore1>
-            <a id='displayMore;$display_id' href='#' onClick='displayMore(this.id)'>Affichez +</a></div>
-            <script src='./Controller/display.js'></script>";
-    }
-}
 
-function deleteImg($img_id, $where) 
-{ 
+function deleteImg($img_id, $where) {
+ 
 	if (!isset($_SESSION))
 		session_start();
 	$vault = true;
