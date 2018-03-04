@@ -38,7 +38,7 @@ function user_signup($login, $passwd1, $passwd2, $mail)
 	if (strlen($login) < LOGIN_LEN)
 		return ("Votre login est trop court.");
 	if (strlen($passwd1) < PASSWD_LEN)
-		return ("Votre mot de passe est trop court.");
+		return ("Votre mot de passe est trop court, il doit faire au moins " . PASSWD_LEN . " caractères.");
 	if (!is_valid_passwd($passwd1))
 		return ("Votre mot de passe doit contenir au moins une majuscule et un chiffre");
 	if ($passwd1 !== $passwd2)
