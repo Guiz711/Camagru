@@ -44,6 +44,7 @@ function handle_like($img_id, $user_id, $data, $post)
     }
     // Update Like && NbLikes
     $is_liked = $LikesManager->is_already_in_bdd(array('img_id' => $img_id, 'user_id' => $user_id), "AND", FALSE);
+    // echo "is liked in $where = $is_liked";
     if ($is_liked == true) {
         $action = 'killLike';
         $heart = './resources/002-hearts.png';

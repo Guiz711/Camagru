@@ -99,6 +99,9 @@ function handleLike(load_id)
     var toSend = 'action='+action+'&img_id='+img_id+'&user_id='+user_id+'&where='+where;
     var path = where+';allAboutLike';
 
+    console.log('HandleLike FROM :');
+    console.log(where);
+
     // Handle Like Here (eg : Index)
     preparetoHandle(toSend, path, img_id, url);
 
@@ -142,6 +145,9 @@ function addComment(load_id)
     var toSend = 'action='+action+'&img_id='+img_id+'&user_id='+user_id+'&text_comment='+textcomment+'&is_displayed='+is_displayed+'&where='+where;
     console.log('addComment to send =');
     console.log(toSend);
+
+    console.log('Add Comment FROM :');
+    console.log(where);
 
     preparetoHandle(toSend, path, img_id, url);
 
@@ -212,16 +218,19 @@ function deleteImg(load_id) {
 function displayMore(load_id) {
     var tab = load_id.split(';');
     
-    var action = tab[0];
-    var nb = tab[1];
+    var where = tab[0];
+    var action = tab[1];
+    var nb = tab[2];
 
     var url = './Controller/displayMedia.php';
 
     var toSend = 'action='+action+'&nb='+nb;
     var path = 'content_index';
+    if (where == 'profile')
+        path = 'content_profile';
     
-    // console.log('DisplayMore to send =');
-    // console.log(toSend);
+     console.log('DisplayMore to send =');
+     console.log(toSend);
 
     preparetoHandleAdd(toSend, action, path, nb, url);
 }
