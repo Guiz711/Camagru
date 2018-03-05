@@ -28,11 +28,12 @@ function handle_like($img_id, $user_id, $data, $post)
 {
     $LikesManager = new LikesManager();
     $where = $post['where'];
+    $action = sanitize_input($post['action']);
      // Handle New Likes
-    if ($post['action'] == 'addLike') {
+    if ($action == 'addLike') {
         $LikesManager->insert($data);
     }
-    else if ($post['action'] == 'killLike') {
+    else if ($action == 'killLike') {
         $id_to_delete = $LikesManager->select_all($data, "AND", FALSE);
         $tab = array('like_id' => $id_to_delete[0]['like_id']);
         $LikesManager->delete($tab);
@@ -65,23 +66,24 @@ function handle_comments($img_id, $user_id, $data, $post)
     $UsersManager = new UsersManager();
     // Handle Comments
     $action = sanitize_input($post['action']);
+    $is_displayed = sanitize_input($post['is_displayed']);
+    $text_comment = sanitize_input($post['text_comment']);
     $to_print = "";
     $where = $post['where'];
 
     // INSERT Comment
-    if ($post['action'] == 'addComment') {
-        // Insert New Comment
-        if ($post['text_comment'] != "") {
-            $data['text_comment'] = sanitize_input($post['text_comment']);
+    if ($action == 'addComment') {
+        if ($text_comment != "") {
+            $data['text_comment'] = $text_comment;
             $CommentsManager->insert($data);
         }
     }
     // Has to Be Displayed ?
-    if ($post['action'] == 'displayComment')
-        $post['is_displayed'] = 'true';
-    else if ($post['action'] == 'undisplayComment')
-        $post['is_displayed'] = 'false';
-    if ($post['is_displayed'] == 'false') {
+    if ($action == 'displayComment')
+        $is_displayed = 'true';
+    else if ($action == 'undisplayComment')
+        $is_displayed = 'false';
+    if ($is_displayed == 'false') {
         $nbComments = $CommentsManager->count_id(TRUE, "img_id", $img_id) - 1;
         // Display 'Afficher Comments' + Update Nb Comment
         if ($nbComments > 0) {
@@ -132,14 +134,15 @@ else if ($_SESSION['user_id'] == 'unknown' && $_POST['action'] != 'displayCommen
 
 $img_id = sanitize_input($_POST['img_id']);
 $user_id = sanitize_input($_POST['user_id']);
+$action = sanitize_input($_POST['action']);
 $post = $_POST;
 
-if ($_POST['action'] == 'addLike' || $_POST['action'] == 'killLike' || $_POST['action'] == 'updateLike') {
+if ($action == 'addLike' || $action == 'killLike' || $action == 'updateLike') {
     $data = array('user_id' => $user_id, 'img_id' => $img_id);
     handle_like($img_id, $user_id, $data, $post);
 }
 else {
-    if ($post['action'] == 'addComment'){
+    if ($action == 'addComment'){
         $data = array('user_id' => $user_id, 'img_id' => $img_id);
         sendMailComment($img_id);
     }
