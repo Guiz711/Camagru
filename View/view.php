@@ -9,7 +9,7 @@ function signup_result($res)
 {
 	$type = 'popup_signup_result';
 	echo "<div id='$type' class='popup_result' onclick='delete_popup(this.id)' > <span>".$res."
-	<button class='cancel_button' type='button' onclick=\"document.getElementById('$type').style.display='none'\">Annuler</button>	
+	<button class='cancel_button' type='button' onclick=\"document.getElementById('$type').style.display='none'\">Retour</button>	
 	</span></div>
 	<script> display_popup_result('$type'); </script>";
 }
@@ -25,7 +25,7 @@ function signin_result($res)
 	{
 		$type = 'popup_result';
 		echo "<div id='$type' class='popup_result' onclick='delete_popup(this.id)' > <span>".$res."<br> 
-		<button class='cancel_button' type='button' onclick=\"document.getElementById('$type').style.display='none'\">Annuler</button>		
+		<button class='cancel_button' type='button' onclick=\"document.getElementById('$type').style.display='none'\">Retour</button>		
 		</span></div>
 		<script> display_popup_result('$type');</script>";
 	}
@@ -35,7 +35,7 @@ function display_result_userform($res, $action)
 {	
 	$type = 'popup_result';
 	echo "<div id='$type' class='popup_result' onclick='delete_popup(this.id)' > <span>".$res."<br>
-	<button class='cancel_button' type='button' onclick=\"document.getElementById('$type').style.display='none'\">Annuler</button>	
+	<button class='cancel_button' type='button' onclick=\"document.getElementById('$type').style.display='none'\">Retour</button>	
 	</span></div>
 	<script> display_popup_result('$type');</script>";
 }

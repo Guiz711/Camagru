@@ -4,11 +4,12 @@ function init_bdd()
 	require("./database.php");
     // $db = "db_camagru";
     $db = $DB_DSN;
-    $db = explode(";", $db);
-    $db = explode("=", $db[1]);
+    $db = strstr($db, 'dbname=');
+    $db = strstr($db, ';', true);
+    $db = strstr($db, 'dbname=');
+    $db = explode("=", $db);
     $db = $db[1];
-    // echo $db;
-
+   
     echo "Connexion à la base de données</br></br >";
     try {
         $pdo = new PDO("mysql:host=localhost;charset=utf8", $DB_USER, $DB_PASSWORD);

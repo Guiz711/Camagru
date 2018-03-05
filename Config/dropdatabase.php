@@ -7,8 +7,10 @@ require_once("./database.php");
 $pdo = init_bdd();
 // $db = "db_camagru";
 $db = $DB_DSN;
-$db = explode(";", $db);
-$db = explode("=", $db[1]);
+$db = strstr($db, 'dbname=');
+$db = strstr($db, ';', true);
+$db = strstr($db, 'dbname=');
+$db = explode("=", $db);
 $db = $db[1];
 
 $pdo->query("DROP DATABASE $db");

@@ -15,10 +15,13 @@ abstract class DbManager
     
 	public function __construct($table, $id_name)
 	{
-        $db_name = DB_DSN;
-        $db_name = explode(";", $db_name);
-        $db_name = explode("=", $db_name[1]);
+        $db_name = $DB_DSN;
+        $db_name = strstr($db_name, 'dbname=');
+        $db_name = strstr($db_name, ';', true);
+        $db_name = strstr($db_name, 'dbname=');
+        $db_name = explode("=", $db_name);
         $db_name = $db_name[1];
+        
         $this->table = $this->db_name . $table;
         $this->id_name = $id_name;
         $this->db = $this->connection();
@@ -28,9 +31,11 @@ abstract class DbManager
 
 	public function __destruct()
 	{
-        $db_name = DB_DSN;
-        $db_name = explode(";", $db_name);
-        $db_name = explode("=", $db_name[1]);
+        $db_name = $DB_DSN;
+        $db_name = strstr($db_name, 'dbname=');
+        $db_name = strstr($db_name, ';', true);
+        $db_name = strstr($db_name, 'dbname=');
+        $db_name = explode("=", $db_name);
         $db_name = $db_name[1];
 		$this->db = null;
 		$this->table = null;
