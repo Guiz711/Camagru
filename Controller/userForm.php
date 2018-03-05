@@ -166,7 +166,7 @@ function user_reinitialize_passwd($login, $passwd, $passwd2, $forgot_passwd)
 	$user = new UsersManager();
 	if ($user->is_already_in_bdd(array('u_login' => $login, 'forgot_passwd' => $forgot_passwd), "AND", NULL)){ 
 		if ($passwd != $passwd2 || strlen($passwd) < PASSWD_LEN)
-			return ("Les mots de passe sont trop courts et/ou ne sont pas identiques</br>");
+			return ("Les mots de passe sont trop courts (minimum " . PASSWD_LEN . " caractères) et/ou ne sont pas identiques</br>");
 		else
 		{
 			$passwd = password_hash($passwd, PASSWORD_DEFAULT);

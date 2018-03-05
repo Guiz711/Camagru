@@ -20,8 +20,3 @@ if (!isset($vault) || $vault !== true)
       </div>
 </div>
 
-<script>
-
-delete_popup('popup_modify');
-
-</script>

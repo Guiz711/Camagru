@@ -32,7 +32,7 @@ if ($_SESSION && array_key_exists('display_id', $_SESSION))
     <div class='hello'>Bonjour <?php echo $res[0]['u_login']; ?> !</div>
     
     <div class='me'>
-        <div class='modify_myprofile'> <button id='login' href="#" onclick="document.getElementById('popup_modify').style.display='block'" style="width:auto;">Modifier mes informations</button></div>
+        <div class='modify_myprofile'> <button id='login' href="#" onclick="document.getElementById('popup_modify').style.display='block', delete_popup('popup_modify')  " style="width:auto;">Modifier mes informations</button></div>
         <div class='modify_myprofile'> <form action=<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?> method='POST'>
         <?php
         $notifications= $res[0]['notifications'];
@@ -51,7 +51,8 @@ if ($_SESSION && array_key_exists('display_id', $_SESSION))
     ?>
         </div>
     </div>
-	<script src='./Controller/thumbnails.js'></script>
+    <script src='./Controller/thumbnails.js'></script> 
+
 </body>
 <footer>     <?php include("./View/footer.html"); ?></footer>
 </html>

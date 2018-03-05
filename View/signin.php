@@ -6,6 +6,8 @@ if (!isset($vault) || $vault !== true)
 }
 ?>
 
+
+
 <div id="popup_login_confirm" class="popup_login">
 <div class="content_popup">
 	<form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?> method="POST">Tu as pas encore confirmé ton inscription ! Pour avoir un nouveau mail, indique ton login. <br>
@@ -45,7 +47,7 @@ if (!isset($vault) || $vault !== true)
 	<div class="champ_signin">Mot de passe <input type="password" placeholder="Mot de passe" oninvalid="this.setCustomValidity('Merci de remplir ce champ.')" oninput="setCustomValidity('')" name="passwd"></div>
 	<div><input class="submit_button" type="submit"  name="submit_val" value="Connexion">
 		 <button type="button" class="cancel_button" onclick="document.getElementById('popup_login').style.display='none'">Annuler</button>
-		 <button class="new_button" type="button" onclick="document.getElementById('popup_login_password_forgotten').style.display='block'" name="submit_val" id="pwd_forgotten" value="pwd_forgotten">Mot de passe et/ou login oublié</button></div>
+		 <button class="new_button" type="button" onclick="document.getElementById('popup_login_password_forgotten').style.display='block'; delete_popup('popup_login_password_forgotten');" name="submit_val" id="pwd_forgotten" value="pwd_forgotten">Mot de passe et/ou login oublié</button></div>
 	</form>
 </div></div>
 
@@ -56,7 +58,6 @@ button_password_forgotten.addEventListener('click', () => {
 	let popup = document.getElementById('popup_login');
     popup.style.display = "none";
 }, false);
-
 </script>
 
 <script>

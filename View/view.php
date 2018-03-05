@@ -19,7 +19,7 @@ function signin_result($res)
 	if (is_array($res))
 	{
 		$type = 'popup_login_confirm';
-		echo "<script> display_popup_result('$type'); </script> ";
+		echo "<script> display_popup_result('$type'); delete_popup('$type'); </script> ";
 	}
 	else
 	{
@@ -27,7 +27,7 @@ function signin_result($res)
 		echo "<div id='$type' class='popup_result' onclick='delete_popup(this.id)' > <span>".$res."<br> 
 		<button class='cancel_button' type='button' onclick=\"document.getElementById('$type').style.display='none'\">Retour</button>		
 		</span></div>
-		<script> display_popup_result('$type');</script>";
+		<script> display_popup_result('$type'); delete_popup('$type'); </script>";
 	}
 }
 
@@ -37,13 +37,13 @@ function display_result_userform($res, $action)
 	echo "<div id='$type' class='popup_result' onclick='delete_popup(this.id)' > <span>".$res."<br>
 	<button class='cancel_button' type='button' onclick=\"document.getElementById('$type').style.display='none'\">Retour</button>	
 	</span></div>
-	<script> display_popup_result('$type');</script>";
+	<script> display_popup_result('$type'); delete_popup('$type');</script>";
 }
 
 function display_reinitialize_passwd($res, $action, $forgot_passwd)
 {	
 	if ($res == "script" && $action == "get_reinitialize_passwd") {
-		echo "<script> display_popup_reinitialize_password('$forgot_passwd') </script>";
+		echo "<script> display_popup_reinitialize_password('$forgot_passwd'); delete_popup('popup_reinitialize_password'); </script>";
 	}
 }
 

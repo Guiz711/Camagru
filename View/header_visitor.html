@@ -1,32 +1,4 @@
 <div class="header_nav">
-        <div class="header_nav_categories"><a id="login" href="#" onclick="document.getElementById('popup_login').style.display='block'" style="width:auto;">Login</a></div>
-        <div class="header_nav_categories"><a id="login" href="#" onclick="document.getElementById('popup_signup').style.display='block'" style="width:auto;">S'inscrire !</a></div>
+        <div class="header_nav_categories"><a id="login" href="#" onclick="document.getElementById('popup_login').style.display='block'; delete_popup('popup_login');" style="width:auto;">Login</a></div>
+        <div class="header_nav_categories"><a id="login" href="#" onclick="document.getElementById('popup_signup').style.display='block'; delete_popup('popup_signup');" style="width:auto;">S'inscrire !</a></div>
 </div>
-
-<script>
-let popup = document.getElementById('popup_login');
-let popup2 = document.getElementById('popup_signup');
-let popup3 = document.getElementById('popup_login_confirm');
-let popup4 = document.getElementById('popup_login_password_forgotten');
-let popup5 = document.getElementById('popup_reinitialize_password');
-let popup6 = document.getElementById('popup_modify');
-window.onclick = function(event) {
-if (event.target == popup) {
-        popup.style.display = "none";
-}
-if (event.target == popup2) {
-        popup2.style.display = "none";
-}
-if (event.target == popup3) {
-        popup3.style.display = "none";
-}
-if (event.target == popup4) {
-        popup4.style.display = "none";
-}
-if (event.target == popup5) {
-        popup5.style.display = "none";
-}
-if (event.target == popup6) {
-        popup6.style.display = "none";
-}}
-</script>
