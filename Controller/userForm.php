@@ -1,4 +1,5 @@
 <?php
+
 if (!isset($vault) || $vault !== true)
 {
 	header('HTTP/1.0 403 Forbidden');
@@ -61,7 +62,7 @@ function user_signup($login, $passwd1, $passwd2, $mail)
 	$from_who = "From: inscription@camagru.com" ;
 	$message = '
 	Bienvenue sur le meilleur site dédié aux cookies (les seules autres photos autorisées sont celles de Norminet). Si tu veux toujours participer, active ton compte en cliquant là :
-	http://localhost:8081//'.$folder.'/index.php?login='.urlencode($login).'&cle='.urlencode($cle).'
+	http://'.$_SERVER['HTTP_HOST'].'/'.$folder.'/index.php?login='.urlencode($login).'&cle='.urlencode($cle).'
 	------------- With <3';
 	mail($mail, $subject, $message, $from_who) ;
 	$res = 'Inscription à confirmer, tu dois aller voir tes mails et valider</br>';
@@ -97,7 +98,7 @@ function user_confirm_mail($login)
 	$folder = $folder[count($folder) - 1];
 	$message = '
 	Bienvenue sur le meilleur site dédié aux cookies (les seules autres photos autorisées sont celles de Norminet). Si tu veux toujours participer, active ton compte en cliquant là :
-	http://localhost:8081//'.$folder.'/index.php?login='.urlencode($login).'&cle='.urlencode($cle).'
+	http://'.$_SERVER['HTTP_HOST'].'/'.$folder.'/index.php?login='.urlencode($login).'&cle='.urlencode($cle).'
 	------------- With <3';
 	mail($mail, $subject, $message, $from_who);
 	return ("Le mail de confirmation a bien été envoyé</br>");
@@ -118,7 +119,7 @@ function user_change_mail($id, $login, $newmail)
 	$folder = $folder[count($folder) - 1];
 	$message = '
 	Pour que cette nouvelle adresse mail soit bien prise en compte clique là :
-	http://localhost:8081//'.$folder.'/index.php?login='.urlencode($login).'&clemail='.urlencode($cle).'
+	http://'.$_SERVER['HTTP_HOST'].'/'.$folder.'/index.php?login='.urlencode($login).'&clemail='.urlencode($cle).'
 	------------- With <3';
 	mail($newmail, $subject, $message, $from_who);
 	return ("Le mail de changement a bien été envoyé</br>");
@@ -155,7 +156,7 @@ function user_password_forgotten($login, $mail)
 	$folder = $folder[count($folder) - 1];
 	$message = '
 	Bonjour '.$login.', clique sur le lien suivant pour réinitialiser ton mot de passe :
-	http://localhost:8081//'.$folder.'/index.php?login='.urlencode($login).'&forgot_passwd='.urlencode($forgot_passwd).'
+	http://'.$_SERVER['HTTP_HOST'].'/'.$folder.'/index.php?login='.urlencode($login).'&forgot_passwd='.urlencode($forgot_passwd).'
 	------------- With <3';
 	mail($mail, $subject, $message, $from_who);
 	return ("Mail envoyé");
