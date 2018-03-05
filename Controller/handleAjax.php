@@ -127,7 +127,7 @@ function handle_comments($img_id, $user_id, $data, $post)
 
 if (!isset($_SESSION) || !isset($_POST) || !array_key_exists('user_id', $_SESSION) || !array_key_exists('user_id', $_POST) || $_SESSION['user_id'] != $_POST['user_id'])
     return;
-else if ($_SESSION['user_id'] == 'uknown' && $_POST['action'] != 'displayComment' && $_POST['action'] != 'undisplayComment')
+else if ($_SESSION['user_id'] == 'unknown' && $_POST['action'] != 'displayComment' && $_POST['action'] != 'undisplayComment')
     return;
 
 $img_id = sanitize_input($_POST['img_id']);

@@ -18,7 +18,6 @@ abstract class DbManager
         $db_name = $DB_DSN;
         $db_name = strstr($db_name, 'dbname=');
         $db_name = strstr($db_name, ';', true);
-        $db_name = strstr($db_name, 'dbname=');
         $db_name = explode("=", $db_name);
         $db_name = $db_name[1];
         
@@ -34,7 +33,6 @@ abstract class DbManager
         $db_name = $DB_DSN;
         $db_name = strstr($db_name, 'dbname=');
         $db_name = strstr($db_name, ';', true);
-        $db_name = strstr($db_name, 'dbname=');
         $db_name = explode("=", $db_name);
         $db_name = $db_name[1];
 		$this->db = null;

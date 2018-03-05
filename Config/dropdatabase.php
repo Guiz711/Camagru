@@ -9,7 +9,6 @@ $pdo = init_bdd();
 $db = $DB_DSN;
 $db = strstr($db, 'dbname=');
 $db = strstr($db, ';', true);
-$db = strstr($db, 'dbname=');
 $db = explode("=", $db);
 $db = $db[1];
 
