@@ -84,9 +84,6 @@ function handleLike(load_id)
     var toSend = 'action='+action+'&img_id='+img_id+'&user_id='+user_id+'&where='+where;
     var path = where+';allAboutLike';
 
-    console.log('HandleLike FROM :');
-    console.log(where);
-
     // Handle Like Here (eg : Index)
     preparetoHandle(toSend, path, img_id, url);
     // Handle Like There (eg : Popup)
@@ -119,12 +116,9 @@ function addComment(load_id)
         return;
     var path = where+';commentPart';
     var toSend = 'action='+action+'&img_id='+img_id+'&user_id='+user_id+'&text_comment='+textcomment+'&is_displayed='+is_displayed+'&where='+where;
-    console.log('addComment to send =');
-    console.log(toSend);
-
-    console.log('Add Comment FROM :');
-    console.log(where);
+  
     preparetoHandle(toSend, path, img_id, url);
+
     // Handle Comment There (eg : Popup)
     if (where == "index")
        where = "popup";
@@ -183,9 +177,6 @@ function displayMore(load_id) {
 
     if (where == 'profile')
         path = 'content_profile';
-    
-     console.log('DisplayMore to send =');
-     console.log(toSend);
   
     preparetoHandleAdd(toSend, action, path, nb, url);
 }
@@ -204,7 +195,6 @@ function undisplayImage(load_id) {
 }
 
 function undisplayPopup(type) {
-    console.log(type);
 	let popup = document.getElementById(type);
 	window.onclick = function(event) {
 		if (event.target == popup) {
