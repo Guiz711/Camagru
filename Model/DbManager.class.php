@@ -5,16 +5,20 @@ if (!isset($vault) || $vault !== true)
 	die();
 }
 
+
+
 abstract class DbManager
 {
 	public		$verbose = false;
 	protected	$db;
     public		$table;
-    public      $id_name;
-	protected	$db_name = "db_camagru";
-
+    
 	public function __construct($table, $id_name)
 	{
+        $db_name = DB_DSN;
+        $db_name = explode(";", $db_name);
+        $db_name = explode("=", $db_name[1]);
+        $db_name = $db_name[1];
         $this->table = $this->db_name . $table;
         $this->id_name = $id_name;
         $this->db = $this->connection();
@@ -24,6 +28,10 @@ abstract class DbManager
 
 	public function __destruct()
 	{
+        $db_name = DB_DSN;
+        $db_name = explode(";", $db_name);
+        $db_name = explode("=", $db_name[1]);
+        $db_name = $db_name[1];
 		$this->db = null;
 		$this->table = null;
 		$this->db_name = null;
