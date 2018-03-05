@@ -124,9 +124,16 @@ function handle_comments($img_id, $user_id, $data, $post)
     echo $to_print;
 }
 
+
+if (!isset($_SESSION) || !isset($_POST) || !array_key_exists('user_id', $_SESSION) || !array_key_exists('user_id', $_POST) || $_SESSION['user_id'] != $_POST['user_id'])
+    return;
+else if ($_SESSION['user_id'] == 'uknown' && $_POST['action'] != 'displayComment' && $_POST['action'] != 'undisplayComment')
+    return;
+
 $img_id = sanitize_input($_POST['img_id']);
 $user_id = sanitize_input($_POST['user_id']);
 $post = $_POST;
+
 if ($_POST['action'] == 'addLike' || $_POST['action'] == 'killLike' || $_POST['action'] == 'updateLike') {
     $data = array('user_id' => $user_id, 'img_id' => $img_id);
     handle_like($img_id, $user_id, $data, $post);
