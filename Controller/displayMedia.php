@@ -263,10 +263,13 @@ function sanitize_input2($input)
 	return $input;
 }
 
+if (!$_SESSION || !array_key_exists('user_id', $_SESSION))
+    return;
+    
 if ($_POST && array_key_exists('action', $_POST) && $_POST['action'] == 'displayMore')
     display_more(sanitize_input2($_POST['nb']));
 else if ($_POST && array_key_exists('action', $_POST) && $_POST['action'] == 'IsMoreDisplay')
     is_moretoDisplay(sanitize_input2($_POST['nb']));
-else if ($_POST && array_key_exists('action', $_POST) && $_POST['action'] == 'deleteImg')
+else if ($_POST && array_key_exists('action', $_POST) && $_POST['action'] == 'deleteImg' && $_SESSION['user_id'] != 'unknown' && $_SESSION['user_id'] == $_POST['user_id'])
     deleteImg(sanitize_input2($_POST['img_id']), sanitize_input2($_POST['where']));
 ?>
