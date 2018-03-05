@@ -28,6 +28,7 @@ if ($_SESSION && array_key_exists('display_id', $_SESSION))
         $UsersManager = new UsersManager();
         $res= $UsersManager->find_login_mail_notifications($_SESSION['user_id']);
     ?></header>
+    <section>
 
     <div class='hello'>Bonjour <?php echo $res[0]['u_login']; ?> !</div>
     
@@ -42,6 +43,8 @@ if ($_SESSION && array_key_exists('display_id', $_SESSION))
             echo "<input type='submit'  name='submit_val' value='Activer les notifications par mail'>";
         ?></form></div>
     </div>
+
+    </section>
     
     <div class="img_gallery">
         <div class="content" id="content_profile">
@@ -52,9 +55,11 @@ if ($_SESSION && array_key_exists('display_id', $_SESSION))
         </div>
     </div>
     <script src='./Controller/thumbnails.js'></script> 
+  
+    <footer>     <?php include("./View/footer.html"); ?></footer>
 
 </body>
-<footer>     <?php include("./View/footer.html"); ?></footer>
+
 </html>
 
 

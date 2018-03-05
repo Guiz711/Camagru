@@ -27,7 +27,7 @@ require_once("../Controller/displayMedia.php");
 function handle_like($img_id, $user_id, $data, $post) 
 {
     $LikesManager = new LikesManager();
-    $where = $post['where'];
+    $where = sanitize_input($post['where']);
     $action = sanitize_input($post['action']);
      // Handle New Likes
     if ($action == 'addLike') {
@@ -69,7 +69,7 @@ function handle_comments($img_id, $user_id, $data, $post)
     $is_displayed = sanitize_input($post['is_displayed']);
     $text_comment = sanitize_input($post['text_comment']);
     $to_print = "";
-    $where = $post['where'];
+    $where = sanitize_input($post['where']);
 
     // INSERT Comment
     if ($action == 'addComment') {
@@ -128,9 +128,9 @@ function handle_comments($img_id, $user_id, $data, $post)
 
 
 if (!isset($_SESSION) || !isset($_POST) || !array_key_exists('user_id', $_SESSION) || !array_key_exists('user_id', $_POST) || $_SESSION['user_id'] != $_POST['user_id'])
-    return;
+    die();
 else if ($_SESSION['user_id'] == 'unknown' && $_POST['action'] != 'displayComment' && $_POST['action'] != 'undisplayComment')
-    return;
+    die();
 
 $img_id = sanitize_input($_POST['img_id']);
 $user_id = sanitize_input($_POST['user_id']);

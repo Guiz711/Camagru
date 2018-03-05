@@ -27,7 +27,7 @@ if ($_SESSION['user_id'] === "unknown")
         ?>
 	</header>
     
-    <div class="corpus">
+    <section class="corpus">
         
         <div class="webcam">
         
@@ -51,7 +51,7 @@ if ($_SESSION['user_id'] === "unknown")
 		<div class="photomontages_last" id="photomontages_last">	<?php   display_photomontage(); ?></div>
 		</div>
 
-    </div>
+</section>
     
     <footer><?php include("./View/footer.html"); ?></footer>
 

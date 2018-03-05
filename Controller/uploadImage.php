@@ -62,10 +62,7 @@ function insert_filters($ids_array, $img_data)
 }
 
 if (array_key_exists('ids', $_POST) && $_POST['ids'] == "") 
-{
-	header('location: ../index.php');
 	die();
-}
 if (array_key_exists('image', $_POST) && array_key_exists('description', $_POST) && array_key_exists('ids', $_POST)) {
     $ImagesManager = new ImagesManager();
     $image = substr(sanitize_input($_POST['image']), strpos(sanitize_input($_POST['image']), ','));

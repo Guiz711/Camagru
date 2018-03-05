@@ -264,7 +264,7 @@ function sanitize_input2($input)
 }
 
 if (!$_SESSION || !array_key_exists('user_id', $_SESSION))
-    return;
+    die();
     
 if ($_POST && array_key_exists('action', $_POST) && $_POST['action'] == 'displayMore')
     display_more(sanitize_input2($_POST['nb']));

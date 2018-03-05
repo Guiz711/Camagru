@@ -301,9 +301,14 @@ else if (isset($_GET['login']) && isset($_GET['clemail']))
 	$cle = sanitize_input($_GET['clemail']);
 	$res = $user->auth($login);
 	$mail = $res[0]['tmp'];
-	$id = $res[0]['user_id'];
-	$user->user_modify($id, "mail", $mail);
-	display_result_userform("Voici ta nouvelle adresse mail : $mail", 'modify');
+	if ($cle == $res[0]['cle']) {
+		$id = $res[0]['user_id'];
+		$user->user_modify($id, "mail", $mail);
+		display_result_userform("Voici ta nouvelle adresse mail : $mail", 'modify');
+	}
+	else {
+		display_result_userform("Nous n'avons pas pu changer ton adresse mail", 'modify');
+	}
 }
 
 else if (isset($_GET['login']) && isset($_GET['forgot_passwd']))
